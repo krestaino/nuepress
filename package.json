@@ -10,7 +10,7 @@
   },
   "config": {
     "nuxt": {
-      "host": "174.138.92.185",
+      "host": "localhost",
       "port": "8080"
     }
   },
