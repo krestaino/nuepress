@@ -15,9 +15,9 @@
     }
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "HOST=localhost PORT=3000 nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "HOST=174.138.92.185 PORT=8080 nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
