@@ -1,11 +1,10 @@
 <template>
-  <section class="container">
-    <div>
-      <article v-for="post in posts">
-        <h1 v-html="post.title.rendered"></h1>
-        <p v-html="post.excerpt.rendered"></p>
-      </article>
-    </div>
+  <section>
+    <article v-for="post in posts">
+      <h1 v-html="post.title.rendered"></h1>
+      <p v-html="post.excerpt.rendered"></p>
+      <a :href="`post/${post.id}`">Continue reading</a>
+    </article>
   </section>
 </template>
 
@@ -27,5 +26,9 @@ export default {
 <style>
 article + article {
   margin-top: 32px;
+}
+
+.more-link {
+  display: none;
 }
 </style>

@@ -8,6 +8,12 @@
     "axios": "^0.16.2",
     "nuxt": "latest"
   },
+  "config": {
+    "nuxt": {
+      "host": "174.138.92.185",
+      "port": "8080"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
