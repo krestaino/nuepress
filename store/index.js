@@ -6,6 +6,7 @@ const store = () => new Vuex.Store({
     post: null,
     posts: null
   },
+
   mutations: {
     setPost (state, data) {
       state.post = data
