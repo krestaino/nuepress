@@ -6,7 +6,7 @@
         <h1 v-html="post.title.rendered"></h1>
       </nuxt-link>
       <div>Written by <a :href="author.link" v-for="author in post._embedded.author" v-html="author.name"></a> on <span v-html="post.date"></span> under <span v-for="category in post._embedded['wp:term'][0]"><a :href="category.link" v-html="category.name"></a>&nbsp;</span></div>
-      <!-- <p v-html="post.excerpt.rendered"></p> -->
+      <div v-html="post.excerpt.rendered"></div>
     </article>
   </section>
 </template>
