@@ -8,10 +8,16 @@
     "axios": "^0.16.2",
     "nuxt": "latest"
   },
+  "config": {
+    "nuxt": {
+      "host": "localhost",
+      "port": "3000"
+    }
+  },
   "scripts": {
-    "dev": "HOST=localhost PORT=3000 nuxt",
+    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "HOST=localhost PORT=3001 nuxt start",
+    "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
