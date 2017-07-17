@@ -17,8 +17,13 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    let { data } = await axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?slug=${params.slug}`)
-    store.commit('setPost', data[0])
+    let posts = await axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?slug=${params.slug}`)
+    store.commit('setPost', posts.data[0])
+
+    if (!store.state.meta) {
+      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      store.commit('setMeta', meta.data)
+    }
   }
 }
 </script>

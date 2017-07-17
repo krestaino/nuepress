@@ -23,8 +23,10 @@ export default {
     let posts = await axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
     store.commit('setPosts', posts.data)
 
-    let meta = await axios.get('https://wp.kmr.io/wp-json')
-    store.commit('setMeta', meta.data)
+    if (!store.state.meta) {
+      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      store.commit('setMeta', meta.data)
+    }
   }
 }
 </script>
