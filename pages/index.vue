@@ -19,9 +19,12 @@ export default {
     posts () { return this.$store.state.posts }
   },
 
-  async fetch ({ store, params }) {
-    let { data } = await axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
-    store.commit('setPosts', data)
+  async asyncData ({ store, params }) {
+    let posts = await axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
+    store.commit('setPosts', posts.data)
+
+    let meta = await axios.get('https://wp.kmr.io/wp-json')
+    store.commit('setMeta', meta.data)
   }
 }
 </script>

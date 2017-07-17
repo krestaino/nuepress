@@ -1,12 +1,19 @@
 <template>
   <div>
-    <header>
-      <h1>Hello World!</h1>
-      <p>Polemoni et iam ante Aristoteli ea prima visa sunt, quae paulo ante dixi.</p>
-    </header>
+    <SiteNav/>
     <nuxt/>
   </div>
 </template>
+
+<script>
+import SiteNav from '../components/SiteNav'
+
+export default {
+  components: {
+    SiteNav
+  }
+}
+</script>
 
 <style>
 header {
