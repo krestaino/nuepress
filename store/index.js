@@ -3,15 +3,15 @@ import Vuex from 'vuex'
 const store = () => new Vuex.Store({
 
   state: {
-    categories: null,
+    topics: null,
     meta: null,
     post: null,
     posts: null
   },
 
   mutations: {
-    setCategories (state, data) {
-      state.categories = data
+    setTopics (state, data) {
+      state.topics = data
     },
     setMeta (state, data) {
       state.meta = data
