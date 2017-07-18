@@ -22,7 +22,7 @@ export default {
 
   async asyncData ({ store, params }) {
     if (!store.state.topics) {
-      let topics = await axios.get('https://wp.kmr.io/wp-json/wp/v2/categories')
+      let topics = await axios.get('https://wp.kmr.io/wp-json/wp/v2/categories?per_page=100')
       store.commit('setTopics', topics.data)
     }
 
