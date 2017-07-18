@@ -1,6 +1,5 @@
 <template>
   <section>
-    <nuxt-link to="/">Home</nuxt-link>
     <article>
       <h1 v-html="post.title.rendered"></h1>
       <div v-html="post.content.rendered"></div>

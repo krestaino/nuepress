@@ -1,8 +1,10 @@
 <template>
   <header>
+    <h1 v-html="meta.name"></h1>
+    <p v-html="meta.description"></p>
     <nav>
-      <h1 v-html="meta.name"></h1>
-      <p v-html="meta.description"></p>
+      <nuxt-link to="/">Home</nuxt-link>
+      <nuxt-link to="/topics">Topics</nuxt-link>
     </nav>
   </header>
 </template>
@@ -16,5 +18,7 @@ export default {
 </script>
 
 <style scoped>
-
+a + a {
+  margin-left: 16px;
+}
 </style>

@@ -1,11 +1,13 @@
 <template>
   <section>
-    <li v-for="topic in topics">
-      <nuxt-link :to="`/topics/${topic.slug}`">
-        <h2 v-html="topic.name"></h2>
-        <p v-html="topic.description"></p>
-      </nuxt-link>
-    </li>
+    <ul>
+      <li v-for="topic in topics">
+        <nuxt-link :to="`/topics/${topic.slug}`">
+          <span v-html="topic.name"></span>
+          <p v-html="topic.description"></p>
+        </nuxt-link>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -42,5 +44,8 @@ export default {
 </script>
 
 <style scoped>
-
+ul {
+  padding: 0;
+  list-style: none;
+}
 </style>
