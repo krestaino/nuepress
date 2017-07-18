@@ -13,7 +13,8 @@ import axios from 'axios'
 
 export default {
   computed: {
-    post () { return this.$store.state.post }
+    post () { return this.$store.state.post },
+    meta () { return this.$store.state.meta }
   },
 
   async fetch ({ store, params }) {
@@ -23,6 +24,15 @@ export default {
     if (!store.state.meta) {
       let meta = await axios.get('https://wp.kmr.io/wp-json')
       store.commit('setMeta', meta.data)
+    }
+  },
+
+  head () {
+    return {
+      title: `${this.post.title.rendered} | ${this.meta.name}`,
+      meta: [
+        { description: this.post.excerpt.rendered.replace(/(<([^>]+)>)/ig, '') } // strips html tags
+      ]
     }
   }
 }

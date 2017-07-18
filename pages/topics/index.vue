@@ -14,7 +14,8 @@ import axios from 'axios'
 
 export default {
   computed: {
-    topics () { return this.$store.state.topics }
+    topics () { return this.$store.state.topics },
+    meta () { return this.$store.state.meta }
   },
 
   async asyncData ({ store, params }) {
@@ -26,6 +27,15 @@ export default {
     if (!store.state.meta) {
       let meta = await axios.get('https://wp.kmr.io/wp-json')
       store.commit('setMeta', meta.data)
+    }
+  },
+
+  head () {
+    return {
+      title: `Topics | ${this.meta.name}`,
+      meta: [
+        { description: this.meta.description }
+      ]
     }
   }
 }
