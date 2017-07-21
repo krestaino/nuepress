@@ -16,8 +16,8 @@ import axios from 'axios'
 
 export default {
   computed: {
-    topics () { return this.$store.state.topics },
-    meta () { return this.$store.state.meta }
+    meta () { return this.$store.state.meta },
+    topics () { return this.$store.state.topics }
   },
 
   async asyncData ({ store, params }) {

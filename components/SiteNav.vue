@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1 v-html="meta.name"></h1>
+    <nuxt-link to="/"><h1 v-html="meta.name"></h1></nuxt-link>
     <p v-html="meta.description"></p>
     <nav>
       <nuxt-link to="/">Home</nuxt-link>

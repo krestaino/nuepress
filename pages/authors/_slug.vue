@@ -5,7 +5,7 @@
         <img v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
         <h1 v-html="post.title.rendered"></h1>
       </nuxt-link>
-      <div>Written by <nuxt-link :to="`/authors/${author.slug}`" v-for="author in post._embedded.author" v-html="author.name"></nuxt-link> on <span v-html="timestamp(post.date)"></span> under <span v-for="topic in post._embedded['wp:term'][0]"><nuxt-link :to="`/topics/${topic.slug}`" v-html="topic.name"></nuxt-link>&nbsp;</span></div>
+      <div>Written by <nuxt-link :to="`/authors/${post._embedded.author[0].slug}`" v-html="post._embedded.author[0].name"></nuxt-link> on <span v-html="timestamp(post.date)"></span> under <span v-for="topic in post._embedded['wp:term'][0]"><nuxt-link :to="`/topics/${topic.slug}`" v-html="topic.name"></nuxt-link>&nbsp;</span></div>
       <div v-html="post.excerpt.rendered"></div>
     </article>
   </section>
@@ -18,9 +18,10 @@ import _ from 'lodash'
 
 export default {
   computed: {
-    authors () { return this.$store.state.authors },
+    meta () { return this.$store.state.meta },
+    author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.slug}) },
     authorPosts () { return _.find(this.$store.state.authorPosts, {'slug': this.$route.params.slug}) },
-    meta () { return this.$store.state.meta }
+    authors () { return this.$store.state.authors }
   },
 
   methods: {
@@ -47,7 +48,7 @@ export default {
 
   head () {
     return {
-      title: ` | ${this.meta.name}`,
+      title: `${this.author.name} | ${this.meta.name}`,
       meta: [
         { description: this.meta.description }
       ]
@@ -56,26 +57,6 @@ export default {
 }
 </script>
 
-<style scoped>
-section {
-  max-width: 800px;
-}
-
-article {
-  background-color: #efefef;
-  border: 1px solid;
-  padding: 32px;
-}
-
-article + article {
-  margin-top: 32px;
-}
-
-img {
-  max-width: 100%;
-}
-
-.more-link {
-  display: none;
-}
+<style scoped lang="scss">
+@import './assets/list.scss'
 </style>

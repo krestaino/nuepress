@@ -12,8 +12,8 @@ import axios from 'axios'
 
 export default {
   computed: {
-    post () { return this.$store.state.post },
-    meta () { return this.$store.state.meta }
+    meta () { return this.$store.state.meta },
+    post () { return this.$store.state.post }
   },
 
   async fetch ({ store, params }) {

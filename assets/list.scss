@@ -1,0 +1,21 @@
+section {
+  max-width: 800px;
+}
+
+article {
+  background-color: #efefef;
+  border: 1px solid;
+  padding: 32px;
+}
+
+article + article {
+  margin-top: 32px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.more-link {
+  display: none;
+}
