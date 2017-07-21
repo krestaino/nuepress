@@ -8,7 +8,8 @@ const store = () => new Vuex.Store({
     meta: null,
     post: null,
     posts: null,
-    authors: null
+    authors: null,
+    authorPosts: []
   },
 
   mutations: {
@@ -29,6 +30,9 @@ const store = () => new Vuex.Store({
     },
     setAuthors (state, data) {
       state.authors = data
+    },
+    setAuthorPosts (state, data) {
+      state.authorPosts.push(data)
     }
   }
 })
