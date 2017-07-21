@@ -58,5 +58,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import './assets/list.scss'
+@import './assets/css/list.scss'
 </style>

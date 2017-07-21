@@ -16,7 +16,5 @@ export default {
 </script>
 
 <style>
-header {
-  margin-bottom: 32px;
-}
+
 </style>
