@@ -5,7 +5,7 @@
         <img v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
         <h1 v-html="post.title.rendered"></h1>
       </nuxt-link>
-      <div>Written by <a :href="author.link" v-for="author in post._embedded.author" v-html="author.name"></a> on <span v-html="moment(post.date).format('MMMM d, YYYY')"></span> under <span v-for="category in post._embedded['wp:term'][0]"><a :href="category.link" v-html="category.name"></a>&nbsp;</span></div>
+      <div>Written by <a :href="author.link" v-for="author in post._embedded.author" v-html="author.name"></a> on <span v-html="timestamp(post.date)"></span> under <span v-for="category in post._embedded['wp:term'][0]"><a :href="category.link" v-html="category.name"></a>&nbsp;</span></div>
       <div v-html="post.excerpt.rendered"></div>
     </article>
   </section>
@@ -22,10 +22,8 @@ export default {
     meta () { return this.$store.state.meta }
   },
 
-  data () {
-    return {
-      moment: moment
-    }
+  methods: {
+    timestamp (date) { return moment(date).format('MMMM d, YYYY') }
   },
 
   async asyncData ({ store, params }) {
