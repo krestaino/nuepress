@@ -1,10 +1,10 @@
 <template>
   <section>
     <ul>
-      <li v-for="user in users">
-        <nuxt-link :to="`/users/${user.slug}`">
-          <span v-html="user.name"></span>
-          <p v-html="user.description"></p>
+      <li v-for="author in authors">
+        <nuxt-link :to="`/authors/${author.slug}`">
+          <span v-html="author.name"></span>
+          <p v-html="author.description"></p>
         </nuxt-link>
       </li>
     </ul>
@@ -16,14 +16,14 @@ import axios from 'axios'
 
 export default {
   computed: {
-    users () { return this.$store.state.users },
+    authors () { return this.$store.state.authors },
     meta () { return this.$store.state.meta }
   },
 
   async asyncData ({ store, params }) {
-    if (!store.state.users) {
-      let users = await axios.get('https://wp.kmr.io/wp-json/wp/v2/users?per_page=100')
-      store.commit('setUsers', users.data)
+    if (!store.state.authors) {
+      let authors = await axios.get('https://wp.kmr.io/wp-json/wp/v2/users?per_page=100')
+      store.commit('setAuthors', authors.data)
     }
 
     if (!store.state.meta) {
@@ -34,7 +34,7 @@ export default {
 
   head () {
     return {
-      title: `users | ${this.meta.name}`,
+      title: `authors | ${this.meta.name}`,
       meta: [
         { description: this.meta.description }
       ]

@@ -28,13 +28,23 @@ export default {
   },
 
   async asyncData ({ store, params }) {
-    let [meta, posts] = await Promise.all([
-      axios.get('https://wp.kmr.io/wp-json'),
-      axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
-    ])
+    // let [meta, posts] = await Promise.all([
+    //   axios.get('https://wp.kmr.io/wp-json'),
+    //   axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
+    // ])
 
-    store.commit('setMeta', meta.data)
-    store.commit('setPosts', posts.data)
+    // store.commit('setMeta', meta.data)
+    // store.commit('setPosts', posts.data)
+
+    if (!store.state.posts) {
+      let posts = await axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
+      store.commit('setPosts', posts.data)
+    }
+
+    if (!store.state.meta) {
+      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      store.commit('setMeta', meta.data)
+    }
   },
 
   head () {
