@@ -5,6 +5,7 @@
     <nav>
       <nuxt-link to="/">Home</nuxt-link>
       <nuxt-link to="/topics">Topics</nuxt-link>
+      <nuxt-link to="/authors">Authors</nuxt-link>
     </nav>
   </header>
 </template>
