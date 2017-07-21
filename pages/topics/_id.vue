@@ -1,11 +1,11 @@
 <template>
   <section>
-    <article v-for="post in posts">
+    <article v-for="post in topicPosts.posts">
       <nuxt-link :to="`/${post.slug}`">
         <img v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
         <h1 v-html="post.title.rendered"></h1>
       </nuxt-link>
-      <div>Written by <a :href="author.link" v-for="author in post._embedded.author" v-html="author.name"></a> on <span v-html="moment(post.date).format('MMMM d, YYYY')"></span> under <span v-for="topic in post._embedded['wp:term'][0]"><a :href="`/topics/${topic.id}`" v-html="topic.name"></a>&nbsp;</span></div>
+      <div>Written by <a :href="author.link" v-for="author in post._embedded.author" v-html="author.name"></a> on <span v-html="moment(post.date).format('MMMM d, YYYY')"></span> under <span v-for="category in post._embedded['wp:term'][0]"><a :href="category.link" v-html="category.name"></a>&nbsp;</span></div>
       <div v-html="post.excerpt.rendered"></div>
     </article>
   </section>
@@ -14,10 +14,11 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import _ from 'lodash'
 
 export default {
   computed: {
-    posts () { return this.$store.state.posts },
+    topicPosts () { return _.find(this.$store.state.topicPosts, {'id': this.$route.params.id}) },
     meta () { return this.$store.state.meta }
   },
 
@@ -28,17 +29,9 @@ export default {
   },
 
   async asyncData ({ store, params }) {
-    // let [meta, posts] = await Promise.all([
-    //   axios.get('https://wp.kmr.io/wp-json'),
-    //   axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
-    // ])
-
-    // store.commit('setMeta', meta.data)
-    // store.commit('setPosts', posts.data)
-
-    if (!store.state.posts) {
-      let posts = await axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
-      store.commit('setPosts', posts.data)
+    if (!_.find(store.state.topicPosts, {'id': params.id})) {
+      let topicPosts = await axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&categories=${params.id}&_embed`)
+      store.commit('setTopicPosts', {id: params.id, posts: topicPosts.data})
     }
 
     if (!store.state.meta) {
@@ -49,7 +42,7 @@ export default {
 
   head () {
     return {
-      title: `Home | ${this.meta.name}`,
+      title: ` | ${this.meta.name}`,
       meta: [
         { description: this.meta.description }
       ]

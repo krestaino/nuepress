@@ -2,7 +2,7 @@
   <section>
     <ul>
       <li v-for="topic in topics">
-        <nuxt-link :to="`/topics/${topic.slug}`">
+        <nuxt-link :to="`/topics/${topic.id}`">
           <span v-html="topic.name"></span>
           <p v-html="topic.description"></p>
         </nuxt-link>

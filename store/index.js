@@ -4,6 +4,7 @@ const store = () => new Vuex.Store({
 
   state: {
     topics: null,
+    topicPosts: [],
     meta: null,
     post: null,
     posts: null,
@@ -13,6 +14,9 @@ const store = () => new Vuex.Store({
   mutations: {
     setTopics (state, data) {
       state.topics = data
+    },
+    setTopicPosts (state, data) {
+      state.topicPosts.push(data)
     },
     setMeta (state, data) {
       state.meta = data
