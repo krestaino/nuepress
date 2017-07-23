@@ -1,9 +1,0 @@
-@import './node_modules/reset-css/_reset.scss';
-
-.page-enter-active, .page-leave-active {
-  transition: opacity .15s;
-}
-.page-enter, .page-leave-active {
-  opacity: 0;
-  visibility: hidden;
-}

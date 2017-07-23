@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="outer-container">
     <article v-for="post in posts">
       <nuxt-link :to="`/${post.slug}`">
         <img v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">

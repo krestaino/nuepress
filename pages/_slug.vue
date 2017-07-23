@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <article>
+  <section class="outer-container">
+    <article class="blog-article">
       <h1 v-html="post.title.rendered"></h1>
       <div v-html="post.content.rendered"></div>
     </article>
@@ -36,3 +36,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+article.blog-article {
+  h1 {
+    font-size: 40px;
+    margin-bottom: 16px;
+    margin-top: 32px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+</style>

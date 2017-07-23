@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="outer-container">
     <ul>
       <li v-for="topic in topics">
         <nuxt-link :to="`/topics/${topic.slug}`">

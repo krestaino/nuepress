@@ -34,9 +34,5 @@ module.exports = {
         })
       }
     }
-  },
-
-  css: [
-    { src: '~assets/css/main.scss', lang: 'scss' }
-  ]
+  }
 }
