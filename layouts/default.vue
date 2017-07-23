@@ -2,15 +2,18 @@
   <div id="app">
     <SiteNav/>
     <nuxt/>
+    <SiteFoot/>
   </div>
 </template>
 
 <script>
 import SiteNav from '../components/SiteNav'
+import SiteFoot from '../components/SiteFoot'
 
 export default {
   components: {
-    SiteNav
+    SiteNav,
+    SiteFoot
   }
 }
 </script>
@@ -20,11 +23,14 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Roboto:300,400,700');
 
 .page-enter-active, .page-leave-active {
-  transition: opacity .15s;
+  transition: opacity .1s;
 }
 
 .page-enter, .page-leave-active {
   opacity: 0;
+}
+
+.page-leave-active {
   visibility: hidden;
 }
 
@@ -45,5 +51,11 @@ body {
 .outer-container {
   margin: 0 auto;
   max-width: 980px;
+}
+
+h1.page-title {
+  font-size: 150%;
+  margin-bottom: 32px;
+  margin-top: 32px;
 }
 </style>

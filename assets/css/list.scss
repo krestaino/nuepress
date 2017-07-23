@@ -1,17 +1,60 @@
+@import 'vars.scss';
+
 section {
   margin: 0 auto;
 }
 
 article {
-  background-color: #efefef;
-  border: 1px solid;
-  padding: 32px;
+  & + article {
+    border-top: 1px dotted $primary;
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+
+  .row {
+    display: flex;
+    
+    & + .row {
+      margin-top: 16px;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .date {
+    font-family: 'Roboto', sans-serif;
+    font-size: 70%;
+    text-transform: uppercase;
+
+    .topic + .topic::before {
+      content: ', ';
+      color: $primary;
+    }
+  }
 }
 
-article + article {
-  margin-top: 32px;
+h2 {
+  color: #111;
+  font-size: 110%;
+  margin-bottom: 8px;
+  margin-top: -6px;
 }
 
 img {
-  width: 100%;
+  height: auto;
+  margin: 0 22px 0 0;
+  max-width: 150px;
+}
+
+a {
+  color: $primary;
+  transition: 0.1s;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($primary, 30%)
+  }
 }

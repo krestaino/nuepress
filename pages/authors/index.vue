@@ -1,5 +1,6 @@
 <template>
   <section class="outer-container">
+    <h1 class="page-title">Authors</h1>
     <ul>
       <li v-for="author in authors">
         <nuxt-link :to="`/authors/${author.slug}`">

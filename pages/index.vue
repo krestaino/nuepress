@@ -1,28 +1,21 @@
 <template>
   <section class="outer-container">
-    <article v-for="post in posts">
-      <nuxt-link :to="`/${post.slug}`">
-        <img v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
-        <h1 v-html="post.title.rendered"></h1>
-      </nuxt-link>
-      <div>Written by <nuxt-link :to="`/authors/${post._embedded.author[0].slug}`" v-html="post._embedded.author[0].name"></nuxt-link> on <span v-html="timestamp(post.date)"></span> under <span v-for="topic in post._embedded['wp:term'][0]"><nuxt-link :to="`/topics/${topic.slug}`" v-html="topic.name"></nuxt-link>&nbsp;</span></div>
-      <div v-html="post.excerpt.rendered"></div>
-    </article>
+    <PostList :posts="posts"/>
   </section>
 </template>
 
 <script>
 import axios from 'axios'
-import moment from 'moment'
+import PostList from '~/components/PostList'
 
 export default {
+  components: {
+    PostList
+  },
+
   computed: {
     meta () { return this.$store.state.meta },
     posts () { return this.$store.state.posts }
-  },
-
-  methods: {
-    timestamp (date) { return moment(date).format('MMMM d, YYYY') }
   },
 
   async asyncData ({ store, params }) {
@@ -47,7 +40,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-@import './assets/css/list.scss'
-</style>
