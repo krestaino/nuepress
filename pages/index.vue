@@ -1,6 +1,11 @@
 <template>
   <main class="outer-container">
     <PostList :posts="posts"/>
+    <aside>
+      <ul>
+        <li>Tag 1</li>
+      </ul>
+    </aside>
   </main>
 </template>
 
@@ -43,6 +48,15 @@ export default {
 
 <style scoped lang="scss">
 main {
-  margin-top: 32px;
+  display: flex;
+  padding-top: 32px;
+
+  aside {
+    background-color: #fff;
+    margin-left: 32px;
+    max-width: 460px;
+    padding: 32px;
+    width: 100%;
+  }
 }
 </style>

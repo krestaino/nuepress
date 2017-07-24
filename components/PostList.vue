@@ -38,7 +38,7 @@ section {
 
 article {
   & + article {
-    border-top: 1px dotted $primary;
+    border-top: 1px dotted lighten($primary, 20%);
     margin-top: 32px;
     padding-top: 32px;
   }

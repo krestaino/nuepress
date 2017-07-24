@@ -48,8 +48,8 @@ export default {
 @import './assets/css/vars.scss';
 
 ul {
-  column-count: 3;
-  column-gap: 32px;
+  column-count: 4;
+  column-gap: 64px;
   padding: 0;
   list-style: none;
 

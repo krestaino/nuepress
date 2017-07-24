@@ -53,7 +53,7 @@ html {
 }
 
 body {
-  background-color: #efefef;
+  background-color: #f9f9f9;
   line-height: 28px;
   min-height: 100vh;
 }
@@ -66,7 +66,7 @@ body {
 
 .outer-container {
   margin: 0 auto;
-  max-width: 980px;
+  max-width: 1440px;
   width: 100%;
 }
 

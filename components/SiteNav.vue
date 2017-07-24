@@ -30,16 +30,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import './assets/css/vars.scss';
+
 header {
   background-color: #fff;
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 .site-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 130%;
   margin-right: 32px;
 
   p {
@@ -49,14 +52,16 @@ header {
 
 a {
   color: #999;
+  font-size: 80%;
   text-decoration: none;
 
   & + a {
-    margin-left: 22px;
+    margin-left: 32px;
   }
 
   &.nuxt-link-active {
-    border-bottom: 2px solid;
+    padding-bottom: 4px;
+    border-bottom: 2px solid lighten($primary, 40%);
   }
 }
 
