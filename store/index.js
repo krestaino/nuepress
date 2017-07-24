@@ -7,7 +7,7 @@ const store = () => new Vuex.Store({
     topicPosts: [],
     meta: null,
     post: null,
-    posts: null,
+    posts: [],
     authors: null,
     authorPosts: []
   },
@@ -26,7 +26,7 @@ const store = () => new Vuex.Store({
       state.post = data
     },
     setPosts (state, data) {
-      state.posts = data
+      state.posts = state.posts.concat(data)
     },
     setAuthors (state, data) {
       state.authors = data
