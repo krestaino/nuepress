@@ -9,7 +9,8 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "nuxt": "latest",
-    "reset-css": "^2.2.0"
+    "reset-css": "^2.2.0",
+    "vue-on-click-outside": "^1.0.3"
   },
   "config": {
     "nuxt": {

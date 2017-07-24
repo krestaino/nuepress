@@ -35,6 +35,13 @@ export default {
 }
 
 html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html {
   font-family: 'Open Sans', sans-serif;
   font-kerning: normal;
   font-size: 20px;
