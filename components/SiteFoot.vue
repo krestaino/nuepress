@@ -20,6 +20,7 @@ export default {
 footer {
   color: #aaa;
   font-size: 60%;
+  margin-top: auto;
   padding: 64px 0;
   text-align: center;
 

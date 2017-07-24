@@ -58,9 +58,16 @@ body {
   min-height: 100vh;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .outer-container {
   margin: 0 auto;
   max-width: 980px;
+  width: 100%;
 }
 
 h1.page-title {
