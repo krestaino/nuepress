@@ -4,9 +4,9 @@
     <ul>
       <li v-for="author in authors">
         <nuxt-link :to="`/authors/${author.slug}`">
-          <span v-html="author.name"></span>
-          <p v-html="author.description"></p>
+          {{ author.name }}
         </nuxt-link>
+        <p v-html="author.description"></p>
       </li>
     </ul>
   </section>
@@ -35,7 +35,7 @@ export default {
 
   head () {
     return {
-      title: `authors | ${this.meta.name}`,
+      title: `Authors | ${this.meta.name}`,
       meta: [
         { description: this.meta.description }
       ]
@@ -44,9 +44,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import './assets/css/vars.scss';
+
 ul {
+  column-count: 3;
+  column-gap: 32px;
   padding: 0;
   list-style: none;
+
+  li {
+    & + li {
+      margin-top: 16px;
+    }
+
+    a {
+      font-family: 'Roboto', sans-serif;
+
+      span {
+        color: lighten($primary, 10%);
+        display: inline-block;
+        font-size: 70%;
+        position: relative;
+        top: -1px;
+      }
+    }
+
+    p {
+      color: lighten($primary, 10%);
+      font-size: 80%;
+    }
+  }
 }
 </style>

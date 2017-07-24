@@ -4,9 +4,9 @@
     <ul>
       <li v-for="topic in topics">
         <nuxt-link :to="`/topics/${topic.slug}`">
-          <span v-html="topic.name"></span>
-          <p v-html="topic.description"></p>
+          {{ topic.name }} <span>({{ topic.count }})</span>
         </nuxt-link>
+        <p v-html="topic.description"></p>
       </li>
     </ul>
   </section>
@@ -44,9 +44,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import './assets/css/vars.scss';
+
 ul {
+  column-count: 3;
+  column-gap: 32px;
   padding: 0;
   list-style: none;
+
+  li {
+    & + li {
+      margin-top: 16px;
+    }
+
+    a {
+      font-family: 'Roboto', sans-serif;
+
+      span {
+        color: lighten($primary, 10%);
+        display: inline-block;
+        font-size: 70%;
+        position: relative;
+        top: -1px;
+      }
+    }
+
+    p {
+      color: lighten($primary, 10%);
+      font-size: 80%;
+    }
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <section class="outer-container">
+  <main class="outer-container">
     <PostList :posts="posts"/>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -40,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+main {
+  margin-top: 32px;
+}
+</style>

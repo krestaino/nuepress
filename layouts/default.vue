@@ -20,6 +20,7 @@ export default {
 
 <style lang="scss">
 @import './node_modules/reset-css/_reset.scss';
+@import './assets/css/vars.scss';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Roboto:300,400,700');
 
 .page-enter-active, .page-leave-active {
@@ -37,6 +38,7 @@ export default {
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -45,6 +47,7 @@ html {
   font-family: 'Open Sans', sans-serif;
   font-kerning: normal;
   font-size: 20px;
+  font-weight: 400;
   min-height: 100%;
   text-size-adjust: none;
 }
@@ -64,5 +67,10 @@ h1.page-title {
   font-size: 150%;
   margin-bottom: 32px;
   margin-top: 32px;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
 }
 </style>

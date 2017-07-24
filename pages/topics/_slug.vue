@@ -51,3 +51,15 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+@import './assets/css/vars.scss';
+
+h1 {
+  margin-bottom: 4px;
+}
+
+p {
+  margin-bottom: 32px;
+}
+</style>
