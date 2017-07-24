@@ -36,6 +36,7 @@ header {
   font-weight: lighter;
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 .site-title {
