@@ -2,7 +2,7 @@
   <section class="outer-container">
     <h1 class="page-title">Topics</h1>
     <ul>
-      <li v-for="topic in topics">
+      <li v-for="topic in topics" :key="topic.id">
         <nuxt-link :to="`/topics/${topic.slug}`">
           {{ topic.name }} <span>({{ topic.count }})</span>
         </nuxt-link>

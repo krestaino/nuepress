@@ -1,11 +1,11 @@
 <template>
   <main class="outer-container">
-    <article class="blog-article"> 
+    <article class="blog-article">
       <img class="featured" v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
       <div class="inner-container">
         <h1 class="title" v-html="post.title.rendered"></h1>
-        <nuxt-link class="author" :to="`/authors/${author.slug}`" v-for="author in post._embedded.author" v-html="author.name"></nuxt-link>
-        <nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" v-html="topic.name"></nuxt-link>
+        <nuxt-link class="author" :to="`/authors/${post._embedded.author.slug}`" v-html="post._embedded.author.name"></nuxt-link>
+        <nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
         <div v-html="timestamp(post.date)"></div>
         <div class="content" v-html="post.content.rendered"></div>
       </div>

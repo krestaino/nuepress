@@ -1,8 +1,8 @@
 <template>
   <div>
-    <article v-for="post in posts">
+    <article v-for="post in posts" :key="post.id">
       <div class="row date">
-        <span v-html="timestamp(post.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" v-html="topic.name"></nuxt-link>
+        <span v-html="timestamp(post.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
       </div>
       <nuxt-link :to="`/${post.slug}`" class="row">
         <div class="col">
@@ -45,7 +45,7 @@ article {
 
   .row {
     display: flex;
-    
+
     & + .row {
       margin-top: 16px;
     }
