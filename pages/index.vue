@@ -2,9 +2,6 @@
   <main class="outer-container">
     <div>
       <PostList :posts="posts"/>
-      <infinite-loading :on-infinite="morePosts" ref="infiniteLoading">
-        <span slot="no-more"></span>
-      </infinite-loading>
     </div>
     <aside>
       <ul>
@@ -17,12 +14,10 @@
 <script>
 import axios from 'axios'
 import PostList from '~/components/PostList'
-import InfiniteLoading from 'vue-infinite-loading/src/components/Infiniteloading.vue'
 
 export default {
   components: {
-    PostList,
-    InfiniteLoading
+    PostList
   },
 
   data () {
