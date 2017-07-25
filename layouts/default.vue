@@ -49,6 +49,7 @@ html {
   font-size: 20px;
   font-weight: 400;
   min-height: 100%;
+  overflow-y: scroll;
   text-size-adjust: none;
 }
 

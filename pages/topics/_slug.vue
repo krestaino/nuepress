@@ -2,7 +2,7 @@
   <section class="outer-container">
     <h1 class="page-title" v-html="topic.name"></h1>
     <p v-html="topic.description"></p>
-    <PostList :posts="topicPosts.posts"/>
+    <PostList :posts="currentTopicPosts.posts"/>
   </section>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   computed: {
     meta () { return this.$store.state.meta },
     topic () { return _.find(this.$store.state.topics, {'slug': this.$route.params.slug}) },
-    topicPosts () { return _.find(this.$store.state.topicPosts, {'slug': this.$route.params.slug}) },
+    currentTopicPosts () { return _.find(this.$store.state.topicPosts, {'slug': this.$route.params.slug}) },
     topics () { return this.$store.state.topics }
   },
 

@@ -54,6 +54,8 @@ ul {
   list-style: none;
 
   li {
+    break-inside: avoid-column;
+    
     & + li {
       margin-top: 16px;
     }
