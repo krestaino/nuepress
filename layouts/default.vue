@@ -20,8 +20,35 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/css/vars.scss';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Roboto:300,400,700');
+@import './assets/css/vars.scss';
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html {
+  background-color: #f5f5f5;
+  color: $primary;
+  font-family: 'Open Sans', sans-serif;
+  font-kerning: normal;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  min-height: 100%;
+  overflow-y: scroll;
+  text-size-adjust: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 .page-enter-active, .page-leave-active {
   transition: opacity .1s;
@@ -33,37 +60,6 @@ export default {
 
 .page-leave-active {
   visibility: hidden;
-}
-
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-html {
-  font-family: 'Open Sans', sans-serif;
-  font-kerning: normal;
-  font-size: 20px;
-  font-weight: 400;
-  min-height: 100%;
-  overflow-y: scroll;
-  text-size-adjust: none;
-}
-
-body {
-  background-color: #f5f5f5;
-  color: $primary;
-  line-height: 30px;
-  min-height: 100vh;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 .outer-container {
@@ -78,6 +74,11 @@ h1.page-title {
   margin-top: 48px;
 }
 
+h1, h2, h3, h4, h5 {
+  color: #333;
+  font-weight: 400;
+}
+
 a {
   color: $primary;
   text-decoration: none;
@@ -85,10 +86,5 @@ a {
 
 pre {
   white-space: pre-wrap;
-}
-
-h1, h2, h3, h4, h5 {
-  color: #333;
-  font-weight: 400;
 }
 </style>
