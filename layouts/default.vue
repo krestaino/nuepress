@@ -51,16 +51,12 @@ body {
   min-height: 100vh;
 }
 
-.page-enter-active, .page-leave-active {
+.page-enter-active {
   transition: opacity .1s;
 }
 
 .page-enter, .page-leave-active {
   opacity: 0;
-}
-
-.page-leave-active {
-  visibility: hidden;
 }
 
 .outer-container {
