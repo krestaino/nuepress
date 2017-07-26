@@ -1,7 +1,7 @@
 <template>
   <div class="auto-suggest" v-on-click-outside="hideResults">
     <div class="input-container">
-      <input placeholder="Search stories" type="text" name="search" v-model="searchQuery" @keyup="search" @focus="showResults">
+      <input placeholder="Search articles" type="text" name="search" v-model="searchQuery" @keyup="search" @focus="showResults">
     </div>
     <ul class="results" v-if="(searchQuery.length > 1) && resultsVisible">
       <li v-for="post in posts">

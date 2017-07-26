@@ -6,7 +6,7 @@
         <p v-if="meta.description" v-html="meta.description"></p>
       </div>
       <nav>
-        <nuxt-link to="/" exact>Latest Stories</nuxt-link>
+        <nuxt-link to="/" exact>Latest Articles</nuxt-link>
         <nuxt-link to="/topics">Topics</nuxt-link>
         <nuxt-link to="/authors">Authors</nuxt-link>
       </nav>
