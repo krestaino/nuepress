@@ -9,6 +9,7 @@
 <script>
 import SiteNav from '../components/SiteNav'
 import SiteFoot from '../components/SiteFoot'
+import 'normalize.css'
 
 export default {
   components: {
@@ -19,7 +20,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import './node_modules/reset-css/_reset.scss';
 @import './assets/css/vars.scss';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Roboto:300,400,700');
 
@@ -55,7 +55,8 @@ html {
 
 body {
   background-color: #f5f5f5;
-  line-height: 28px;
+  color: $primary;
+  line-height: 30px;
   min-height: 100vh;
 }
 
@@ -74,11 +75,20 @@ body {
 h1.page-title {
   font-size: 150%;
   margin-bottom: 32px;
-  margin-top: 32px;
+  margin-top: 48px;
 }
 
 a {
   color: $primary;
   text-decoration: none;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #333;
+  font-weight: 400;
 }
 </style>

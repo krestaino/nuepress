@@ -1,5 +1,5 @@
 <template>
-  <section class="outer-container">
+  <section class="outer-container page">
     <h1 class="page-title">Authors</h1>
     <ul>
       <li v-for="author in authors">
@@ -44,35 +44,38 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import './assets/css/vars.scss';
 
-ul {
-  column-count: 3;
-  column-gap: 32px;
-  padding: 0;
-  list-style: none;
+section.page {
+  ul {
+    column-count: 3;
+    column-gap: 32px;
+    padding: 0;
+    list-style: none;
 
-  li {
-    & + li {
-      margin-top: 16px;
-    }
-
-    a {
-      font-family: 'Roboto', sans-serif;
-
-      span {
-        color: lighten($primary, 10%);
-        display: inline-block;
-        font-size: 70%;
-        position: relative;
-        top: -1px;
+    li {
+      & + li {
+        margin-top: 16px;
       }
-    }
 
-    p {
-      color: lighten($primary, 10%);
-      font-size: 80%;
+      a {
+        font-family: 'Roboto', sans-serif;
+
+        span {
+          color: lighten($primary, 10%);
+          display: inline-block;
+          font-size: 70%;
+          position: relative;
+          top: -1px;
+        }
+      }
+
+      p {
+        color: lighten($primary, 10%);
+        font-size: 80%;
+        margin-top: 0;
+      }
     }
   }
 }

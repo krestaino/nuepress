@@ -76,7 +76,7 @@ export default {
 
   .input-container {
     input {
-      border: 1px solid lighten($primary, 40%);
+      border: 1px solid lighten($primary, 20%);
       outline: 0;
       padding: 8px;
       font-family: 'Open Sans', sans-serif;
@@ -86,14 +86,14 @@ export default {
       width: 100%;
 
       &::placeholder {
-        color: lighten($primary, 40%);
+        color: lighten($primary, 30%);
       }
 
       &:focus {
-        border-color: lighten($primary, 20%);
+        border-color: $primary;
 
         & + .clear {
-          border-color: lighten($primary, 20%);
+          border-color: $primary;
         }
 
         &::placeholder {
@@ -106,7 +106,7 @@ export default {
       align-items: center;
       background-color: transparent;
       border: 0;
-      border-left: 1px solid lighten($primary, 40%);
+      border-left: 1px solid lighten($primary, 20%);
       cursor: pointer;
       display: flex;
       height: 100%;
@@ -133,8 +133,10 @@ export default {
 
   .results {
     background-color: #fff;
-    border: 1px solid lighten($primary, 20%);
+    border: 1px solid $primary;
     border-top: 0;
+    list-style: none;
+    margin: 0;
     padding: 0;
     position: absolute;
     top: 100%;

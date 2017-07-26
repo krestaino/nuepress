@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <nuxt-link to="/" exact><h1 v-html="meta.name"></h1></nuxt-link>
+    <nuxt-link to="/" exact><span v-html="meta.name"></span></nuxt-link>
     <p v-if="meta.description" v-html="meta.description"></p>
   </footer>
 </template>

@@ -40,10 +40,14 @@ header {
 }
 
 .site-title {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 130%;
   margin-right: 32px;
+
+  h1 {
+    color: #666;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
 
   p {
     margin-top: 4px;
@@ -52,8 +56,9 @@ header {
 
 a {
   color: #999;
-  font-size: 80%;
+  font-size: 0.85rem;
   text-decoration: none;
+  transition: 0.1s;
 
   & + a {
     margin-left: 32px;
@@ -61,7 +66,13 @@ a {
 
   &.nuxt-link-active {
     padding-bottom: 4px;
-    border-bottom: 2px solid lighten($primary, 40%);
+    border-bottom: 2px solid;
+    border-color: lighten($primary, 40%);
+  }
+
+  &:hover {
+    color: #555;
+    border-color: #555;
   }
 }
 

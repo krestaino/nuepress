@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article v-for="post in posts" :key="post.id">
+    <article class="postList" v-for="post in posts" :key="post.id">
       <div class="row date">
         <span v-html="timestamp(post.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
       </div>
@@ -29,14 +29,14 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import './assets/css/vars.scss';
 
 section {
   margin: 0 auto;
 }
 
-article {
+article.postList {
   & + article {
     border-top: 1px dotted lighten($primary, 20%);
     margin-top: 32px;
@@ -66,28 +66,33 @@ article {
       color: $primary;
     }
   }
-}
 
-h2 {
-  color: #111;
-  font-size: 110%;
-  margin-bottom: 8px;
-  margin-top: -6px;
-}
+  h2 {
+    color: #111;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    margin-top: -6px;
+  }
 
-img {
-  height: auto;
-  margin: 0 22px 0 0;
-  max-width: 150px;
-}
+  img {
+    height: auto;
+    margin: 0 22px 0 0;
+    max-width: 150px;
+  }
 
-a {
-  color: $primary;
-  transition: 0.1s;
-  text-decoration: none;
+  a {
+    color: $primary;
+    transition: 0.1s;
+    text-decoration: none;
 
-  &:hover {
-    color: darken($primary, 30%)
+    &:hover {
+      color: darken($primary, 30%)
+    }
+  }
+
+  p {
+    margin: 0;
   }
 }
 </style>
