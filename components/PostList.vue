@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import './assets/css/vars.scss';
 
 section {

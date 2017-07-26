@@ -52,7 +52,7 @@ export default {
 @import './assets/css/vars.scss';
 
 article.blog-article {
-  background-color: #f4f4f4;
+  background-color: #efefef;
   padding: 0 0 96px 0;
   position: relative;
   height: 100%;

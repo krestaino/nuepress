@@ -66,7 +66,7 @@ a {
 }
 
 .outer-container {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
   margin: 0 auto;
   padding: 22px 0;

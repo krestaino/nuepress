@@ -1,9 +1,12 @@
 <template>
-  <div class="auto-suggest" v-on-click-outside="hideResults">
+  <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ resultsVisible: (searchQuery.length > 0) && resultsVisible }">
     <div class="input-container">
-      <input placeholder="Search articles" type="text" name="search" v-model="searchQuery" @keyup="search" @focus="showResults">
+      <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery" @keyup="search" @focus="showResults">
+      <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
+        <img src="../assets/icons/ic_close_black_24px.svg">
+      </button>
     </div>
-    <ul class="results" v-if="(searchQuery.length > 1) && resultsVisible">
+    <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && posts.length">
       <li v-for="post in posts">
         <nuxt-link :to="post.slug">
           <span v-html="post.title.rendered"></span>
@@ -24,11 +27,16 @@ export default {
     return {
       resultsVisible: false,
       searchQuery: '',
-      posts: null
+      posts: []
     }
   },
 
   methods: {
+    clearSearchQuery () {
+      this.searchQuery = ''
+      this.$refs.searchQuery.focus()
+    },
+
     hideResults () {
       this.resultsVisible = false
     },
@@ -38,13 +46,11 @@ export default {
     },
 
     search () {
-      if (this.searchQuery.length > 1) {
-        axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?search=${this.searchQuery}`)
-          .then(response => {
-            this.posts = response.data
-            this.showResults()
-          })
-      }
+      axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?search=${this.searchQuery}`)
+        .then(response => {
+          this.posts = response.data
+          this.showResults()
+        })
     }
   },
 
@@ -62,47 +68,97 @@ export default {
 .auto-suggest {
   margin-left: auto;
   position: relative;
+  transition: 0.1s;
+
+  &.resultsVisible {
+    filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.1));
+  }
 
   .input-container {
-    padding: 0 12px;
-
     input {
-      border: 1px solid lighten($primary, 20%);
+      border: 1px solid lighten($primary, 40%);
       outline: 0;
       padding: 8px;
       font-family: 'Open Sans', sans-serif;
       font-size: 90%;
-      min-width: 300px;
+      min-width: 320px;
+      transition: 0.1s;
       width: 100%;
 
+      &::placeholder {
+        color: lighten($primary, 40%);
+      }
+
       &:focus {
-        border-color: darken($primary, 20%);
+        border-color: lighten($primary, 20%);
+
+        & + .clear {
+          border-color: lighten($primary, 20%);
+        }
+
+        &::placeholder {
+          color: $primary;
+        }
+      }
+    }
+
+    .clear {
+      align-items: center;
+      background-color: transparent;
+      border: 0;
+      border-left: 1px solid lighten($primary, 40%);
+      cursor: pointer;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      padding: 12px;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      &:hover {
+        img {
+          opacity: 1;
+        }
+      }
+
+      img {
+        height: 16px;
+        opacity: 0.5;
+        transition: 0.1s;
+        width: 16px;
       }
     }
   }
 
   .results {
     background-color: #fff;
-    padding: 0 12px;
+    border: 1px solid lighten($primary, 20%);
+    border-top: 0;
+    padding: 0;
     position: absolute;
     top: 100%;
+    transition: 0.1s;
     width: 100%;
     z-index: 10;
 
     li {
       line-height: 1.2;
-      padding: 12px 0;
 
       & + li {
-        border-top: 1px solid lighten($primary, 30%);
+        border-top: 1px dotted lighten($primary, 20%);
       }
     }
 
     a {
       color: $primary;
+      display: block;
       font-size: 80%;
+      padding: 16px 12px;
+      transition: 0.1s;
 
       &:hover {
+        background-color: lighten($primary, 50%);
         color: darken($primary, 30%)
       }
     }
