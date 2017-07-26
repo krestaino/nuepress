@@ -65,6 +65,10 @@ article.postList {
       content: ', ';
       color: $primary;
     }
+
+    a:hover {
+      color: $accent;
+    }
   }
 
   h2 {

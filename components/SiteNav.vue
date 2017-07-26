@@ -58,7 +58,7 @@ a {
   color: #999;
   font-size: 0.85rem;
   text-decoration: none;
-  transition: 0.1s;
+  transition: color 0.1s, border-color 0.1s;
 
   & + a {
     margin-left: 32px;

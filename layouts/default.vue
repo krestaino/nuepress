@@ -38,10 +38,11 @@ html {
   font-kerning: normal;
   font-size: 20px;
   font-weight: 400;
-  line-height: 30px;
-  min-height: 100%;
   overflow-y: scroll;
-  text-size-adjust: none;
+}
+
+body {
+  line-height: 30px;
 }
 
 #app {
@@ -82,6 +83,11 @@ h1, h2, h3, h4, h5 {
 a {
   color: $primary;
   text-decoration: none;
+  transition: 0.1s;
+
+  &:hover {
+    color: $accent;
+  }
 }
 
 pre {

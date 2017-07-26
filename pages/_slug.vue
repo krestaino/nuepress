@@ -3,10 +3,14 @@
     <article class="blog-article">
       <img class="featured" v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
       <div class="inner-container">
-        <h1 class="title" v-html="post.title.rendered"></h1>
-        <nuxt-link class="author" :to="`/authors/${post._embedded.author.slug}`" v-html="post._embedded.author.name"></nuxt-link>
-        <nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
-        <div v-html="timestamp(post.date)"></div>
+        <div class="meta">
+          <h1 class="title" v-html="post.title.rendered"></h1>
+          <div class="details">
+            <nuxt-link class="author" :to="`/authors/${post._embedded.author[0].slug}`" v-html="post._embedded.author[0].name"></nuxt-link>
+            <span class="separator">|</span>
+            <span v-html="timestamp(post.date)"></span>
+          </div>
+        </div>
         <div class="content" v-html="post.content.rendered"></div>
       </div>
     </article>
@@ -34,7 +38,7 @@ export default {
   },
 
   methods: {
-    timestamp (date) { return moment(date).format('MMM d') }
+    timestamp (date) { return moment(date).format('MMM d, YYYY') }
   },
 
   head () {
@@ -57,22 +61,22 @@ article.blog-article {
   position: relative;
   height: 100%;
 
-  .cat-date {
-    a {
-      color: inherit;
+  .meta {
+    .title {
+      font-size: 40px;
+      line-height: 1;
+      margin-bottom: 16px;
+      margin-top: 0;
+      padding-top: 64px;
+    }
 
-      & + a::before {
-        content: ', ';
+    .details {
+      font-size: 0.8rem;
+
+      .separator {
+        padding: 0 0.5rem;
       }
     }
-  }
-
-  h1.title {
-    font-size: 40px;
-    line-height: 1;
-    margin-bottom: 16px;
-    margin-top: 0;
-    padding-top: 64px;
   }
 
   img {
@@ -82,10 +86,6 @@ article.blog-article {
     &.featured {
       width: 100%;
     }
-  }
-
-  .author {
-    display: block;
   }
 }
 
@@ -101,22 +101,6 @@ article.blog-article {
     > *:first-child {
       margin-top: 0;
     }
-  }
-
-  h1 {
-    margin-top: 24px;
-  }
-
-  h2 {
-    margin-top: 20px;
-  }
-
-  h3, h4, h5, h6 {
-    margin-top: 16px;
-  }
-
-  p {
-    margin-top: 16px;
   }
 
   .wp-caption {
