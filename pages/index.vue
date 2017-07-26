@@ -2,12 +2,8 @@
   <main class="outer-container">
     <div>
       <PostList :posts="posts"/>
+      <button @click="morePosts">More Articles</button>
     </div>
-    <aside>
-      <ul>
-        <li>Tag 1</li>
-      </ul>
-    </aside>
   </main>
 </template>
 
@@ -45,15 +41,12 @@ export default {
 
   methods: {
     morePosts () {
-      this.page++
-
-      axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page}`)
+      axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
         .then(response => {
           this.$store.commit('setPosts', response.data)
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
         })
-        .catch(() => {
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+        .catch(error => {
+          console.log(error)
         })
     }
   },
@@ -71,15 +64,6 @@ export default {
 
 <style scoped lang="scss">
 main {
-  display: flex;
   padding-top: 32px;
-
-  aside {
-    background-color: #fff;
-    margin-left: 32px;
-    max-width: 460px;
-    padding: 32px;
-    width: 100%;
-  }
 }
 </style>
