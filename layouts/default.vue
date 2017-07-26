@@ -54,7 +54,7 @@ html {
 }
 
 body {
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
   line-height: 28px;
   min-height: 100vh;
 }
