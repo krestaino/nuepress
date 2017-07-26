@@ -25,18 +25,18 @@ export default {
 
   async asyncData ({ store, params }) {
     if (!store.state.authors) {
-      let authors = await axios.get('https://wp.kmr.io/wp-json/wp/v2/users?per_page=100')
+      let authors = await axios.get(`${store.state.wpAPI}/wp/v2/users?per_page=100`)
       store.commit('setAuthors', authors.data)
     }
 
     if (!_.find(store.state.authorPosts, {'slug': params.slug})) {
       let author = _.find(store.state.authors, {'slug': params.slug})
-      let authorPosts = await axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
+      let authorPosts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
       store.commit('setAuthorPosts', {slug: params.slug, posts: authorPosts.data})
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      let meta = await axios.get(store.state.wpAPI)
       store.commit('setMeta', meta.data)
     }
   },

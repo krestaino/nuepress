@@ -28,11 +28,11 @@ export default {
   },
 
   async fetch ({ store, params }) {
-    let posts = await axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?slug=${params.slug}&_embed`)
+    let posts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
     store.commit('setPost', posts.data[0])
 
     if (!store.state.meta) {
-      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      let meta = await axios.get(store.state.wpAPI)
       store.commit('setMeta', meta.data)
     }
   },

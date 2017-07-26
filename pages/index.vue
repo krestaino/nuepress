@@ -29,19 +29,19 @@ export default {
 
   async asyncData ({ store, params }) {
     if (store.state.posts.length === 0) {
-      let posts = await axios.get('https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed')
+      let posts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&_embed`)
       store.commit('setPosts', posts.data)
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      let meta = await axios.get(store.state.wpAPI)
       store.commit('setMeta', meta.data)
     }
   },
 
   methods: {
     morePosts () {
-      axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
+      axios.get(`${this.$store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
         .then(response => {
           this.$store.commit('setPosts', response.data)
         })

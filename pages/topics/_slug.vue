@@ -25,18 +25,18 @@ export default {
 
   async asyncData ({ store, params }) {
     if (!store.state.topics) {
-      let topics = await axios.get('https://wp.kmr.io/wp-json/wp/v2/categories?per_page=100')
+      let topics = await axios.get(`${store.state.wpAPI}/wp/v2/categories?per_page=100`)
       store.commit('setTopics', topics.data)
     }
 
     if (!_.find(store.state.topicPosts, {'slug': params.slug})) {
       let topic = _.find(store.state.topics, {'slug': params.slug})
-      let topicPosts = await axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
+      let topicPosts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
       store.commit('setTopicPosts', {slug: params.slug, posts: topicPosts.data})
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get('https://wp.kmr.io/wp-json')
+      let meta = await axios.get(store.state.wpAPI)
       store.commit('setMeta', meta.data)
     }
   },

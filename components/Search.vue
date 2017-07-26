@@ -46,7 +46,7 @@ export default {
     },
 
     search () {
-      axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?search=${this.searchQuery}`)
+      axios.get(`${this.$store.state.wpAPI}/wp/v2/posts?search=${this.searchQuery}`)
         .then(response => {
           this.posts = response.data
           this.showResults()

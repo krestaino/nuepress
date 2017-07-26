@@ -9,7 +9,8 @@ const store = () => new Vuex.Store({
     post: null,
     posts: [],
     authors: null,
-    authorPosts: []
+    authorPosts: [],
+    wpAPI: 'https://wp.kmr.io/wp-json'
   },
 
   mutations: {
