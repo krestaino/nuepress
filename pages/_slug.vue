@@ -6,9 +6,9 @@
         <div class="meta">
           <h1 class="title" v-html="post.title.rendered"></h1>
           <div class="details">
-            <nuxt-link class="author" :to="`/authors/${post._embedded.author[0].slug}`" v-html="post._embedded.author[0].name"></nuxt-link>
-            <span class="separator">|</span>
             <span v-html="timestamp(post.date)"></span>
+            <span class="separator">|</span>
+            <nuxt-link class="author" :to="`/authors/${post._embedded.author[0].slug}`" v-html="post._embedded.author[0].name"></nuxt-link>
           </div>
         </div>
         <div class="content" v-html="post.content.rendered"></div>
