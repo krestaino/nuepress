@@ -25,6 +25,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['vue-infinite-loading'],
     /*
     ** Run ESLINT on save
     */

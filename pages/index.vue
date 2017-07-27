@@ -2,6 +2,7 @@
   <main class="outer-container">
     <div>
       <PostList :posts="posts"/>
+      <InfiniteLoading :on-infinite="morePosts" ref="infiniteLoading"></InfiniteLoading>
       <button @click="morePosts">More Articles</button>
     </div>
   </main>
@@ -10,10 +11,12 @@
 <script>
 import axios from 'axios'
 import PostList from '~/components/PostList'
+import InfiniteLoading from 'vue-infinite-loading/src/components/Infiniteloading.vue'
 
 export default {
   components: {
-    PostList
+    PostList,
+    InfiniteLoading
   },
 
   data () {
@@ -44,9 +47,11 @@ export default {
       axios.get(`${this.$store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
         .then(response => {
           this.$store.commit('setPosts', response.data)
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
         })
         .catch(error => {
           console.log(error)
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
         })
     }
   },
