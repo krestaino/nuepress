@@ -3,7 +3,6 @@
     <div>
       <PostList :posts="posts"/>
       <InfiniteLoading :on-infinite="morePosts" ref="infiniteLoading"></InfiniteLoading>
-      <button @click="morePosts">More Articles</button>
     </div>
   </main>
 </template>
@@ -11,7 +10,7 @@
 <script>
 import axios from 'axios'
 import PostList from '~/components/PostList'
-import InfiniteLoading from 'vue-infinite-loading/src/components/Infiniteloading.vue'
+import InfiniteLoading from '~/components/InfiniteLoading'
 
 export default {
   components: {
