@@ -55,11 +55,20 @@ section.page {
     list-style: none;
 
     li {
+      break-inside: avoid;
+
       & + li {
         margin-top: 16px;
       }
 
+      h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        margin-top: 0;
+      }
+
       a {
+        color: #111;
         font-family: 'Roboto', sans-serif;
 
         span {

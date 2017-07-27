@@ -3,9 +3,11 @@
     <h1 class="page-title">Authors</h1>
     <ul>
       <li v-for="author in authors">
-        <nuxt-link :to="`/authors/${author.slug}`">
-          {{ author.name }}
-        </nuxt-link>
+        <h2>
+          <nuxt-link :to="`/authors/${author.slug}`">
+            {{ author.name }}
+          </nuxt-link>
+        </h2>
         <p v-html="author.description"></p>
       </li>
     </ul>
@@ -55,11 +57,20 @@ section.page {
     list-style: none;
 
     li {
+      break-inside: avoid;
+
       & + li {
         margin-top: 16px;
       }
 
+      h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        margin-top: 0;
+      }
+
       a {
+        color: #111;
         font-family: 'Roboto', sans-serif;
 
         span {

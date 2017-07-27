@@ -61,6 +61,26 @@ article.blog-article {
   position: relative;
   height: 100%;
 
+  .inner-container {
+    margin: 0 auto;
+    max-width: 650px;
+
+    .content {
+      border-top: 1px dotted lighten($primary, 20%);
+      padding-top: 32px;
+      margin-top: 32px;
+
+      > *:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .wp-caption {
+      margin-top: 16px;
+      max-width: 100%;
+    }
+  }
+
   .meta {
     .title {
       font-size: 40px;
@@ -86,26 +106,6 @@ article.blog-article {
     &.featured {
       width: 100%;
     }
-  }
-}
-
-.inner-container {
-  margin: 0 auto;
-  max-width: 650px;
-
-  .content {
-    border-top: 1px dotted lighten($primary, 20%);
-    padding-top: 32px;
-    margin-top: 32px;
-
-    > *:first-child {
-      margin-top: 0;
-    }
-  }
-
-  .wp-caption {
-    margin-top: 16px;
-    max-width: 100%;
   }
 }
 </style>

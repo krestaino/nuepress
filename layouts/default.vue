@@ -9,7 +9,6 @@
 <script>
 import SiteNav from '../components/SiteNav'
 import SiteFoot from '../components/SiteFoot'
-import 'normalize.css'
 
 export default {
   components: {
@@ -62,6 +61,7 @@ body {
 .outer-container {
   margin: 0 auto;
   max-width: 1440px;
+  padding: 0 1rem;
   width: 100%;
 }
 

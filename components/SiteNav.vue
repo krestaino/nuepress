@@ -1,16 +1,18 @@
 <template>
   <header>
     <div class="outer-container">
-      <div class="site-title">
-        <nuxt-link to="/" exact><h1 v-html="meta.name"></h1></nuxt-link>
-        <p v-if="meta.description" v-html="meta.description"></p>
+      <div class="inner-container">
+        <div class="site-title">
+          <nuxt-link to="/" exact><h1 v-html="meta.name"></h1></nuxt-link>
+          <p v-if="meta.description" v-html="meta.description"></p>
+        </div>
+        <nav>
+          <nuxt-link to="/" exact>Latest Articles</nuxt-link>
+          <nuxt-link to="/topics">Topics</nuxt-link>
+          <nuxt-link to="/authors">Authors</nuxt-link>
+        </nav>
+        <Search/>
       </div>
-      <nav>
-        <nuxt-link to="/" exact>Latest Articles</nuxt-link>
-        <nuxt-link to="/topics">Topics</nuxt-link>
-        <nuxt-link to="/authors">Authors</nuxt-link>
-      </nav>
-      <Search/>
     </div>
   </header>
 </template>
@@ -76,7 +78,7 @@ a {
   }
 }
 
-.outer-container {
+.inner-container {
   align-items: center;
   display: flex;
   margin: 0 auto;
