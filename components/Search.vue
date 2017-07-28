@@ -1,7 +1,7 @@
 <template>
   <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ resultsVisible: (searchQuery.length > 0) && resultsVisible }">
     <div class="input-container">
-      <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery" @keyup="search" @focus="showResults">
+      <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery" @keyup="throttledSearch" @focus="showResults">
       <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
         <img src="../assets/icons/ic_close_black_24px.svg">
       </button>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import axios from 'axios'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 
@@ -44,6 +45,10 @@ export default {
     showResults () {
       this.resultsVisible = true
     },
+
+    throttledSearch: _.throttle(function () {
+      this.search()
+    }, 350),
 
     search () {
       axios.get(`${this.$store.state.wpAPI}/wp/v2/posts?search=${this.searchQuery}`)
