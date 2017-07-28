@@ -8,7 +8,7 @@
     </div>
     <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && posts.length">
       <li v-for="post in posts">
-        <nuxt-link :to="post.slug">
+        <nuxt-link :to="`/${post.slug}`">
           <span v-html="post.title.rendered"></span>
         </nuxt-link>
       </li>
