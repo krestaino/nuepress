@@ -8,7 +8,7 @@
     "axios": "^0.16.2",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "nuxt": "latest",
+    "nuxt": "^1.0.0-rc3",
     "vue-on-click-outside": "^1.0.3"
   },
   "config": {
@@ -36,6 +36,6 @@
     "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
     "sass-loader": "^6.0.6",
-    "webpack": "^3.3.0"
+    "webpack": "^3.4.1"
   }
 }
