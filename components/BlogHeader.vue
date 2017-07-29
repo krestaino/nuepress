@@ -63,6 +63,7 @@ header {
 
   .outer-container {
     align-items: center;
+    border-bottom: 1px solid #d8d8d8;
     background-color: #fff;
     display: flex;
     height: 80px;
