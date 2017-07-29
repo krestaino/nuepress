@@ -119,7 +119,7 @@ export default {
   watch: {
     '$route' () {
       this.current = -1
-      // this.searchQuery = ''
+      this.searchQuery = ''
       this.searchOpen = false
     }
   }
