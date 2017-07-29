@@ -78,11 +78,36 @@ h1, h2, h3, h4, h5 {
 
 a {
   color: $primary;
+  position: relative;
   text-decoration: none;
   transition: 0.1s;
+}
 
+a.fancy {
   &:hover {
     color: $accent;
+  }
+
+  &::after {
+    background: rgba($accent, 0.5);
+    content: '';
+    height: 1px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    transform: translateY(-4px);
+    transition: height 0.1s, opacity 0.1s, transform 0.1s;
+    width: 100%;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      height: 4px;
+      opacity: 1;
+      transform: translateY(0px);
+    }
   }
 }
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <article class="articleList" v-for="article in articles" :key="article.id">
-      <div class="row date">
-        <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
+      <div class="date">
+        <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
@@ -58,12 +58,19 @@ article.articleList {
 
   .date {
     font-family: 'Roboto', sans-serif;
-    font-size: 70%;
+    font-size: 0.7rem;
+    margin-bottom: 12px;
     text-transform: uppercase;
+
+    .topic {
+      margin-left: 8px;
+    }
 
     .topic + .topic::before {
       content: ', ';
       color: $primary;
+      left: -7px;
+      position: absolute;
     }
 
     a:hover {
@@ -91,7 +98,7 @@ article.articleList {
     text-decoration: none;
 
     &:hover {
-      color: darken($primary, 30%)
+      color: #111;
     }
   }
 

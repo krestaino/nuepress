@@ -8,7 +8,7 @@
           <div class="details">
             <span v-html="timestamp(article.date)"></span>
             <span class="separator">|</span>
-            <nuxt-link class="author" :to="`/authors/${article._embedded.author[0].slug}`" v-html="article._embedded.author[0].name"></nuxt-link>
+            <nuxt-link class="author fancy" :to="`/authors/${article._embedded.author[0].slug}`" v-html="article._embedded.author[0].name"></nuxt-link>
           </div>
         </div>
         <div class="content" v-html="article.content.rendered"></div>
@@ -69,6 +69,37 @@ article.blog-article {
       border-top: 1px dotted lighten($primary, 20%);
       padding-top: 32px;
       margin-top: 32px;
+
+      a {
+        color: $accent;
+        position: relative;
+
+        &:hover {
+          color: $accent;
+        }
+
+        &::after {
+          background: rgba($accent, 0.5);
+          content: '';
+          height: 1px;
+          left: 0;
+          opacity: 0;
+          position: absolute;
+          top: 100%;
+          transform: translateY(-4px);
+          transition: height 0.1s, opacity 0.1s, transform 0.1s;
+          width: 100%;
+        }
+
+        &:hover,
+        &:focus {
+          &::after {
+            height: 4px;
+            opacity: 1;
+            transform: translateY(0px);
+          }
+        }
+      }
 
       > *:first-child {
         margin-top: 0;

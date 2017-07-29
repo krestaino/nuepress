@@ -3,12 +3,10 @@
     <h1 class="page-title">Authors</h1>
     <ul>
       <li v-for="author in authors">
-        <h2>
-          <nuxt-link :to="`/authors/${author.slug}`">
-            {{ author.name }}
-          </nuxt-link>
-        </h2>
-        <p v-html="author.description"></p>
+        <nuxt-link :to="`/authors/${author.slug}`">
+          <h2 v-html="author.name"></h2>
+          <div v-html="author.description"></div>
+        </nuxt-link>
       </li>
     </ul>
   </section>
@@ -46,7 +44,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import './assets/css/vars.scss';
 
 section.page {
@@ -60,12 +58,12 @@ section.page {
       break-inside: avoid;
 
       & + li {
-        margin-top: 16px;
+        margin-top: 24px;
       }
 
       h2 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
+        font-size: 1rem;
+        margin-bottom: 4px;
         margin-top: 0;
       }
 
@@ -73,19 +71,16 @@ section.page {
         color: #111;
         font-family: 'Roboto', sans-serif;
 
-        span {
-          color: lighten($primary, 10%);
-          display: inline-block;
-          font-size: 70%;
-          position: relative;
-          top: -1px;
+        &:hover div {
+          color: #111;
         }
-      }
 
-      p {
-        color: lighten($primary, 10%);
-        font-size: 80%;
-        margin-top: 0;
+        div {
+          color: lighten($primary, 10%);
+          font-size: 80%;
+          margin-top: 0;
+          transition: 0.1s;
+        }
       }
     }
   }

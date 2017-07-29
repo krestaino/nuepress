@@ -5,7 +5,7 @@
     </button>
     <div class="input-container" ref="inputContainer" :class="{'searchOpen': searchOpen}">
       <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
-        @keyup="throttledSearch"
+        @keyup.prevent="throttledSearch"
         @keydown.prevent.enter="enter"
         @keydown.prevent.down="down"
         @keydown.prevent.up="up"
@@ -175,6 +175,7 @@ export default {
     overflow: hidden;
     transition: 0.5s;
     width: 0;
+    will-change: width;
 
     &.searchOpen {
       width: 420px;

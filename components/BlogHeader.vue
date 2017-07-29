@@ -52,6 +52,7 @@ header {
 }
 
 a {
+  border-color: lighten($primary, 40%);
   color: #999;
   font-size: 0.85rem;
   text-decoration: none;
@@ -64,7 +65,6 @@ a {
   &.nuxt-link-active:not(.blog-title) {
     padding-bottom: 4px;
     border-bottom: 2px solid;
-    border-color: lighten($primary, 40%);
   }
 
   &:hover {

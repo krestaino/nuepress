@@ -2,13 +2,12 @@
   <section class="outer-container page">
     <h1 class="page-title">Topics</h1>
     <ul>
-      <li v-for="topic in topics" :key="topic.id">
-        <h2>
-          <nuxt-link :to="`/topics/${topic.slug}`">
-            {{ topic.name }} <span>({{ topic.count }})</span>
-          </nuxt-link>
-        </h2>
-        <p v-html="topic.description"></p>
+      <li v-for="topic in topics">
+        <nuxt-link :to="`/topics/${topic.slug}`">
+          <h2 v-html="topic.name"></h2>
+          <span>({{ topic.count }})</span>
+          <div v-html="topic.description"></div>
+        </nuxt-link>
       </li>
     </ul>
   </section>
@@ -46,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import './assets/css/vars.scss';
 
 section.page {
@@ -60,32 +59,36 @@ section.page {
       break-inside: avoid;
 
       & + li {
-        margin-top: 16px;
+        margin-top: 24px;
       }
 
       h2 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
+        display: inline-block;
+        font-size: 1rem;
+        margin-bottom: 4px;
         margin-top: 0;
+      }
+
+      span {
+        color: lighten($primary, 15%);
+        font-size: 0.8rem;
+        margin-left: 4px;
       }
 
       a {
         color: #111;
         font-family: 'Roboto', sans-serif;
 
-        span {
-          color: lighten($primary, 10%);
-          display: inline-block;
-          font-size: 70%;
-          position: relative;
-          top: -1px;
+        &:hover div {
+          color: #111;
         }
-      }
 
-      p {
-        color: lighten($primary, 10%);
-        font-size: 80%;
-        margin-top: 0;
+        div {
+          color: lighten($primary, 10%);
+          font-size: 80%;
+          margin-top: 0;
+          transition: 0.1s;
+        }
       }
     }
   }
