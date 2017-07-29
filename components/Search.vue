@@ -1,29 +1,31 @@
 <template>
-  <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }">
-    <button class="toggle-search" @click.prevent="toggleSearch">
-      <img src="../assets/icons/ic_search_black_24px.svg">
-    </button>
-    <div class="input-container" ref="inputContainer" :class="{'search-open': searchOpen}">
-      <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
-        @keyup.prevent="throttledSearch"
-        @keydown.prevent.enter="enter"
-        @keydown.prevent.down="down"
-        @keydown.prevent.up="up"
-        @focus="showResults">
-      <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
-        <img src="../assets/icons/ic_close_black_24px.svg">
+  <div class="auto-suggest">
+    <div class="inner-container" v-on-click-outside="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }">
+      <button class="toggle-search" @click.prevent="toggleSearch">
+        <img src="../assets/icons/ic_search_black_24px.svg">
       </button>
+      <div class="input-container" ref="inputContainer" :class="{'search-open': searchOpen}">
+        <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
+          @keyup.prevent="throttledSearch"
+          @keydown.prevent.enter="enter"
+          @keydown.prevent.down="down"
+          @keydown.prevent.up="up"
+          @focus="showResults">
+        <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
+          <img src="../assets/icons/ic_close_black_24px.svg">
+        </button>
+      </div>
+      <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
+        <li v-for="(article, index) in articles">
+          <nuxt-link :to="`/${article.slug}`" :class="{'active': isActive(index)}" @mouseover.native="current = index">
+            <span class="title" v-html="article.title.rendered"></span>
+            <div class="meta">
+              <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+            </div>
+          </nuxt-link>
+        </li>
+      </ul>
     </div>
-    <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
-      <li v-for="(article, index) in articles">
-        <nuxt-link :to="`/${article.slug}`" :class="{'active': isActive(index)}" @mouseover.native="current = index">
-          <span class="title" v-html="article.title.rendered"></span>
-          <div class="meta">
-            <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
-          </div>
-        </nuxt-link>
-      </li>
-    </ul>
     <div class="shade" @click.prevent="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
   </div>
 </template>
@@ -123,36 +125,18 @@ export default {
 @import './assets/css/vars.scss';
 
 .auto-suggest {
+  margin-left: auto;
+  z-index: 1;
+}
+
+.inner-container {
   display: flex;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  margin-left: auto;
   position: relative;
   transition: 0.1s;
-
-  .shade {
-    background-color: rgba(#000, .5);
-    content: '';
-    height: 100%;
-    left: 0;
-    opacity: 0;
-    position: fixed;
-    top: 0;
-    transition: 0.5s;
-    visibility: hidden;
-    width: 100%;
-    z-index: -1;
-
-    &:hover {
-      opacity: 0;
-    }
-
-    &.results-visible {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
+  z-index: 2;
 
   &.results-visible {
     filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.1));
@@ -321,6 +305,29 @@ export default {
         }
       }
     }    
+  }
+}
+
+.shade {
+  background-color: rgba(#000, .5);
+  content: '';
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  transition: 0.5s;
+  visibility: hidden;
+  width: 100%;
+  z-index: -1;
+
+  &:hover {
+    opacity: 0;
+  }
+
+  &.results-visible {
+    opacity: 1;
+    visibility: visible;
   }
 }
 </style>
