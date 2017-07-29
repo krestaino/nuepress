@@ -1,14 +1,19 @@
 <template>
   <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ resultsVisible: (searchQuery.length > 0) && resultsVisible }">
     <div class="input-container">
-      <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery" @keyup="throttledSearch" @focus="showResults">
+      <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
+        @keyup="throttledSearch"
+        @keydown.prevent.enter="enter"
+        @keydown.prevent.down="down"
+        @keydown.prevent.up="up"
+        @focus="showResults">
       <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
         <img src="../assets/icons/ic_close_black_24px.svg">
       </button>
     </div>
     <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
-      <li v-for="article in articles">
-        <nuxt-link :to="`/${article.slug}`">
+      <li v-for="(article, index) in articles">
+        <nuxt-link :to="`/${article.slug}`" :class="{'active': isActive(index)}" @mouseover.native="current = index">
           <span v-html="article.title.rendered"></span>
         </nuxt-link>
       </li>
@@ -28,11 +33,36 @@ export default {
     return {
       resultsVisible: false,
       searchQuery: '',
-      articles: []
+      articles: [],
+      current: -1
     }
   },
 
   methods: {
+    up () {
+      if (this.current <= 0) {
+        this.current = this.articles.length - 1
+      } else {
+        this.current--
+      }
+    },
+
+    down () {
+      if (this.current < this.articles.length - 1) {
+        this.current++
+      } else {
+        this.current = 0
+      }
+    },
+
+    enter () {
+      document.querySelectorAll('.results li')[this.current].querySelector('a').click()
+    },
+
+    isActive (index) {
+      return index === this.current
+    },
+
     clearSearchQuery () {
       this.searchQuery = ''
       this.$refs.searchQuery.focus()
@@ -61,6 +91,7 @@ export default {
 
   watch: {
     '$route' () {
+      this.current = -1
       this.searchQuery = ''
     }
   }
@@ -164,7 +195,8 @@ export default {
       padding: 16px 12px;
       transition: 0.1s;
 
-      &:hover {
+      &:hover,
+      &.active {
         background-color: lighten($primary, 50%);
         color: darken($primary, 30%)
       }
