@@ -57,11 +57,11 @@ export default {
 <style lang="scss">
 @import './assets/css/vars.scss';
 
-.page-enter-active .blog-article {
-  transition: transform 1s cubic-bezier(.11,.89,.31,.99), opacity 1s ease-out;
+.page-enter-active .blog-article .inner-container {
+  transition: transform 1s cubic-bezier(.11,.89,.31,.99), opacity 0.75s ease-out;
 }
 
-.page-enter .blog-article {
+.page-enter .blog-article .inner-container {
   transform: translateY(-16px);
   opacity: 0;
 }
