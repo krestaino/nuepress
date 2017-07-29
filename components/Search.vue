@@ -6,10 +6,10 @@
         <img src="../assets/icons/ic_close_black_24px.svg">
       </button>
     </div>
-    <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && posts.length">
-      <li v-for="post in posts">
-        <nuxt-link :to="`/${post.slug}`">
-          <span v-html="post.title.rendered"></span>
+    <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
+      <li v-for="article in articles">
+        <nuxt-link :to="`/${article.slug}`">
+          <span v-html="article.title.rendered"></span>
         </nuxt-link>
       </li>
     </ul>
@@ -28,7 +28,7 @@ export default {
     return {
       resultsVisible: false,
       searchQuery: '',
-      posts: []
+      articles: []
     }
   },
 
@@ -51,9 +51,9 @@ export default {
     }, 350),
 
     search () {
-      axios.get(`${this.$store.state.wpAPI}/wp/v2/posts?search=${this.searchQuery}`)
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/articles?search=${this.searchQuery}`)
         .then(response => {
-          this.posts = response.data
+          this.articles = response.data
           this.showResults()
         })
     }

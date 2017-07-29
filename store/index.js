@@ -4,36 +4,36 @@ const store = () => new Vuex.Store({
 
   state: {
     topics: null,
-    topicPosts: [],
+    topicArticles: [],
     meta: null,
-    post: null,
-    posts: [],
+    article: null,
+    articles: [],
     authors: null,
-    authorPosts: [],
-    wpAPI: 'https://wp.kmr.io/wp-json'
+    authorArticles: [],
+    wordpressAPI: 'https://wp.kmr.io/wp-json'
   },
 
   mutations: {
     setTopics (state, data) {
       state.topics = data
     },
-    setTopicPosts (state, data) {
-      state.topicPosts.push(data)
+    setTopicArticles (state, data) {
+      state.topicArticles.push(data)
     },
     setMeta (state, data) {
       state.meta = data
     },
-    setPost (state, data) {
-      state.post = data
+    setArticle (state, data) {
+      state.article = data
     },
-    setPosts (state, data) {
-      state.posts = state.posts.concat(data)
+    setArticles (state, data) {
+      state.articles = state.articles.concat(data)
     },
     setAuthors (state, data) {
       state.authors = data
     },
-    setAuthorPosts (state, data) {
-      state.authorPosts.push(data)
+    setauthorArticles (state, data) {
+      state.authorArticles.push(data)
     }
   }
 })

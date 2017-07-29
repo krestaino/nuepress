@@ -24,15 +24,15 @@ import moment from 'moment'
 export default {
   computed: {
     meta () { return this.$store.state.meta },
-    post () { return this.$store.state.post }
+    post () { return this.$store.state.article }
   },
 
   async fetch ({ store, params }) {
-    let posts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
-    store.commit('setPost', posts.data[0])
+    let posts = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
+    store.commit('setArticle', posts.data[0])
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wpAPI)
+      let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },

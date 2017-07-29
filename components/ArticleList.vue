@@ -1,16 +1,16 @@
 <template>
   <div>
-    <article class="postList" v-for="post in posts" :key="post.id">
+    <article class="articleList" v-for="article in articles" :key="article.id">
       <div class="row date">
-        <span v-html="timestamp(post.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic" v-for="topic in post._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
+        <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
       </div>
-      <nuxt-link :to="`/${post.slug}`" class="row">
+      <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
-          <img v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+          <img v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
         </div>
         <div class="col">
-          <h2 v-html="post.title.rendered"></h2>
-          <div v-html="post.excerpt.rendered"></div>
+          <h2 v-html="article.title.rendered"></h2>
+          <div v-html="article.excerpt.rendered"></div>
         </div>
       </nuxt-link>
     </article>
@@ -21,7 +21,7 @@
 import moment from 'moment'
 
 export default {
-  props: ['posts'],
+  props: ['articles'],
 
   methods: {
     timestamp (date) { return moment(date).format('MMM d') }
@@ -36,7 +36,7 @@ section {
   margin: 0 auto;
 }
 
-article.postList {
+article.articleList {
   & + article {
     border-top: 1px dotted lighten($primary, 20%);
     margin-top: 32px;

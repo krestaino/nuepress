@@ -2,7 +2,7 @@
   <section class="outer-container">
     <h1 class="page-title" v-html="topic.name"></h1>
     <p v-html="topic.description"></p>
-    <article-list :posts="topicPosts.posts"></article-list>
+    <article-list :posts="topicArticles.posts"></article-list>
   </section>
 </template>
 
@@ -19,24 +19,24 @@ export default {
   computed: {
     meta () { return this.$store.state.meta },
     topic () { return _.find(this.$store.state.topics, {'slug': this.$route.params.slug}) },
-    topicPosts () { return _.find(this.$store.state.topicPosts, {'slug': this.$route.params.slug}) },
+    topicArticles () { return _.find(this.$store.state.topicArticles, {'slug': this.$route.params.slug}) },
     topics () { return this.$store.state.topics }
   },
 
   async asyncData ({ store, params }) {
     if (!store.state.topics) {
-      let topics = await axios.get(`${store.state.wpAPI}/wp/v2/categories?per_page=100`)
+      let topics = await axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
       store.commit('setTopics', topics.data)
     }
 
-    if (!_.find(store.state.topicPosts, {'slug': params.slug})) {
+    if (!_.find(store.state.topicArticles, {'slug': params.slug})) {
       let topic = _.find(store.state.topics, {'slug': params.slug})
-      let topicPosts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
-      store.commit('setTopicPosts', {slug: params.slug, posts: topicPosts.data})
+      let topicArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
+      store.commit('setTopicArticles', {slug: params.slug, posts: topicArticles.data})
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wpAPI)
+      let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },

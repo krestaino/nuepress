@@ -25,12 +25,12 @@ export default {
 
   async asyncData ({ store, params }) {
     if (!store.state.topics) {
-      let topics = await axios.get(`${store.state.wpAPI}/wp/v2/categories?per_page=100`)
+      let topics = await axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
       store.commit('setTopics', topics.data)
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wpAPI)
+      let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },

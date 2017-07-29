@@ -25,12 +25,12 @@ export default {
 
   async asyncData ({ store, params }) {
     if (!store.state.authors) {
-      let authors = await axios.get(`${store.state.wpAPI}/wp/v2/users?per_page=100`)
+      let authors = await axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
       store.commit('setAuthors', authors.data)
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wpAPI)
+      let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },

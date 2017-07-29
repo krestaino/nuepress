@@ -22,26 +22,26 @@ export default {
 
   computed: {
     meta () { return this.$store.state.meta },
-    posts () { return this.$store.state.posts }
+    posts () { return this.$store.state.articles }
   },
 
   async asyncData ({ store, params }) {
-    if (store.state.posts.length === 0) {
-      let posts = await axios.get(`${store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&_embed`)
-      store.commit('setPosts', posts.data)
+    if (store.state.articles.length === 0) {
+      let posts = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed`)
+      store.commit('setArticles', posts.data)
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wpAPI)
+      let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },
 
   methods: {
     morePosts () {
-      axios.get(`${this.$store.state.wpAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
         .then(response => {
-          this.$store.commit('setPosts', response.data)
+          this.$store.commit('setArticles', response.data)
         })
         .catch(error => {
           console.log(error)
