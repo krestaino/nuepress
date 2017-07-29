@@ -2,20 +2,22 @@
   <main class="outer-container">
     <div class="inner-container">
       <article-list :articles="articles"></article-list>
-      <button @click="morearticles">More Articles</button>
+      <infinite-loading :on-infinite="moreArticles" ref="infiniteLoading"></infinite-loading>
     </div>
     <sidebar></sidebar>
   </main>
 </template>
 
 <script>
-import ArticleList from '~/components/ArticleList'
 import axios from 'axios'
+import ArticleList from '~/components/ArticleList'
+import InfiniteLoading from '~/components/InfiniteLoading'
 import Sidebar from '~/components/Sidebar'
 
 export default {
   components: {
     ArticleList,
+    InfiniteLoading,
     Sidebar
   },
 
@@ -43,13 +45,15 @@ export default {
   },
 
   methods: {
-    morearticles () {
+    moreArticles () {
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
         .then(response => {
           this.$store.commit('setArticles', response.data)
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
         })
         .catch(error => {
           console.log(error)
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
         })
     }
   },
@@ -75,10 +79,5 @@ export default {
     max-width: 900px;
     width: 100%;
   }
-}
-
-button {
-  display: block;
-  margin: 32px auto 0;
 }
 </style>

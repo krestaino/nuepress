@@ -19,7 +19,9 @@ export default {
 @import './assets/css/vars.scss';
 
 footer {
+  background-color: #fff;
   color: #aaa;
+  font-family: 'Roboto', sans-serif;
   font-size: .7rem;
   margin-top: auto;
   padding: 64px 0;
