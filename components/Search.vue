@@ -98,7 +98,7 @@ export default {
 
     throttledSearch: _.throttle(function () {
       this.search()
-    }, 350),
+    }, 200),
 
     toggleSearch () {
       this.searchOpen = !this.searchOpen
