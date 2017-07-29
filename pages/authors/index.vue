@@ -73,7 +73,7 @@ section.page {
         font-size: 1.3rem;
         margin-bottom: 4px;
         margin-top: 0;
-        font-weight: 700;
+        font-weight: 400;
       }
 
       span {

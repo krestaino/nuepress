@@ -77,7 +77,7 @@ header {
     h1 {
       color: #666;
       font-size: 1.1rem;
-      font-weight: 700;
+      font-weight: 400;
     }
 
     p {
@@ -89,7 +89,7 @@ header {
     border-color: lighten($primary, 40%);
     color: #999;
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 300;
     text-decoration: none;
     transition: color 0.1s, border-color 0.1s;
 
