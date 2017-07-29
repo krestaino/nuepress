@@ -17,10 +17,15 @@
       </div>
       <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
         <li v-for="(article, index) in articles">
-          <nuxt-link :to="`/${article.slug}`" :class="{'active': isActive(index)}" @mouseover.native="current = index">
-            <span class="title" v-html="article.title.rendered"></span>
-            <div class="meta">
-              <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+          <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': isActive(index)}" @mouseover.native="current = index">
+            <div class="col">
+              <img v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+            </div>
+            <div class="col copy">
+              <span class="title" v-html="article.title.rendered"></span>
+              <div class="meta">
+                <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+              </div>
             </div>
           </nuxt-link>
         </li>
@@ -270,6 +275,10 @@ export default {
         }
       }
 
+      .row {
+        display: flex;
+      }
+
       .title {
         font-weight: 700;
       }
@@ -296,12 +305,24 @@ export default {
         color: $primary;
         display: block;
         font-size: 80%;
-        padding: 16px 12px;
         transition: 0.1s;
 
         &.active {
           background-color: lighten($primary, 70%);
           color: darken($primary, 30%);
+        }
+
+        .copy {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 16px 12px;
+        }
+
+        img {
+          display: block;
+          height: 75px;
+          width: 75px;
         }
       }
     }    
