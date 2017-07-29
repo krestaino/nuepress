@@ -77,6 +77,7 @@ a {
   align-items: center;
   display: flex;
   margin: 0 auto;
-  padding: 22px 0;
+  padding-bottom: 22px;
+  padding-top: 22px;
 }
 </style>
