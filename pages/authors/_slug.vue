@@ -2,7 +2,7 @@
   <section class="outer-container">
     <h1 class="page-title" v-html="author.name"></h1>
     <p v-html="author.description"></p>
-    <article-list :posts="authorArticles.posts"></article-list>
+    <article-list :articles="authorArticles.articles"></article-list>
   </section>
 </template>
 
@@ -32,7 +32,7 @@ export default {
     if (!_.find(store.state.authorArticles, {'slug': params.slug})) {
       let author = _.find(store.state.authors, {'slug': params.slug})
       let authorArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
-      store.commit('setauthorArticles', {slug: params.slug, posts: authorArticles.data})
+      store.commit('setauthorArticles', {slug: params.slug, articles: authorArticles.data})
     }
 
     if (!store.state.meta) {

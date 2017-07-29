@@ -51,7 +51,7 @@ export default {
     }, 350),
 
     search () {
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/articles?search=${this.searchQuery}`)
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}`)
         .then(response => {
           this.articles = response.data
           this.showResults()

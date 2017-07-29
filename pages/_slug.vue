@@ -1,17 +1,17 @@
 <template>
   <main class="outer-container">
     <article class="blog-article">
-      <img class="featured" v-if="post._embedded['wp:featuredmedia']" :src="post._embedded['wp:featuredmedia'][0].source_url">
+      <img class="featured" v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].source_url">
       <div class="inner-container">
         <div class="meta">
-          <h1 class="title" v-html="post.title.rendered"></h1>
+          <h1 class="title" v-html="article.title.rendered"></h1>
           <div class="details">
-            <span v-html="timestamp(post.date)"></span>
+            <span v-html="timestamp(article.date)"></span>
             <span class="separator">|</span>
-            <nuxt-link class="author" :to="`/authors/${post._embedded.author[0].slug}`" v-html="post._embedded.author[0].name"></nuxt-link>
+            <nuxt-link class="author" :to="`/authors/${article._embedded.author[0].slug}`" v-html="article._embedded.author[0].name"></nuxt-link>
           </div>
         </div>
-        <div class="content" v-html="post.content.rendered"></div>
+        <div class="content" v-html="article.content.rendered"></div>
       </div>
     </article>
   </main>
@@ -24,12 +24,12 @@ import moment from 'moment'
 export default {
   computed: {
     meta () { return this.$store.state.meta },
-    post () { return this.$store.state.article }
+    article () { return this.$store.state.article }
   },
 
   async fetch ({ store, params }) {
-    let posts = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
-    store.commit('setArticle', posts.data[0])
+    let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
+    store.commit('setArticle', articles.data[0])
 
     if (!store.state.meta) {
       let meta = await axios.get(store.state.wordpressAPI)
@@ -43,9 +43,9 @@ export default {
 
   head () {
     return {
-      title: `${this.post.title.rendered} | ${this.meta.name}`,
+      title: `${this.article.title.rendered} | ${this.meta.name}`,
       meta: [
-        { description: this.post.excerpt.rendered.replace(/(<([^>]+)>)/ig, '') } // strips html tags
+        { description: this.article.excerpt.rendered.replace(/(<([^>]+)>)/ig, '') } // strips html tags
       ]
     }
   }

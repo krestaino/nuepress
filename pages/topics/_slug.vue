@@ -2,7 +2,7 @@
   <section class="outer-container">
     <h1 class="page-title" v-html="topic.name"></h1>
     <p v-html="topic.description"></p>
-    <article-list :posts="topicArticles.posts"></article-list>
+    <article-list :articles="topicArticles.articles"></article-list>
   </section>
 </template>
 
@@ -32,7 +32,7 @@ export default {
     if (!_.find(store.state.topicArticles, {'slug': params.slug})) {
       let topic = _.find(store.state.topics, {'slug': params.slug})
       let topicArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
-      store.commit('setTopicArticles', {slug: params.slug, posts: topicArticles.data})
+      store.commit('setTopicArticles', {slug: params.slug, articles: topicArticles.data})
     }
 
     if (!store.state.meta) {

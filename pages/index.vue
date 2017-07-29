@@ -1,7 +1,7 @@
 <template>
   <main class="outer-container">
-    <article-list :posts="posts"></article-list>
-    <button @click="morePosts">More Articles</button>
+    <article-list :articles="articles"></article-list>
+    <button @click="morearticles">More Articles</button>
   </main>
 </template>
 
@@ -22,13 +22,13 @@ export default {
 
   computed: {
     meta () { return this.$store.state.meta },
-    posts () { return this.$store.state.articles }
+    articles () { return this.$store.state.articles }
   },
 
   async asyncData ({ store, params }) {
     if (store.state.articles.length === 0) {
-      let posts = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed`)
-      store.commit('setArticles', posts.data)
+      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed`)
+      store.commit('setArticles', articles.data)
     }
 
     if (!store.state.meta) {
@@ -38,7 +38,7 @@ export default {
   },
 
   methods: {
-    morePosts () {
+    morearticles () {
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
         .then(response => {
           this.$store.commit('setArticles', response.data)
