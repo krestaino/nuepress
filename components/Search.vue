@@ -144,7 +144,7 @@ export default {
   z-index: 2;
 
   &.results-visible {
-    filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.1));
+    filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.2));
 
     .input-container input {
       border-bottom-left-radius: 0px;
@@ -169,7 +169,9 @@ export default {
     }
 
     &.toggle-search {
-      left: -40px;
+      left: -32px;
+      height: 100%;
+      width: 32px;
 
       img {
         height: 24px;
@@ -202,7 +204,7 @@ export default {
     will-change: width;
 
     &.search-open {
-      width: 540px;
+      width: 476px;
     }
 
     input {

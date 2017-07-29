@@ -1,5 +1,5 @@
 <template>
-  <section class="outer-container page">
+  <main class="outer-container page">
     <div class="page-title">
       <h1>Topics</h1>
     </div>
@@ -12,7 +12,7 @@
         </nuxt-link>
       </li>
     </ul>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -50,10 +50,9 @@ export default {
 <style scoped lang="scss">
 @import './assets/css/vars.scss';
 
-section.page {
-  h1 {
-    margin-top: 48px;
-  }
+main.page {
+  background-color: #efefef;
+  padding: 0 32px 64px 32px;
 
   ul {
     column-count: 3;

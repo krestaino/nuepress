@@ -1,8 +1,10 @@
 <template>
   <footer>
-    <nuxt-link class="fancy" to="/" exact><span v-html="meta.name"></span></nuxt-link>
-    <div v-if="meta.description" v-html="meta.description"></div>
-    <div>© {{ year }}</div>
+    <div class="outer-container">
+      <nuxt-link class="fancy" to="/" exact><span v-html="meta.name"></span></nuxt-link>
+      <div v-if="meta.description" v-html="meta.description"></div>
+      <div>© {{ year }}</div>
+    </div>
   </footer>
 </template>
 
@@ -19,13 +21,21 @@ export default {
 @import './assets/css/vars.scss';
 
 footer {
-  background-color: #fff;
-  color: #aaa;
-  font-family: 'Roboto', sans-serif;
-  font-size: .7rem;
-  margin-top: auto;
-  padding: 64px 0;
-  text-align: center;
+  
+
+  .outer-container {
+    align-items: center;
+    background-color: #fff;
+    color: #aaa;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    font-family: 'Roboto', sans-serif;
+    font-size: .7rem;
+    margin-top: auto;
+    padding: 64px 32px;
+    text-align: center;
+  }
 
   a {
     color: #aaa;

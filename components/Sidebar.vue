@@ -25,10 +25,14 @@ aside {
 
   .inner-container {
     background-color: #fff;
-    padding: 48px;
+    padding: 0 32px 32px 32px;
 
     > *:first-child {
       margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
     }
   }
 }

@@ -56,10 +56,16 @@ body {
 
 #blog {
   display: flex;
+  filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.2));
   flex-direction: column;
   min-height: 100vh;
   overflow: hidden;
-  padding-top: 100px;
+  padding-top: 80px;
+}
+
+main {
+  background-color: #efefef;
+  min-height: calc(100vh - 80px - 200px);
 }
 
 .page-enter-active {
@@ -73,7 +79,6 @@ body {
 .outer-container {
   margin: 0 auto;
   max-width: 1440px;
-  padding: 0 1rem;
   width: 100%;
 }
 

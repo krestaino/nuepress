@@ -1,5 +1,5 @@
 <template>
-  <section class="outer-container">
+  <main class="outer-container">
     <div class="inner-container">
       <div class="page-title">
         <h1 v-html="author.name"></h1>
@@ -8,7 +8,7 @@
       <article-list :articles="authorArticles.articles"></article-list>
     </div>
     <sidebar></sidebar>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -22,6 +22,7 @@ export default {
     ArticleList,
     Sidebar
   },
+
   computed: {
     meta () { return this.$store.state.meta },
     author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.slug}) },
@@ -63,17 +64,17 @@ export default {
 
 .outer-container {
   display: flex;
-  padding-top: 48px;
 
   .inner-container {
-    margin-right: 48px;
+    background-color: #efefef;
+    padding: 0 32px;
     max-width: 900px;
     width: 100%;
   }
 
   .page-title {
-    margin-bottom: 32px;
-    margin-top: 0;
+    padding-bottom: 32px;
+    padding-top: 0;
   }
 }
 </style>

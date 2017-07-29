@@ -93,20 +93,24 @@ export default {
 <style scoped lang="scss">
 .outer-container {
   display: flex;
-  padding-top: 48px;
 
   .inner-container {
-    margin-right: 48px;
+    background-color: #efefef;
+    padding-right: 32px;
     max-width: 900px;
     width: 100%;
   }
 
   .featured {
     margin-bottom: 32px;
+    margin-top: 32px;
+    margin-top: 0;
+    margin-right: -32px;
 
     &:before {
       content: '';
       display: block;
+      pointer-events: none;
       position: absolute;
       top: 0;
       right: 0;
@@ -117,6 +121,7 @@ export default {
           to top, 
           rgba(0,0,0,.85), rgba(0,0,0,0) 60%
         );
+      z-index: 2;
     }
 
     a {
@@ -132,6 +137,7 @@ export default {
       padding: 32px;
       position: absolute;
       text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+      z-index: 2;
 
       a {
         color: #eee;
@@ -160,6 +166,7 @@ export default {
       padding: 32px;
       position: absolute;
       text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+      z-index: 2;
 
       h2 {
         color: #eee;
@@ -176,7 +183,7 @@ export default {
     img {
       display: block;
       max-width: 100%;
-      z-index: -1;
+      z-index: 1;
     }
   }
 }

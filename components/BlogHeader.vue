@@ -50,7 +50,6 @@ export default {
 @import './assets/css/vars.scss';
 
 header {
-  background-color: #fff;
   font-family: 'Roboto', sans-serif;
   position: fixed;
   top: 0;
@@ -64,10 +63,11 @@ header {
 
   .outer-container {
     align-items: center;
+    background-color: #fff;
     display: flex;
+    height: 80px;
     margin: 0 auto;
-    padding-bottom: 22px;
-    padding-top: 22px;
+    padding: 0 32px;
     transition: padding-top 0.5s, padding-bottom 0.5s;
   }
 
