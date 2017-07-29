@@ -1,19 +1,19 @@
 <template>
-  <div id="app">
-    <app-header/>
+  <div id="blog">
+    <blog-header/>
     <nuxt/>
-    <app-footer/>
+    <blog-footer/>
   </div>
 </template>
 
 <script>
-import AppHeader from '../components/AppHeader'
-import AppFooter from '../components/AppFooter'
+import BlogHeader from '../components/BlogHeader'
+import BlogFooter from '../components/BlogFooter'
 
 export default {
   components: {
-    AppHeader,
-    AppFooter
+    BlogHeader,
+    BlogFooter
   }
 }
 </script>
@@ -44,7 +44,7 @@ body {
   line-height: 30px;
 }
 
-#app {
+#blog {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
