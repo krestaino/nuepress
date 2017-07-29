@@ -195,10 +195,9 @@ export default {
       padding: 16px 12px;
       transition: 0.1s;
 
-      &:hover,
       &.active {
         background-color: lighten($primary, 50%);
-        color: darken($primary, 30%)
+        color: darken($primary, 30%);
       }
     }
   }
