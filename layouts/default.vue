@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <SiteNav/>
+    <app-header/>
     <nuxt/>
-    <SiteFoot/>
+    <app-footer/>
   </div>
 </template>
 
 <script>
-import SiteNav from '../components/SiteNav'
-import SiteFoot from '../components/SiteFoot'
+import AppHeader from '../components/AppHeader'
+import AppFooter from '../components/AppFooter'
 
 export default {
   components: {
-    SiteNav,
-    SiteFoot
+    AppHeader,
+    AppFooter
   }
 }
 </script>

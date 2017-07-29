@@ -1,19 +1,17 @@
 <template>
   <main class="outer-container">
-    <div>
-      <PostList :posts="posts"/>
-      <button @click="morePosts">More Articles</button>
-    </div>
+    <article-list :posts="posts"></article-list>
+    <button @click="morePosts">More Articles</button>
   </main>
 </template>
 
 <script>
+import ArticleList from '~/components/ArticleList'
 import axios from 'axios'
-import PostList from '~/components/PostList'
 
 export default {
   components: {
-    PostList
+    ArticleList
   },
 
   data () {

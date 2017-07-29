@@ -2,18 +2,18 @@
   <section class="outer-container">
     <h1 class="page-title" v-html="author.name"></h1>
     <p v-html="author.description"></p>
-    <PostList :posts="authorPosts.posts"/>
+    <article-list :posts="authorPosts.posts"></article-list>
   </section>
 </template>
 
 <script>
-import axios from 'axios'
 import _ from 'lodash'
-import PostList from '~/components/PostList'
+import ArticleList from '~/components/ArticleList'
+import axios from 'axios'
 
 export default {
   components: {
-    PostList
+    ArticleList
   },
 
   computed: {

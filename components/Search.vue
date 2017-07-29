@@ -18,8 +18,8 @@
 
 <script>
 import _ from 'lodash'
-import axios from 'axios'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
+import axios from 'axios'
 
 export default {
   mixins: [onClickOutside],
