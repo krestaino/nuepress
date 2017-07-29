@@ -25,7 +25,7 @@ aside {
 
   .inner-container {
     background-color: #fff;
-    padding: 0 32px 32px 32px;
+    padding: 32px;
 
     > *:first-child {
       margin-top: 0;
