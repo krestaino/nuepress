@@ -10,10 +10,14 @@ const store = () => new Vuex.Store({
     articles: [],
     authors: null,
     authorArticles: [],
+    featuredArticles: [],
     wordpressAPI: 'https://wp.kmr.io/wp-json'
   },
 
   mutations: {
+    setFeaturedArticles (state, data) {
+      state.featuredArticles.push(data)
+    },
     setTopics (state, data) {
       state.topics = data
     },
