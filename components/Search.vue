@@ -1,6 +1,9 @@
 <template>
   <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ resultsVisible: (searchQuery.length > 0) && resultsVisible }">
-    <div class="input-container">
+    <button class="toggle-search" @click.prevent="toggleSearch">
+      <img src="../assets/icons/ic_search_black_24px.svg">
+    </button>
+    <div class="input-container" ref="inputContainer" :class="{'searchOpen': searchOpen}">
       <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
         @keyup="throttledSearch"
         @keydown.prevent.enter="enter"
@@ -32,6 +35,7 @@ export default {
   data () {
     return {
       resultsVisible: false,
+      searchOpen: false,
       searchQuery: '',
       articles: [],
       current: -1
@@ -80,6 +84,13 @@ export default {
       this.search()
     }, 350),
 
+    toggleSearch () {
+      this.searchOpen = !this.searchOpen
+      this.$refs.searchQuery.focus()
+      this.articles = []
+      this.searchQuery = ''
+    },
+
     search () {
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}`)
         .then(response => {
@@ -93,6 +104,7 @@ export default {
     '$route' () {
       this.current = -1
       this.searchQuery = ''
+      this.searchOpen = false
     }
   }
 }
@@ -102,34 +114,92 @@ export default {
 @import './assets/css/vars.scss';
 
 .auto-suggest {
+  display: flex;
   margin-left: auto;
   position: relative;
   transition: 0.1s;
 
   &.resultsVisible {
     filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.1));
+
+    .input-container input {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+  }
+
+  button {
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+
+    &:hover {
+      img {
+        opacity: 1;
+      }
+    }
+
+    &.toggle-search {
+      left: -40px;
+
+      img {
+        height: 24px;
+        width: 24px;
+      }
+    }
+
+    &.clear {
+      border-left: 1px solid lighten($primary, 30%);
+      padding: 12px;
+      right: 0;
+      top: 0;
+
+      img {
+        height: 16px;
+        width: 16px;
+      }
+    }
+
+    img {
+      opacity: 0.5;
+      transition: 0.1s;
+    }
   }
 
   .input-container {
+    overflow: hidden;
+    transition: 0.5s;
+    width: 0;
+
+    &.searchOpen {
+      width: 420px;
+    }
+
     input {
-      border: 1px solid lighten($primary, 20%);
+      border: 1px solid lighten($primary, 30%);
+      border-radius: 3px;
       outline: 0;
       padding: 8px;
       font-family: 'Open Sans', sans-serif;
       font-size: 90%;
-      min-width: 320px;
       transition: 0.1s;
       width: 100%;
+
 
       &::placeholder {
         color: lighten($primary, 30%);
       }
 
       &:focus {
-        border-color: $primary;
+        border-color: lighten($primary, 15%);
 
         & + .clear {
-          border-color: $primary;
+          border-color: lighten($primary, 15%);
         }
 
         &::placeholder {
@@ -137,39 +207,13 @@ export default {
         }
       }
     }
-
-    .clear {
-      align-items: center;
-      background-color: transparent;
-      border: 0;
-      border-left: 1px solid lighten($primary, 20%);
-      cursor: pointer;
-      display: flex;
-      height: 100%;
-      justify-content: center;
-      padding: 12px;
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      &:hover {
-        img {
-          opacity: 1;
-        }
-      }
-
-      img {
-        height: 16px;
-        opacity: 0.5;
-        transition: 0.1s;
-        width: 16px;
-      }
-    }
   }
 
   .results {
     background-color: #fff;
-    border: 1px solid $primary;
+    border: 1px solid lighten($primary, 15%);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     border-top: 0;
     list-style: none;
     margin: 0;
@@ -184,7 +228,7 @@ export default {
       line-height: 1.2;
 
       & + li {
-        border-top: 1px dotted lighten($primary, 20%);
+        border-top: 1px dotted lighten($primary, 30%);
       }
     }
 
