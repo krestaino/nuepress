@@ -1,7 +1,8 @@
 <template>
   <footer>
-    <nuxt-link to="/" exact><span v-html="meta.name"></span></nuxt-link>
-    <p v-if="meta.description" v-html="meta.description"></p>
+    <nuxt-link class="fancy" to="/" exact><span v-html="meta.name"></span></nuxt-link>
+    <div v-if="meta.description" v-html="meta.description"></div>
+    <div>© {{ year }}</div>
   </footer>
 </template>
 
@@ -19,13 +20,13 @@ export default {
 
 footer {
   color: #aaa;
-  font-size: 60%;
+  font-size: .7rem;
   margin-top: auto;
   padding: 64px 0;
   text-align: center;
 
   a {
-    color: $primary;
+    color: #aaa;
   }
 }
 </style>

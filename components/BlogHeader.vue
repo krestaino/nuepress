@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header :class="{'shrink': navShrinkActive}">
     <div class="outer-container">
       <nuxt-link class="blog-title" to="/" exact><h1 v-html="meta.name"></h1></nuxt-link>
       <nav>
@@ -20,8 +20,28 @@ export default {
     Search
   },
 
+  data () {
+    return {
+      navShrinkActive: false
+    }
+  },
+
   computed: {
     meta () { return this.$store.state.meta }
+  },
+
+  methods: {
+    headerShrink () {
+      (window.pageYOffset > 100)
+        ? this.navShrinkActive = true
+        : this.navShrinkActive = false
+    }
+  },
+
+  mounted () {
+    window.document.body.onscroll = () => {
+      this.headerShrink()
+    }
   }
 }
 </script>
@@ -31,53 +51,61 @@ export default {
 
 header {
   background-color: #fff;
-  position: sticky;
+  font-family: 'Roboto', sans-serif;
+  position: fixed;
   top: 0;
+  width: 100%;
   z-index: 10;
-}
 
-.blog-title {
-  margin-right: 32px;
-
-  h1 {
-    color: #666;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-  }
-
-  p {
-    margin-top: 4px;
-  }
-}
-
-a {
-  border-color: lighten($primary, 40%);
-  color: #999;
-  font-size: 0.85rem;
-  text-decoration: none;
-  transition: color 0.1s, border-color 0.1s;
-
-  & + a {
-    margin-left: 32px;
-  }
-
-  &.nuxt-link-active:not(.blog-title) {
+  &.shrink .outer-container {
     padding-bottom: 4px;
-    border-bottom: 2px solid;
+    padding-top: 4px;
   }
 
-  &:hover {
-    color: #555;
-    border-color: #555;
+  .outer-container {
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    padding-bottom: 22px;
+    padding-top: 22px;
+    transition: padding-top 0.5s, padding-bottom 0.5s;
   }
-}
 
-.outer-container {
-  align-items: center;
-  display: flex;
-  margin: 0 auto;
-  padding-bottom: 22px;
-  padding-top: 22px;
+  .blog-title {
+    margin-right: 32px;
+
+    h1 {
+      color: #666;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin-top: 4px;
+    }
+  }
+
+  a {
+    border-color: lighten($primary, 40%);
+    color: #999;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.1s, border-color 0.1s;
+
+    & + a {
+      margin-left: 32px;
+    }
+
+    &.nuxt-link-active:not(.blog-title) {
+      padding-bottom: 4px;
+      border-bottom: 2px solid;
+    }
+
+    &:hover {
+      color: #555;
+      border-color: #555;
+    }
+  }
 }
 </style>

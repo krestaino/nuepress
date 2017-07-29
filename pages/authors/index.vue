@@ -1,6 +1,8 @@
 <template>
   <section class="outer-container page">
-    <h1 class="page-title">Authors</h1>
+    <div class="page-title">
+      <h1>Authors</h1>
+    </div>
     <ul>
       <li v-for="author in authors">
         <nuxt-link :to="`/authors/${author.slug}`">
@@ -48,9 +50,13 @@ export default {
 @import './assets/css/vars.scss';
 
 section.page {
+  h1 {
+    margin-top: 48px;
+  }
+
   ul {
     column-count: 3;
-    column-gap: 32px;
+    column-gap: 64px;
     padding: 0;
     list-style: none;
 
@@ -58,18 +64,26 @@ section.page {
       break-inside: avoid;
 
       & + li {
-        margin-top: 24px;
+        margin-top: 32px;
       }
 
       h2 {
-        font-size: 1rem;
+        display: inline-block;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.3rem;
         margin-bottom: 4px;
         margin-top: 0;
+        font-weight: 700;
+      }
+
+      span {
+        color: lighten($primary, 15%);
+        font-size: 0.8rem;
+        margin-left: 4px;
       }
 
       a {
         color: #111;
-        font-family: 'Roboto', sans-serif;
 
         &:hover div {
           color: #111;
@@ -77,8 +91,7 @@ section.page {
 
         div {
           color: lighten($primary, 10%);
-          font-size: 80%;
-          margin-top: 0;
+          margin-top: 8px;
           transition: 0.1s;
         }
       }
@@ -86,3 +99,4 @@ section.page {
   }
 }
 </style>
+

@@ -1,17 +1,22 @@
 <template>
   <main class="outer-container">
-    <article-list :articles="articles"></article-list>
-    <button @click="morearticles">More Articles</button>
+    <div class="inner-container">
+      <article-list :articles="articles"></article-list>
+      <button @click="morearticles">More Articles</button>
+    </div>
+    <sidebar></sidebar>
   </main>
 </template>
 
 <script>
 import ArticleList from '~/components/ArticleList'
 import axios from 'axios'
+import Sidebar from '~/components/Sidebar'
 
 export default {
   components: {
-    ArticleList
+    ArticleList,
+    Sidebar
   },
 
   data () {
@@ -61,7 +66,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-main {
-  padding-top: 32px;
+.outer-container {
+  display: flex;
+  padding-top: 48px;
+
+  .inner-container {
+    margin-right: 48px;
+    max-width: 900px;
+    width: 100%;
+  }
 }
 </style>

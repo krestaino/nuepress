@@ -1,8 +1,13 @@
 <template>
   <section class="outer-container">
-    <h1 class="page-title" v-html="author.name"></h1>
-    <p v-html="author.description"></p>
-    <article-list :articles="authorArticles.articles"></article-list>
+    <div class="inner-container">
+      <div class="page-title">
+        <h1 v-html="author.name"></h1>
+        <p v-html="author.description"></p>
+      </div>
+      <article-list :articles="authorArticles.articles"></article-list>
+    </div>
+    <sidebar></sidebar>
   </section>
 </template>
 
@@ -10,12 +15,13 @@
 import _ from 'lodash'
 import ArticleList from '~/components/ArticleList'
 import axios from 'axios'
+import Sidebar from '~/components/Sidebar'
 
 export default {
   components: {
-    ArticleList
+    ArticleList,
+    Sidebar
   },
-
   computed: {
     meta () { return this.$store.state.meta },
     author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.slug}) },
@@ -55,11 +61,18 @@ export default {
 <style scoped lang="scss">
 @import './assets/css/vars.scss';
 
-h1 {
-  margin-bottom: 4px;
-}
+.outer-container {
+  display: flex;
+  padding-top: 48px;
 
-p {
-  margin-bottom: 32px;
+  .inner-container {
+    margin-right: 48px;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .page-title {
+    margin-top: 0;
+  }
 }
 </style>

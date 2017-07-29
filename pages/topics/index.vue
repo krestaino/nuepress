@@ -1,6 +1,8 @@
 <template>
   <section class="outer-container page">
-    <h1 class="page-title">Topics</h1>
+    <div class="page-title">
+      <h1>Topics</h1>
+    </div>
     <ul>
       <li v-for="topic in topics">
         <nuxt-link :to="`/topics/${topic.slug}`">
@@ -49,9 +51,13 @@ export default {
 @import './assets/css/vars.scss';
 
 section.page {
+  h1 {
+    margin-top: 48px;
+  }
+
   ul {
     column-count: 3;
-    column-gap: 32px;
+    column-gap: 64px;
     padding: 0;
     list-style: none;
 
@@ -59,14 +65,16 @@ section.page {
       break-inside: avoid;
 
       & + li {
-        margin-top: 24px;
+        margin-top: 32px;
       }
 
       h2 {
         display: inline-block;
-        font-size: 1rem;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.3rem;
         margin-bottom: 4px;
         margin-top: 0;
+        font-weight: 700;
       }
 
       span {
@@ -77,7 +85,6 @@ section.page {
 
       a {
         color: #111;
-        font-family: 'Roboto', sans-serif;
 
         &:hover div {
           color: #111;
@@ -85,8 +92,7 @@ section.page {
 
         div {
           color: lighten($primary, 10%);
-          font-size: 80%;
-          margin-top: 0;
+          margin-top: 8px;
           transition: 0.1s;
         }
       }

@@ -59,6 +59,7 @@ article.articleList {
   .date {
     font-family: 'Roboto', sans-serif;
     font-size: 0.7rem;
+    font-weight: 700;
     margin-bottom: 12px;
     text-transform: uppercase;
 
@@ -80,7 +81,7 @@ article.articleList {
 
   h2 {
     color: #111;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 400;
     margin-bottom: 8px;
     margin-top: -6px;

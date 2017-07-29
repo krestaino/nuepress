@@ -115,6 +115,9 @@ export default {
 
 .auto-suggest {
   display: flex;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   margin-left: auto;
   position: relative;
   transition: 0.1s;
@@ -184,6 +187,8 @@ export default {
     input {
       border: 1px solid lighten($primary, 30%);
       border-radius: 3px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
       outline: 0;
       padding: 8px;
       font-family: 'Open Sans', sans-serif;

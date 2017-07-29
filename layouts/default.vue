@@ -19,8 +19,16 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700|Roboto:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:100');
 @import './assets/css/vars.scss';
+
+* {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  position: relative;
+}
 
 html {
   box-sizing: border-box;
@@ -33,21 +41,24 @@ html {
 html {
   background-color: #f5f5f5;
   color: $primary;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-kerning: normal;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 400;
   overflow-y: scroll;
 }
 
 body {
-  line-height: 30px;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.765em;
 }
 
 #blog {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-top: 100px;
 }
 
 .page-enter-active {
@@ -65,10 +76,20 @@ body {
   width: 100%;
 }
 
-h1.page-title {
-  font-size: 150%;
-  margin-bottom: 32px;
-  margin-top: 48px;
+.page-title {
+  border-bottom: 1px dotted lighten($primary, 20%);
+  margin-top: 32px;
+  margin-bottom: 48px;
+
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    line-height: 1;
+    margin-bottom: 12px;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 h1, h2, h3, h4, h5 {

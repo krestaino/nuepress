@@ -1,7 +1,9 @@
 <template>
   <main class="outer-container">
     <article class="blog-article">
-      <img class="featured" v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].source_url">
+      <div class="featured" v-if="article._embedded['wp:featuredmedia']">
+        <img :src="article._embedded['wp:featuredmedia'][0].source_url">
+      </div>
       <div class="inner-container">
         <div class="meta">
           <h1 class="title" v-html="article.title.rendered"></h1>
@@ -57,13 +59,14 @@ export default {
 
 article.blog-article {
   background-color: #efefef;
-  padding: 0 0 96px 0;
   position: relative;
   height: 100%;
 
   .inner-container {
+    background-color: #efefef;
     margin: 0 auto;
-    max-width: 650px;
+    max-width: 842px;
+    padding: 0 96px 96px 96px;
 
     .content {
       border-top: 1px dotted lighten($primary, 20%);
@@ -112,6 +115,15 @@ article.blog-article {
     }
   }
 
+  .featured {
+    height: 20vh;
+
+    img {
+      position: absolute;
+      width: 100%;
+    }
+  }
+
   .meta {
     .title {
       font-size: 40px;
@@ -133,10 +145,6 @@ article.blog-article {
   img {
     height: auto;
     max-width: 100%;
-
-    &.featured {
-      width: 100%;
-    }
   }
 }
 </style>
