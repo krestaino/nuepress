@@ -62,6 +62,9 @@ section.page {
     list-style: none;
 
     li {
+      display: flex;
+      flex-direction: column;
+      page-break-inside: avoid;
       break-inside: avoid;
 
       & + li {

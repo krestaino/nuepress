@@ -5,7 +5,6 @@
         <h1 v-html="topic.name"></h1>
         <p v-html="topic.description"></p>
       </div>
-      <p v-html="topic.description"></p>
       <article-list :articles="topicArticles.articles"></article-list>
     </div>
     <sidebar></sidebar>
