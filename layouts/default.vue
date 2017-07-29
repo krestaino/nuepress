@@ -19,7 +19,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:100,300,400');
 @import './assets/css/vars.scss';
 
 * {
