@@ -192,7 +192,7 @@ export default {
 
   .input-container {
     overflow: hidden;
-    transition: 0.5s;
+    transition: width 0.3s cubic-bezier(.11,.89,.31,.99);
     width: 0;
     will-change: width;
 

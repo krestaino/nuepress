@@ -27,6 +27,7 @@ export default {
   background-repeat: no-repeat;
   box-sizing: border-box;
   position: relative;
+  transition-timing-function: cubic-bezier(.11,.89,.31,.99);
 }
 
 html {

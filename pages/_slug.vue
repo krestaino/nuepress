@@ -57,6 +57,15 @@ export default {
 <style lang="scss">
 @import './assets/css/vars.scss';
 
+.page-enter-active .blog-article {
+  transition: transform 1s cubic-bezier(.11,.89,.31,.99), opacity 1s ease-out;
+}
+
+.page-enter .blog-article {
+  transform: translateY(-16px);
+  opacity: 0;
+}
+
 article.blog-article {
   background-color: #efefef;
   position: relative;
