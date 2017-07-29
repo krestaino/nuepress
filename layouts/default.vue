@@ -68,11 +68,11 @@ main {
   min-height: calc(100vh - 80px - 200px);
 }
 
-.page-enter-active {
-  transition: opacity .1s;
+main.page-enter-active {
+  transition: opacity .2s;
 }
 
-.page-enter, .page-leave-active {
+main.page-enter, main.page-leave-active {
   opacity: 0;
 }
 

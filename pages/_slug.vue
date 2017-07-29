@@ -63,7 +63,6 @@ export default {
 
 .page-enter .blog-article .inner-container {
   transform: translateY(-16px);
-  opacity: 0;
 }
 
 article.blog-article {
