@@ -72,6 +72,7 @@ export default {
   }
 
   .page-title {
+    margin-bottom: 32px;
     margin-top: 0;
   }
 }
