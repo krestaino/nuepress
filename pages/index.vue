@@ -76,4 +76,9 @@ export default {
     width: 100%;
   }
 }
+
+button {
+  display: block;
+  margin: 32px auto 0;
+}
 </style>

@@ -268,6 +268,24 @@ export default {
         border-top: 1px dotted lighten($primary, 30%);
       }
 
+      &:nth-last-child(-n+1) {
+        @media (max-height: 900px) {
+          display: none;
+        }
+      }
+
+      &:nth-last-child(-n+2) {
+        @media (max-height: 800px) {
+          display: none;
+        }
+      }
+
+      &:nth-last-child(-n+3) {
+        @media (max-height: 720px) {
+          display: none;
+        }
+      }
+
       .title {
         font-weight: 700;
       }
