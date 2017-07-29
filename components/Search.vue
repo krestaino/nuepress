@@ -117,7 +117,7 @@ export default {
   display: flex;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   margin-left: auto;
   position: relative;
   transition: 0.1s;
@@ -246,7 +246,7 @@ export default {
       transition: 0.1s;
 
       &.active {
-        background-color: lighten($primary, 50%);
+        background-color: lighten($primary, 70%);
         color: darken($primary, 30%);
       }
     }
