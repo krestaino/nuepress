@@ -1,9 +1,9 @@
 <template>
-  <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ resultsVisible: (searchQuery.length > 0) && resultsVisible }">
+  <div class="auto-suggest" v-on-click-outside="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }">
     <button class="toggle-search" @click.prevent="toggleSearch">
       <img src="../assets/icons/ic_search_black_24px.svg">
     </button>
-    <div class="input-container" ref="inputContainer" :class="{'searchOpen': searchOpen}">
+    <div class="input-container" ref="inputContainer" :class="{'search-open': searchOpen}">
       <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
         @keyup.prevent="throttledSearch"
         @keydown.prevent.enter="enter"
@@ -17,10 +17,14 @@
     <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
       <li v-for="(article, index) in articles">
         <nuxt-link :to="`/${article.slug}`" :class="{'active': isActive(index)}" @mouseover.native="current = index">
-          <span v-html="article.title.rendered"></span>
+          <span class="title" v-html="article.title.rendered"></span>
+          <div class="meta">
+            <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+          </div>
         </nuxt-link>
       </li>
     </ul>
+    <div class="shade" @click.prevent="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
   </div>
 </template>
 
@@ -28,6 +32,7 @@
 import _ from 'lodash'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   mixins: [onClickOutside],
@@ -80,6 +85,10 @@ export default {
       this.resultsVisible = true
     },
 
+    timestamp (date) {
+      return moment(date).format('MMM d, YYYY')
+    },
+
     throttledSearch: _.throttle(function () {
       this.search()
     }, 350),
@@ -92,7 +101,7 @@ export default {
     },
 
     search () {
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}`)
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed`)
         .then(response => {
           this.articles = response.data
           this.showResults()
@@ -122,7 +131,30 @@ export default {
   position: relative;
   transition: 0.1s;
 
-  &.resultsVisible {
+  .shade {
+    background-color: rgba(#000, .5);
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    transition: 0.5s;
+    visibility: hidden;
+    width: 100%;
+    z-index: -1;
+
+    &:hover {
+      opacity: 0;
+    }
+
+    &.results-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &.results-visible {
     filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.1));
 
     .input-container input {
@@ -158,7 +190,7 @@ export default {
 
     &.clear {
       border-left: 1px solid lighten($primary, 30%);
-      padding: 12px;
+      padding: 0 12px;
       right: 0;
       top: 0;
 
@@ -180,8 +212,8 @@ export default {
     width: 0;
     will-change: width;
 
-    &.searchOpen {
-      width: 420px;
+    &.search-open {
+      width: 540px;
     }
 
     input {
@@ -192,7 +224,6 @@ export default {
       outline: 0;
       padding: 8px;
       font-family: 'Open Sans', sans-serif;
-      font-size: 90%;
       transition: 0.1s;
       width: 100%;
 
@@ -236,20 +267,42 @@ export default {
       & + li {
         border-top: 1px dotted lighten($primary, 30%);
       }
-    }
 
-    a {
-      color: $primary;
-      display: block;
-      font-size: 80%;
-      padding: 16px 12px;
-      transition: 0.1s;
-
-      &.active {
-        background-color: lighten($primary, 70%);
-        color: darken($primary, 30%);
+      .title {
+        font-weight: 700;
       }
-    }
+
+      .meta {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 400;
+        margin-top: 8px;
+
+        .topic + .topic {
+          margin-left: 8px;
+        }
+
+        .topic + .topic::before {
+          content: ', ';
+          color: $primary;
+          left: -7px;
+          position: absolute;
+        }
+      }
+
+      a {
+        color: $primary;
+        display: block;
+        font-size: 80%;
+        padding: 16px 12px;
+        transition: 0.1s;
+
+        &.active {
+          background-color: lighten($primary, 70%);
+          color: darken($primary, 30%);
+        }
+      }
+    }    
   }
 }
 </style>
