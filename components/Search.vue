@@ -6,7 +6,7 @@
       </button>
       <div class="input-container" ref="inputContainer" :class="{'search-open': searchOpen}">
         <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
-          @keyup.prevent="throttledSearch"
+          @keyup.prevent="throttledSearch($event)"
           @keydown.prevent.enter="enter"
           @keydown.prevent.down="down"
           @keydown.prevent.up="up"
@@ -96,8 +96,10 @@ export default {
       return moment(date).format('MMM d, YYYY')
     },
 
-    throttledSearch: _.throttle(function () {
-      this.search()
+    throttledSearch: _.throttle(function (event) {
+      if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
+        this.search()
+      }
     }, 200),
 
     toggleSearch () {
