@@ -6,7 +6,7 @@
       </button>
       <div class="input-container" ref="inputContainer" :class="{'search-open': searchOpen}">
         <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
-          @keyup.prevent="throttledSearch($event)"
+          @keyup.prevent="debounceSearch($event)"
           @keydown.prevent.enter="enter"
           @keydown.prevent.down="down"
           @keydown.prevent.up="up"
@@ -15,7 +15,7 @@
           <img src="../assets/icons/ic_close_black_24px.svg">
         </button>
       </div>
-      <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && articles.length">
+      <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible">
         <li v-for="(article, index) in articles">
           <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': isActive(index)}" @mouseover.native="current = index">
             <div class="col">
@@ -29,6 +29,7 @@
             </div>
           </nuxt-link>
         </li>
+        <li class="no-results" v-if="(searchQuery.length > 0) && (articles.length === 0) && (apiResponse)">No results found</li>
       </ul>
     </div>
     <div class="shade" @click.prevent="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
@@ -46,6 +47,7 @@ export default {
 
   data () {
     return {
+      apiResponse: false,
       resultsVisible: false,
       searchOpen: false,
       searchQuery: '',
@@ -96,7 +98,7 @@ export default {
       return moment(date).format('MMM d, YYYY')
     },
 
-    throttledSearch: _.throttle(function (event) {
+    debounceSearch: _.debounce(function (event) {
       if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
         this.search()
       }
@@ -112,6 +114,7 @@ export default {
     search () {
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed`)
         .then(response => {
+          this.apiResponse = true
           this.articles = response.data
           this.showResults()
         })
@@ -213,7 +216,7 @@ export default {
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
       outline: 0;
-      padding: 8px;
+      padding: 8px 12px;
       font-family: 'Open Sans', sans-serif;
       transition: 0.1s;
       width: 100%;
@@ -251,6 +254,10 @@ export default {
     transition: 0.1s;
     width: 100%;
     z-index: 10;
+
+    .no-results {
+      padding: 16px 12px;
+    }
 
     li {
       line-height: 1.2;
