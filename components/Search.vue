@@ -308,19 +308,19 @@ export default {
         border-top: 1px dotted lighten($primary, 30%);
       }
 
-      &:nth-last-child(-n+1) {
+      &:nth-child(10) {
         @media (max-height: 900px) {
           display: none;
         }
       }
 
-      &:nth-last-child(-n+2) {
+      &:nth-child(9) {
         @media (max-height: 800px) {
           display: none;
         }
       }
 
-      &:nth-last-child(-n+3) {
+      &:nth-child(8) {
         @media (max-height: 720px) {
           display: none;
         }
