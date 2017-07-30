@@ -15,7 +15,7 @@
           <img src="../assets/icons/ic_close_black_24px.svg">
         </button>
       </div>
-      <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible">
+      <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && apiResponse">
         <li v-for="(article, index) in articles">
           <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': isActive(index)}" @mouseover.native="current = index">
             <div class="col">
@@ -123,6 +123,7 @@ export default {
 
   watch: {
     '$route' () {
+      this.apiResponse = false
       this.current = -1
       this.searchQuery = ''
       this.searchOpen = false
