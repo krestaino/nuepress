@@ -54,6 +54,10 @@ body {
   line-height: 1.765em;
 }
 
+.progress {
+  top: 78px !important;
+}
+
 #blog {
   display: flex;
   flex-direction: column;
@@ -130,7 +134,7 @@ a.fancy {
   &:hover,
   &:focus {
     &::after {
-      height: 4px;
+      height: 2px;
       opacity: 1;
       transform: translateY(0px);
     }
