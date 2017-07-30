@@ -11,9 +11,14 @@
           @keydown.prevent.down="down"
           @keydown.prevent.up="up"
           @focus="showResults">
-        <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
-          <img src="../assets/icons/ic_close_black_24px.svg">
-        </button>
+        <div class="right">
+          <transition name="fade">
+            <spinner-2 class="spinner-2" v-if="spinnerVisible"></spinner-2>
+          </transition>
+          <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
+            <img src="../assets/icons/ic_close_black_24px.svg">
+          </button>
+        </div>
       </div>
       <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && apiResponse">
         <li v-for="(article, index) in articles">
@@ -41,8 +46,13 @@ import _ from 'lodash'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 import axios from 'axios'
 import moment from 'moment'
+import Spinner2 from '~/components/Spinner2'
 
 export default {
+  components: {
+    Spinner2
+  },
+
   mixins: [onClickOutside],
 
   data () {
@@ -51,6 +61,7 @@ export default {
       resultsVisible: false,
       searchOpen: false,
       searchQuery: '',
+      spinnerVisible: false,
       articles: [],
       current: -1
     }
@@ -112,9 +123,11 @@ export default {
     },
 
     search () {
+      this.spinnerVisible = true
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed`)
         .then(response => {
           this.apiResponse = true
+          this.spinnerVisible = false
           this.articles = response.data
           this.showResults()
         })
@@ -134,6 +147,13 @@ export default {
 
 <style scoped lang="scss">
 @import './assets/css/vars.scss';
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
 
 .auto-suggest {
   margin-left: auto;
@@ -210,6 +230,25 @@ export default {
     &.search-open {
       width: 476px;
     }
+
+    .right {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      .clear {
+        position: relative;
+      }
+
+      .spinner-2 {
+        margin-right: 8px;
+      }
+    }
+
+    
 
     input {
       border: 1px solid lighten($primary, 30%);
