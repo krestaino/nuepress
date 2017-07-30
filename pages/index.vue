@@ -14,7 +14,9 @@
         </nuxt-link>
       </article>
       <article-list :articles="articles"></article-list>
-      <infinite-loading :on-infinite="moreArticles" ref="infiniteLoading"></infinite-loading>
+      <infinite-loading :on-infinite="moreArticles" ref="infiniteLoading">
+        <spinner-1 class="spinner-1" slot="spinner"></spinner-1>
+      </infinite-loading>
     </div>
     <sidebar></sidebar>
   </main>
@@ -26,12 +28,14 @@ import moment from 'moment'
 import ArticleList from '~/components/ArticleList'
 import InfiniteLoading from '~/components/InfiniteLoading'
 import Sidebar from '~/components/Sidebar'
+import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
     ArticleList,
     InfiniteLoading,
-    Sidebar
+    Sidebar,
+    Spinner1
   },
 
   data () {
