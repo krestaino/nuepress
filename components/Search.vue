@@ -126,7 +126,7 @@ export default {
 
     search () {
       this.spinnerVisible = true
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed`)
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=8`)
         .then(response => {
           this.apiResponse = true
           this.spinnerVisible = false
@@ -308,19 +308,19 @@ export default {
         border-top: 1px dotted lighten($primary, 30%);
       }
 
-      &:nth-child(10) {
+      &:nth-child(8) {
         @media (max-height: 900px) {
           display: none;
         }
       }
 
-      &:nth-child(9) {
+      &:nth-child(7) {
         @media (max-height: 800px) {
           display: none;
         }
       }
 
-      &:nth-child(8) {
+      &:nth-child(6) {
         @media (max-height: 720px) {
           display: none;
         }
@@ -330,8 +330,20 @@ export default {
         display: flex;
       }
 
+      // https://stackoverflow.com/a/13924997
+      .title,
+      .meta {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+
       .title {
         font-weight: 700;
+        line-height: 18px;
+        max-height: 36px;
+        -webkit-line-clamp: 2;
       }
 
       .meta {
@@ -339,6 +351,9 @@ export default {
         font-size: 0.75rem;
         font-weight: 400;
         margin-top: 8px;
+        line-height: 18px;
+        max-height: 18px;
+        -webkit-line-clamp: 1;
 
         .topic + .topic {
           margin-left: 8px;
@@ -372,8 +387,8 @@ export default {
 
         img {
           display: block;
-          height: 75px;
-          width: 75px;
+          height: 96px;
+          width: 96px;
         }
       }
     }    
