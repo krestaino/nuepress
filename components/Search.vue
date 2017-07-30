@@ -20,22 +20,24 @@
           </button>
         </div>
       </div>
-      <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && apiResponse">
-        <li v-for="(article, index) in articles">
-          <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': isActive(index)}" @mouseover.native="current = index">
-            <div class="col">
-              <img v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
-            </div>
-            <div class="col copy">
-              <span class="title" v-html="article.title.rendered"></span>
-              <div class="meta">
-                <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+      <transition name="fade">
+        <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && apiResponse">
+          <li v-for="(article, index) in articles">
+            <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': isActive(index)}" @mouseover.native="current = index">
+              <div class="col">
+                <img v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
               </div>
-            </div>
-          </nuxt-link>
-        </li>
-        <li class="no-results" v-if="(searchQuery.length > 0) && (articles.length === 0) && (apiResponse)">No results found</li>
-      </ul>
+              <div class="col copy">
+                <span class="title" v-html="article.title.rendered"></span>
+                <div class="meta">
+                  <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+                </div>
+              </div>
+            </nuxt-link>
+          </li>
+          <li class="no-results" v-if="(searchQuery.length > 0) && (articles.length === 0) && (apiResponse)">No results found</li>
+        </ul>
+      </transition>
     </div>
     <div class="shade" @click.prevent="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
   </div>
