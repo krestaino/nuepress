@@ -1,5 +1,5 @@
 <template>
-  <header :class="{'shrink': navShrinkActive}">
+  <header>
     <div class="outer-container">
       <nuxt-link class="blog-title" to="/" exact><h1 v-html="meta.name"></h1></nuxt-link>
       <nav>
@@ -28,20 +28,6 @@ export default {
 
   computed: {
     meta () { return this.$store.state.meta }
-  },
-
-  methods: {
-    headerShrink () {
-      (window.pageYOffset > 100)
-        ? this.navShrinkActive = true
-        : this.navShrinkActive = false
-    }
-  },
-
-  mounted () {
-    window.document.body.onscroll = () => {
-      this.headerShrink()
-    }
   }
 }
 </script>
@@ -55,11 +41,6 @@ header {
   top: 0;
   width: 100%;
   z-index: 10;
-
-  &.shrink .outer-container {
-    padding-bottom: 4px;
-    padding-top: 4px;
-  }
 
   .outer-container {
     align-items: center;
