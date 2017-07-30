@@ -144,7 +144,7 @@ export default {
   z-index: 2;
 
   &.results-visible {
-    filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.2));
+    // filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.2));
 
     .input-container input {
       border-bottom-left-radius: 0px;
