@@ -56,7 +56,6 @@ body {
 
 #blog {
   display: flex;
-  // filter: drop-shadow(0px 0px 50px rgba(0,0,0,0.2));
   flex-direction: column;
   min-height: 100vh;
   overflow: hidden;
