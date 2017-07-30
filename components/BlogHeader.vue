@@ -37,6 +37,7 @@ export default {
 
 header {
   font-family: 'Roboto', sans-serif;
+  left: 0;
   position: fixed;
   top: 0;
   width: 100%;
