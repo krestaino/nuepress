@@ -2,7 +2,7 @@
   <main class="outer-container">
     <article class="blog-article">
       <div class="featured" v-if="article._embedded['wp:featuredmedia']">
-        <img :src="article._embedded['wp:featuredmedia'][0].source_url">
+        <img :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url">
       </div>
       <div class="inner-container">
         <div class="meta">

@@ -10,7 +10,7 @@
             <h2 v-html="featuredArticles[0][0].title.rendered"></h2>
             <div v-html="featuredArticles[0][0].excerpt.rendered"></div>
           </div>
-          <img :src="featuredArticles[0][0]._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url">
+          <img :src="featuredArticles[0][0]._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
         </nuxt-link>
       </article>
       <article-list :articles="articles"></article-list>

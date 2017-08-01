@@ -54,19 +54,6 @@ body {
   line-height: 1.765em;
 }
 
-#__nuxt {
-  margin: 0 auto;
-  max-width: 1440px;
-}
-
-.progress { 
-  left: 0;
-  max-width: 1440px;
-  position: absolute !important;
-  top: 78px !important;
-  width: 100%;
-}
-
 #blog {
   display: flex;
   flex-direction: column;
