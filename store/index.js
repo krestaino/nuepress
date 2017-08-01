@@ -3,41 +3,45 @@ import Vuex from 'vuex'
 const store = () => new Vuex.Store({
 
   state: {
-    topics: null,
-    topicArticles: [],
-    meta: null,
     article: null,
     articles: [],
-    authors: null,
     authorArticles: [],
+    authors: null,
     featuredArticles: [],
+    heroArticle: [],
+    meta: null,
+    topicArticles: [],
+    topics: null,
     wordpressAPI: 'https://wp.kmr.io/wp-json'
   },
 
   mutations: {
-    setFeaturedArticles (state, data) {
-      state.featuredArticles = state.featuredArticles.concat(data)
-    },
-    setTopics (state, data) {
-      state.topics = data
-    },
-    setTopicArticles (state, data) {
-      state.topicArticles.push(data)
-    },
-    setMeta (state, data) {
-      state.meta = data
-    },
     setArticle (state, data) {
       state.article = data
     },
     setArticles (state, data) {
       state.articles = state.articles.concat(data)
     },
+    setAuthorArticles (state, data) {
+      state.authorArticles.push(data)
+    },
     setAuthors (state, data) {
       state.authors = data
     },
-    setauthorArticles (state, data) {
-      state.authorArticles.push(data)
+    setFeaturedArticles (state, data) {
+      state.featuredArticles = state.featuredArticles.concat(data)
+    },
+    setHeroArticle (state, data) {
+      state.heroArticle = state.heroArticle.concat(data)
+    },
+    setMeta (state, data) {
+      state.meta = data
+    },
+    setTopicArticles (state, data) {
+      state.topicArticles.push(data)
+    },
+    setTopics (state, data) {
+      state.topics = data
     }
   }
 })

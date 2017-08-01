@@ -39,7 +39,7 @@ export default {
     if (!_.find(store.state.authorArticles, {'slug': params.slug})) {
       let author = _.find(store.state.authors, {'slug': params.slug})
       let authorArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
-      store.commit('setauthorArticles', {slug: params.slug, articles: authorArticles.data})
+      store.commit('setAuthorArticles', {slug: params.slug, articles: authorArticles.data})
     }
 
     if (!store.state.meta) {

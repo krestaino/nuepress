@@ -6,7 +6,7 @@
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
-          <img class="lazy" v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url" v-if="article._embedded['wp:featuredmedia']" >
+          <img class="lazy" v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url" v-if="article._embedded['wp:featuredmedia']">
         </div>
         <div class="col">
           <h2 v-html="article.title.rendered"></h2>

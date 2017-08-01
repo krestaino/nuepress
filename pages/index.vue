@@ -1,7 +1,7 @@
 <template>
   <main class="outer-container">
     <div class="inner-container">
-      <hero :featuredArticles="featuredArticles"></hero>
+      <hero :heroArticle="heroArticle" v-if="heroArticle.length"></hero>
       <article-list :articles="articles"></article-list>
       <infinite-loading :on-infinite="moreArticles" ref="infiniteLoading">
         <spinner-1 class="spinner-1" slot="spinner"></spinner-1>
@@ -35,20 +35,26 @@ export default {
   },
 
   computed: {
-    meta () { return this.$store.state.meta },
     articles () { return this.$store.state.articles },
-    featuredArticles () { return this.$store.state.featuredArticles }
+    featuredArticles () { return this.$store.state.featuredArticles },
+    heroArticle () { return this.$store.state.heroArticle },
+    meta () { return this.$store.state.meta }
   },
 
   async asyncData ({ store, params }) {
     if (store.state.articles.length === 0) {
-      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=194&_embed`)
+      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=194,195&_embed`)
       store.commit('setArticles', articles.data)
     }
 
     if (store.state.featuredArticles.length === 0) {
       let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
       store.commit('setFeaturedArticles', articles.data)
+    }
+
+    if (store.state.heroArticle) {
+      let article = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=195&_embed`)
+      store.commit('setHeroArticle', article.data)
     }
 
     if (!store.state.meta) {

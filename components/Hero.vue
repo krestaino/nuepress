@@ -2,13 +2,13 @@
   <article class="featured">
     <nuxt-link :to="`/${this.hero.slug}`">
       <div class="date">
-        <span v-html="timestamp(this.hero.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.hero._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
+        <span v-html="timestamp(this.hero.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.hero._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.id !== 195"></span>
       </div>
       <div class="meta">
         <h2 v-html="this.hero.title.rendered"></h2>
         <div v-html="this.hero.excerpt.rendered"></div>
       </div>
-      <div class="lazy" v-lazy:background-image="featuredImage.image.url" :style="{ minHeight: featuredImage.image.height + 'px' }"></div>
+      <div class="lazy" v-lazy:background-image="featuredImage"></div>
     </nuxt-link>
   </article>
 </template>
@@ -17,18 +17,25 @@
 import moment from 'moment'
 
 export default {
-  props: ['featuredArticles'],
+  props: ['heroArticle'],
 
   computed: {
     hero () {
-      return this.$store.state.featuredArticles[0]
+      return this.$store.state.heroArticle[0]
     },
 
     featuredImage () {
-      return {
-        image: {
-          height: this.hero._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height,
-          url: this.hero._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
+      let featuredImage = this.hero._embedded['wp:featuredmedia']
+
+      if (featuredImage) {
+        let sizes = featuredImage[0].media_details.sizes
+
+        if (sizes.large) {
+          return sizes.large.source_url
+        } else if (sizes.full) {
+          return sizes.full.source_url
+        } else {
+          return false
         }
       }
     }
