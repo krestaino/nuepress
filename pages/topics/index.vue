@@ -4,7 +4,7 @@
       <h1>Topics</h1>
     </div>
     <ul>
-      <li v-for="topic in topics">
+      <li v-for="topic in topics" v-if="topic.slug !== 'featured'">
         <nuxt-link :to="`/topics/${topic.slug}`">
           <h2 v-html="topic.name"></h2>
           <span>({{ topic.count }})</span>

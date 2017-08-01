@@ -40,7 +40,7 @@
               <div class="col copy">
                 <span class="title" v-html="article.title.rendered"></span>
                 <div class="meta">
-                  <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+                  <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
                 </div>
               </div>
             </nuxt-link>
@@ -405,7 +405,7 @@ section {
           fill: #ccc;
         }
       }
-    }    
+    }
   }
 }
 
