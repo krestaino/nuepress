@@ -1,8 +1,8 @@
 <template>
   <section role="search" ref="autoSuggest">
     <div class="inner-container" :class="{ 'results-visible': resultsVisible }">
-      <button class="toggle-search" @click.prevent="expandSearch">
-        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <button class="toggle-search" @click.prevent="toggleSearch">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
           <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
@@ -18,13 +18,16 @@
           <transition name="fade">
             <spinner-2 class="spinner-2" v-if="spinnerVisible"></spinner-2>
           </transition>
-          <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery.length > 0">
-            <img src="../assets/icons/ic_close_black_24px.svg">
+          <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery">
+            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
           </button>
         </div>
       </div>
       <transition name="fade">
-        <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && apiResponse">
+        <ul class="results" v-if="searchQuery && resultsVisible && apiResponse">
           <li ref="result" v-for="(article, index) in articles">
             <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
               <div class="col">
@@ -38,11 +41,11 @@
               </div>
             </nuxt-link>
           </li>
-          <li class="no-results" v-if="(searchQuery.length > 0) && (articles.length === 0) && (apiResponse)">No results found</li>
+          <li class="no-results" v-if="searchQuery && (articles.length === 0) && (apiResponse)">No results found</li>
         </ul>
       </transition>
     </div>
-    <div class="shade" @click.prevent="resultsVisible = false" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
+    <div class="shade" @click.prevent="resultsVisible = false" :class="{ 'results-visible': searchQuery && resultsVisible }"></div>
   </section>
 </template>
 
@@ -60,21 +63,21 @@ export default {
   data () {
     return {
       apiResponse: false,
+      articles: [],
+      current: -1,
       resultsVisible: false,
       searchOpen: false,
       searchQuery: '',
-      spinnerVisible: false,
-      articles: [],
-      current: -1
+      spinnerVisible: false
     }
   },
 
   methods: {
-    up () {
-      (this.current <= 0)
-        ? this.current = this.articles.length - 1
-        : this.current--
-    },
+    debounceSearch: _.debounce(function (event) {
+      if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
+        this.search()
+      }
+    }, 200),
 
     down () {
       (this.current < this.articles.length - 1)
@@ -86,34 +89,14 @@ export default {
       this.$refs.result[this.current].querySelector('a').click()
     },
 
-    selectedResult (index) {
-      return index === this.current
-    },
-
     clearSearchQuery () {
       this.searchQuery = ''
       this.$refs.searchQuery.focus()
     },
 
-    timestamp (date) {
-      return moment(date).format('MMM d, YYYY')
-    },
-
-    debounceSearch: _.debounce(function (event) {
-      if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
-        this.search()
-      }
-    }, 200),
-
-    expandSearch () {
-      this.searchOpen = !this.searchOpen
-      this.$refs.searchQuery.focus()
-      this.articles = []
-      this.searchQuery = ''
-    },
-
     search () {
       this.spinnerVisible = true
+
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=8`)
         .then(response => {
           this.apiResponse = true
@@ -121,6 +104,30 @@ export default {
           this.articles = response.data
           this.resultsVisible = true
         })
+    },
+
+    selectedResult (index) {
+      return index === this.current
+    },
+
+    timestamp (date) {
+      return moment(date).format('MMM d, YYYY')
+    },
+
+    toggleSearch () {
+      if (!this.searchOpen) {
+        this.$refs.searchQuery.focus()
+        this.resultsVisible = true
+      } else {
+        this.resultsVisible = false
+      }
+      this.searchOpen = !this.searchOpen
+    },
+
+    up () {
+      (this.current <= 0)
+        ? this.current = this.articles.length - 1
+        : this.current--
     }
   },
 
@@ -130,6 +137,7 @@ export default {
       this.current = -1
       this.searchQuery = ''
       this.searchOpen = false
+      this.resultsVisible = false
     }
   }
 }
@@ -177,7 +185,7 @@ section {
     position: absolute;
 
     &:hover {
-      img {
+      svg {
         opacity: 1;
       }
     }
@@ -187,9 +195,18 @@ section {
       height: 100%;
       width: 32px;
 
-      img {
+      svg {
         height: 24px;
         width: 24px;
+
+        &.results-visible {
+          fill: #fff;
+          opacity: 0.8;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
       }
     }
 
@@ -199,13 +216,13 @@ section {
       right: 0;
       top: 0;
 
-      img {
+      svg {
         height: 16px;
         width: 16px;
       }
     }
 
-    img {
+    svg {
       opacity: 0.5;
       transition: 0.1s;
     }
