@@ -7,7 +7,7 @@
       </div>
       <article-list :articles="topicArticles.articles"></article-list>
     </div>
-    <sidebar></sidebar>
+    <sidebar :featuredArticles="featuredArticles"></sidebar>
   </main>
 </template>
 
@@ -24,6 +24,7 @@ export default {
   },
 
   computed: {
+    featuredArticles () { return this.$store.state.featuredArticles },
     meta () { return this.$store.state.meta },
     topic () { return _.find(this.$store.state.topics, {'slug': this.$route.params.slug}) },
     topicArticles () { return _.find(this.$store.state.topicArticles, {'slug': this.$route.params.slug}) },
@@ -31,6 +32,11 @@ export default {
   },
 
   async asyncData ({ store, params }) {
+    if (store.state.featuredArticles.length === 0) {
+      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
+      store.commit('setFeaturedArticles', articles.data)
+    }
+
     if (!store.state.topics) {
       let topics = await axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
       store.commit('setTopics', topics.data)

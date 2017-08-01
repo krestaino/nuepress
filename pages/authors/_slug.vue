@@ -7,7 +7,7 @@
       </div>
       <article-list :articles="authorArticles.articles"></article-list>
     </div>
-    <sidebar></sidebar>
+    <sidebar :featuredArticles="featuredArticles"></sidebar>
   </main>
 </template>
 
@@ -27,10 +27,16 @@ export default {
     meta () { return this.$store.state.meta },
     author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.slug}) },
     authorArticles () { return _.find(this.$store.state.authorArticles, {'slug': this.$route.params.slug}) },
-    authors () { return this.$store.state.authors }
+    authors () { return this.$store.state.authors },
+    featuredArticles () { return this.$store.state.featuredArticles }
   },
 
   async asyncData ({ store, params }) {
+    if (store.state.featuredArticles.length === 0) {
+      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
+      store.commit('setFeaturedArticles', articles.data)
+    }
+
     if (!store.state.authors) {
       let authors = await axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
       store.commit('setAuthors', authors.data)
