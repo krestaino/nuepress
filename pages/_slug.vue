@@ -1,8 +1,8 @@
 <template>
   <main class="outer-container">
     <article class="blog-article">
-      <div class="featured" v-if="article._embedded['wp:featuredmedia']">
-        <img :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url">
+      <div class="featured" v-if="featuredImage">
+        <img :src="featuredImage">
       </div>
       <div class="inner-container">
         <div class="meta">
@@ -10,7 +10,7 @@
           <div class="details">
             <span v-html="timestamp(article.date)"></span>
             <span class="separator">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${article._embedded.author[0].slug}`" v-html="article._embedded.author[0].name"></nuxt-link>
+            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`" v-html="author.name"></nuxt-link>
           </div>
         </div>
         <div class="content" v-html="article.content.rendered"></div>
@@ -24,11 +24,6 @@ import axios from 'axios'
 import moment from 'moment'
 
 export default {
-  computed: {
-    meta () { return this.$store.state.meta },
-    article () { return this.$store.state.article }
-  },
-
   async fetch ({ store, params }) {
     let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
     store.commit('setArticle', articles.data[0])
@@ -39,8 +34,25 @@ export default {
     }
   },
 
-  methods: {
-    timestamp (date) { return moment(date).format('MMM d, YYYY') }
+  computed: {
+    article () { return this.$store.state.article },
+    author () { return this.$store.state.article._embedded.author[0] },
+    meta () { return this.$store.state.meta },
+    featuredImage () {
+      let featuredImage = this.$store.state.article._embedded['wp:featuredmedia']
+
+      if (featuredImage) {
+        let sizes = featuredImage[0].media_details.sizes
+
+        if (sizes.large) {
+          return sizes.large.source_url
+        } else if (sizes.full) {
+          return sizes.full.source_url
+        } else {
+          return false
+        }
+      }
+    }
   },
 
   head () {
@@ -50,6 +62,10 @@ export default {
         { description: this.article.excerpt.rendered.replace(/(<([^>]+)>)/ig, '') } // strips html tags
       ]
     }
+  },
+
+  methods: {
+    timestamp (date) { return moment(date).format('MMM d, YYYY') }
   }
 }
 </script>

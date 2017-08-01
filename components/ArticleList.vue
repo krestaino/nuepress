@@ -32,10 +32,6 @@ export default {
 <style lang="scss">
 @import './assets/css/vars.scss';
 
-section {
-  margin: 0 auto;
-}
-
 article.articleList {
   margin-left: 32px;
 

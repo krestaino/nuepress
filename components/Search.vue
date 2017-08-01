@@ -1,17 +1,20 @@
 <template>
-  <div class="auto-suggest">
-    <div class="inner-container" v-on-click-outside="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }">
-      <button class="toggle-search" @click.prevent="toggleSearch">
-        <img src="../assets/icons/ic_search_black_24px.svg">
+  <section role="search" ref="autoSuggest">
+    <div class="inner-container" :class="{ 'results-visible': resultsVisible }">
+      <button class="toggle-search" @click.prevent="expandSearch">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
       </button>
       <div class="input-container" ref="inputContainer" :class="{'search-open': searchOpen}">
-        <input placeholder="Search articles" type="text" name="search" ref="searchQuery" v-model="searchQuery"
+        <input name="search" placeholder="Search articles" ref="searchQuery" type="text" v-model="searchQuery"
           @keyup.prevent="debounceSearch($event)"
           @keydown.prevent.enter="enter"
           @keydown.prevent.down="down"
           @keydown.prevent.up="up"
-          @focus="showResults">
-        <div class="right">
+          @focus="resultsVisible = true">
+        <div class="float-right">
           <transition name="fade">
             <spinner-2 class="spinner-2" v-if="spinnerVisible"></spinner-2>
           </transition>
@@ -22,8 +25,8 @@
       </div>
       <transition name="fade">
         <ul class="results" v-if="(searchQuery.length > 0) && resultsVisible && apiResponse">
-          <li v-for="(article, index) in articles">
-            <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': isActive(index)}" @mouseover.native="current = index">
+          <li ref="result" v-for="(article, index) in articles">
+            <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
               <div class="col">
                 <img v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
               </div>
@@ -39,13 +42,12 @@
         </ul>
       </transition>
     </div>
-    <div class="shade" @click.prevent="hideResults" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
-  </div>
+    <div class="shade" @click.prevent="resultsVisible = false" :class="{ 'results-visible': (searchQuery.length > 0) && resultsVisible }"></div>
+  </section>
 </template>
 
 <script>
 import _ from 'lodash'
-import { mixin as onClickOutside } from 'vue-on-click-outside'
 import axios from 'axios'
 import moment from 'moment'
 import Spinner2 from '~/components/Spinner2'
@@ -54,8 +56,6 @@ export default {
   components: {
     Spinner2
   },
-
-  mixins: [onClickOutside],
 
   data () {
     return {
@@ -71,40 +71,28 @@ export default {
 
   methods: {
     up () {
-      if (this.current <= 0) {
-        this.current = this.articles.length - 1
-      } else {
-        this.current--
-      }
+      (this.current <= 0)
+        ? this.current = this.articles.length - 1
+        : this.current--
     },
 
     down () {
-      if (this.current < this.articles.length - 1) {
-        this.current++
-      } else {
-        this.current = 0
-      }
+      (this.current < this.articles.length - 1)
+        ? this.current++
+        : this.current = 0
     },
 
     enter () {
-      document.querySelectorAll('.results li')[this.current].querySelector('a').click()
+      this.$refs.result[this.current].querySelector('a').click()
     },
 
-    isActive (index) {
+    selectedResult (index) {
       return index === this.current
     },
 
     clearSearchQuery () {
       this.searchQuery = ''
       this.$refs.searchQuery.focus()
-    },
-
-    hideResults () {
-      this.resultsVisible = false
-    },
-
-    showResults () {
-      this.resultsVisible = true
     },
 
     timestamp (date) {
@@ -117,7 +105,7 @@ export default {
       }
     }, 200),
 
-    toggleSearch () {
+    expandSearch () {
       this.searchOpen = !this.searchOpen
       this.$refs.searchQuery.focus()
       this.articles = []
@@ -131,7 +119,7 @@ export default {
           this.apiResponse = true
           this.spinnerVisible = false
           this.articles = response.data
-          this.showResults()
+          this.resultsVisible = true
         })
     }
   },
@@ -157,7 +145,7 @@ export default {
   opacity: 0
 }
 
-.auto-suggest {
+section {
   margin-left: auto;
   z-index: 1;
 }
@@ -233,7 +221,7 @@ export default {
       width: 476px;
     }
 
-    .right {
+    .float-right {
       align-items: center;
       display: flex;
       height: 100%;
