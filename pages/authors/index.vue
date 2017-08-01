@@ -19,8 +19,8 @@ import axios from 'axios'
 
 export default {
   computed: {
-    meta () { return this.$store.state.meta },
-    authors () { return this.$store.state.authors }
+    authors () { return this.$store.state.authors },
+    meta () { return this.$store.state.meta }
   },
 
   async asyncData ({ store, params }) {

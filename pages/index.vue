@@ -42,12 +42,12 @@ export default {
   },
 
   async asyncData ({ store, params }) {
-    if (store.state.articles.length === 0) {
+    if (!store.state.articles.length) {
       let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=194,195&_embed`)
       store.commit('setArticles', articles.data)
     }
 
-    if (store.state.featuredArticles.length === 0) {
+    if (!store.state.featuredArticles.length) {
       let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
       store.commit('setFeaturedArticles', articles.data)
     }
@@ -70,8 +70,7 @@ export default {
           this.$store.commit('setArticles', response.data)
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
         })
     }

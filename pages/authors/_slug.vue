@@ -24,15 +24,15 @@ export default {
   },
 
   computed: {
-    meta () { return this.$store.state.meta },
     author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.slug}) },
     authorArticles () { return _.find(this.$store.state.authorArticles, {'slug': this.$route.params.slug}) },
     authors () { return this.$store.state.authors },
-    featuredArticles () { return this.$store.state.featuredArticles }
+    featuredArticles () { return this.$store.state.featuredArticles },
+    meta () { return this.$store.state.meta }
   },
 
   async asyncData ({ store, params }) {
-    if (store.state.featuredArticles.length === 0) {
+    if (!store.state.featuredArticles.length) {
       let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
       store.commit('setFeaturedArticles', articles.data)
     }
