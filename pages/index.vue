@@ -2,13 +2,13 @@
   <main class="outer-container">
     <div class="inner-container">
       <article class="featured">
-        <nuxt-link :to="`/${featuredArticles[0][0].slug}`">
+        <nuxt-link :to="`/${featuredArticles[0].slug}`">
           <div class="date">
-            <span v-html="timestamp(featuredArticles[0][0].date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in featuredArticles[0][0]._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
+            <span v-html="timestamp(featuredArticles[0].date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in featuredArticles[0]._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
           </div>
           <div class="meta">
-            <h2 v-html="featuredArticles[0][0].title.rendered"></h2>
-            <div v-html="featuredArticles[0][0].excerpt.rendered"></div>
+            <h2 v-html="featuredArticles[0].title.rendered"></h2>
+            <div v-html="featuredArticles[0].excerpt.rendered"></div>
           </div>
           <div class="lazy" v-lazy:background-image="hero.image.url" :style="{ minHeight: hero.image.height + 'px' }"></div>
         </nuxt-link>
@@ -49,7 +49,7 @@ export default {
     articles () { return this.$store.state.articles },
     featuredArticles () { return this.$store.state.featuredArticles },
     hero () {
-      let featured = this.$store.state.featuredArticles[0][0]
+      let featured = this.$store.state.featuredArticles[0]
       return {
         image: {
           height: featured._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height,
@@ -131,7 +131,7 @@ export default {
       left: 0;
       background-image:
         linear-gradient(
-          to top, 
+          to top,
           rgba(0,0,0,.85), rgba(0,0,0,0) 60%
         );
       z-index: 2;

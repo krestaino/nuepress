@@ -16,7 +16,7 @@ const store = () => new Vuex.Store({
 
   mutations: {
     setFeaturedArticles (state, data) {
-      state.featuredArticles.push(data)
+      state.featuredArticles = state.featuredArticles.concat(data)
     },
     setTopics (state, data) {
       state.topics = data
