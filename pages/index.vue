@@ -10,7 +10,7 @@
             <h2 v-html="featuredArticles[0][0].title.rendered"></h2>
             <div v-html="featuredArticles[0][0].excerpt.rendered"></div>
           </div>
-          <img :src="featuredArticles[0][0]._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
+          <div class="lazy" v-lazy:background-image="hero.image.url" :style="{ minHeight: hero.image.height + 'px' }"></div>
         </nuxt-link>
       </article>
       <article-list :articles="articles"></article-list>
@@ -47,7 +47,16 @@ export default {
   computed: {
     meta () { return this.$store.state.meta },
     articles () { return this.$store.state.articles },
-    featuredArticles () { return this.$store.state.featuredArticles }
+    featuredArticles () { return this.$store.state.featuredArticles },
+    hero () {
+      let featured = this.$store.state.featuredArticles[0][0]
+      return {
+        image: {
+          height: featured._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height,
+          url: featured._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
+        }
+      }
+    }
   },
 
   async asyncData ({ store, params }) {
@@ -161,6 +170,13 @@ export default {
           position: absolute;
         }
       }
+    }
+
+    .lazy {
+      background-position: center;
+      background-size: cover;
+      min-height: 500px;
+      width: 100%;
     }
 
     .meta {

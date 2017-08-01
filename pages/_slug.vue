@@ -2,7 +2,7 @@
   <main class="outer-container">
     <article class="blog-article">
       <div class="featured" v-if="featuredImage">
-        <img :src="featuredImage">
+        <img class="lazy" v-lazy="featuredImage">
       </div>
       <div class="inner-container">
         <div class="meta">

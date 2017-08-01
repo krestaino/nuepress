@@ -19,6 +19,10 @@ module.exports = {
   */
   loading: { color: '#384D66' },
 
+  plugins: [
+    { src: '~plugins/vue-lazyload', ssr: false }
+  ],
+
   css: [
     'normalize.css/normalize.css'
   ],

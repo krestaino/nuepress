@@ -6,7 +6,7 @@
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
-          <img v-if="article._embedded['wp:featuredmedia']" :src="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+          <img class="lazy" v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url" v-if="article._embedded['wp:featuredmedia']" >
         </div>
         <div class="col">
           <h2 v-html="article.title.rendered"></h2>
@@ -85,9 +85,9 @@ article.articleList {
   }
 
   img {
-    height: auto;
+    height: 150px;
     margin: 0 22px 0 0;
-    max-width: 150px;
+    width: 150px;
   }
 
   a {

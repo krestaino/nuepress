@@ -9,6 +9,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "nuxt": "^1.0.0-rc3",
+    "vue-lazyload": "^1.0.6",
     "vue-on-click-outside": "^1.0.3"
   },
   "config": {

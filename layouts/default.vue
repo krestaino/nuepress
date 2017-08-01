@@ -140,4 +140,13 @@ a.fancy {
 pre {
   white-space: pre-wrap;
 }
+
+.lazy {
+  opacity: 0;
+  transition: opacity 0.5s;
+
+  &[lazy=loaded] {
+    opacity: 1;
+  }
+}
 </style>
