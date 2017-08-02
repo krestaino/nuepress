@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="outer-container">
+    <div class="outer-container" v-if="meta">
       <nuxt-link class="blog-title" to="/" exact><h1 v-html="meta.name"></h1></nuxt-link>
       <nav>
         <nuxt-link to="/" exact>Latest Articles</nuxt-link>

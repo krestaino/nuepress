@@ -2,7 +2,9 @@
   <main class="outer-container">
     <article class="blog-article">
       <div class="featured" v-if="featuredImage">
-        <img class="lazy" v-lazy="featuredImage">
+        <div class="lazy">
+          <img class="lazy" v-lazy="featuredImage">
+        </div>
       </div>
       <div class="inner-container">
         <div class="meta">
@@ -25,7 +27,7 @@ import moment from 'moment'
 
 export default {
   async fetch ({ store, params }) {
-    let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.slug}&_embed`)
+    let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
     store.commit('setArticle', articles.data[0])
 
     if (!store.state.meta) {

@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="outer-container">
+    <div class="outer-container" v-if="meta">
       <nuxt-link class="fancy" to="/" exact><span v-html="meta.name"></span></nuxt-link>
       <div v-if="meta.description" v-html="meta.description"></div>
       <div>© {{ year }}</div>

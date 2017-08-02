@@ -8,7 +8,9 @@
         <h2 v-html="this.hero.title.rendered"></h2>
         <div v-html="this.hero.excerpt.rendered"></div>
       </div>
-      <div class="lazy" v-lazy:background-image="featuredImage"></div>
+      <div class="lazy">
+        <div v-lazy:background-image="featuredImage"></div>
+      </div>
     </nuxt-link>
   </article>
 </template>
@@ -107,10 +109,13 @@ export default {
   }
 
   .lazy {
-    background-position: center;
-    background-size: cover;
-    min-height: 500px;
     width: 100%;
+
+    div {
+      background-position: center;
+      background-size: cover;
+      min-height: 500px;
+    }
   }
 
   .meta {

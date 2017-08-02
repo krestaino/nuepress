@@ -142,11 +142,18 @@ pre {
 }
 
 .lazy {
-  opacity: 0;
-  transition: opacity 0.5s;
+  background-color: #ccc;
 
-  &[lazy=loaded] {
-    opacity: 1;
+  div,
+  img {
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 100%;
+
+    &[lazy=loaded] {
+      opacity: 1;
+    }
   }
 }
 </style>

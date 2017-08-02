@@ -4,7 +4,9 @@
       <h1>Top Articles</h1>
       <article v-for="article in featuredArticles" :key="article.id">
         <nuxt-link :to="`/${article.slug}`" v-if="article._embedded['wp:featuredmedia']">
-          <div class="lazy" v-lazy:background-image="article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url" :style="{ minHeight: article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height + 'px' }"></div>
+          <div class="lazy">
+            <div v-lazy:background-image="article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url" :style="{ minHeight: article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height + 'px' }"></div>
+          </div>
         </nuxt-link>
         <div class="content">
           <div class="meta">
