@@ -89,7 +89,7 @@ export default {
   display: flex;
 
   .featured {
-    margin-left: -32px;
+    margin: 0 -32px 32px -32px;
   }
 
   .articles {
@@ -97,6 +97,14 @@ export default {
     padding: 0 32px;
     max-width: 900px;
     width: 100%;
+
+    @media (max-width: 1000px) {
+      max-width: none;
+    }
+
+    @media (max-width: 500px) {
+      padding: 0 16px;
+    }
   }
 }
 </style>

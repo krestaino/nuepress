@@ -2,7 +2,11 @@
   <div>
     <article class="article-list" v-for="article in articles" :key="article.id">
       <div class="date">
-        <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
+        <span v-html="timestamp(article.date)"></span>
+        &nbsp;–&nbsp;
+        <span class="topics">
+          <nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
+        </span>
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
@@ -12,7 +16,7 @@
         </div>
         <div class="col">
           <h2 v-html="article.title.rendered"></h2>
-          <div v-html="article.excerpt.rendered"></div>
+          <div class="excerpt" v-html="article.excerpt.rendered"></div>
         </div>
       </nuxt-link>
     </article>
@@ -62,14 +66,16 @@ article.article-list {
     text-transform: uppercase;
 
     .topic {
-      margin-left: 8px;
-    }
+      & + .topic {
+        margin-left: 8px;
 
-    .topic + .topic::before {
-      content: ', ';
-      color: $primary;
-      left: -7px;
-      position: absolute;
+        &::before {
+          content: ', ';
+          color: $primary;
+          left: -7px;
+          position: absolute;
+        }
+      }
     }
 
     a:hover {
@@ -84,13 +90,29 @@ article.article-list {
     margin-top: -6px;
   }
 
+  .excerpt {
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+
   .lazy {
     margin: 0 22px 0 0;
 
     img {
       display: block;
-      height: 150px;
-      width: 150px;
+      height: 144px;
+      width: 144px;
+
+      @media (max-width: 1200px) {
+        height: 96px;
+        width: 96px;
+      }
+
+      @media (max-width: 500px) {
+        height: 64px;
+        width: 64px;
+      }
     }
   }
 

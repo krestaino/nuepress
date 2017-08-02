@@ -53,11 +53,23 @@ export default {
   background-color: #efefef;
   padding: 0 32px 64px 32px;
 
+  @media (max-width: 500px) {
+    padding: 0 16px 32px 16px;
+  }
+
   ul {
     column-count: 3;
     column-gap: 64px;
     padding: 0;
     list-style: none;
+
+    @media (max-width: 700px) {
+      column-count: 2;
+    }
+
+    @media (max-width: 500px) {
+      column-count: 1;
+    }
 
     li {
       display: flex;

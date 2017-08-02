@@ -5,7 +5,7 @@
       <article v-for="article in featuredArticles" :key="article.id">
         <nuxt-link :to="`/${article.slug}`" v-if="article._embedded['wp:featuredmedia']">
           <div class="lazy">
-            <div v-lazy:background-image="article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url" :style="{ minHeight: article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height + 'px' }"></div>
+            <div class="featured" v-lazy:background-image="article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url" :style="{ minHeight: article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height + 'px' }"></div>
           </div>
         </nuxt-link>
         <div class="content">
@@ -40,6 +40,10 @@ export default {
 aside {
   min-width: 360px;
   flex: 1;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 
   .inner-container {
     background-color: #fff;
@@ -77,9 +81,8 @@ aside {
         margin: 12px 0;
       }
 
-      img {
-        display: block;
-        max-width: 100%;
+      .featured {
+        background-position: center;
       }
 
       .content {

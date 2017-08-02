@@ -41,6 +41,10 @@ html {
   font-size: 19px;
   font-weight: 400;
   overflow-y: scroll;
+
+  @media (max-width: 500px) {
+    font-size: 18px;
+  }
 }
 
 *, *:before, *:after {
@@ -89,6 +93,10 @@ main {
     margin-bottom: 12px;
     margin-top: 0;
     padding-bottom: 0;
+
+    @media (max-width: 500px) {
+      font-size: 2rem;
+    }
   }
 }
 

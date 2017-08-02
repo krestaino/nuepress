@@ -94,12 +94,27 @@ article {
     max-width: 842px;
     min-height: calc(100vh - 80px - 200px);
     padding: 0 96px 96px 96px;
+
+    @media (max-width: 700px) {
+      margin: 0 auto;
+      max-width: none;
+      padding: 0 48px 48px 48px;
+    }
+
+    @media (max-width: 700px) {
+      padding: 0 16px 16px 16px;
+    }
   }
 
   .featured {
     img {
+      display: block;
       position: absolute;
       width: 100%;
+
+      @media (max-width: 700px) {
+        position: relative;
+      }
     }
   }
 
@@ -110,6 +125,14 @@ article {
       margin-bottom: 16px;
       margin-top: 0;
       padding-top: 64px;
+
+      @media (max-width: 700px) {
+        padding-top: 48px;
+      }
+
+      @media (max-width: 500px) {
+        padding-top: 32px;
+      }
     }
 
     .details {

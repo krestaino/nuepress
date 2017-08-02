@@ -51,11 +51,6 @@ export default {
 
 <style lang="scss" scoped>
 .featured {
-  margin-bottom: 32px;
-  margin-top: 32px;
-  margin-top: 0;
-  margin-right: -32px;
-
   &:before {
     content: '';
     display: block;
