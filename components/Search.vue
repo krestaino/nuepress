@@ -216,9 +216,11 @@ section {
       width: 32px;
 
       @media (max-width: 700px) {
+        height: 32px;
+        position: fixed;
         left: initial;
-        right: 16px;
-        top: -60px;
+        right: 12px;
+        top: 12px;
       }
 
       svg {
@@ -241,6 +243,10 @@ section {
       padding: 0 12px;
       right: 0;
       top: 0;
+
+      @media (max-width: 700px) {
+        padding: 0 20px;
+      }
 
       svg {
         height: 16px;
@@ -297,6 +303,9 @@ section {
       width: 100%;
 
       @media (max-width: 700px) {
+        border-left: 0;
+        border-radius: 0px;
+        border-right: 0;
         padding: 16px;
       }
 
@@ -332,6 +341,11 @@ section {
     transition: 0.1s;
     width: 100%;
     z-index: 10;
+
+    @media (max-width: 700px) {
+      border-left: 0;
+      border-right: 0;
+    }
 
     .no-results {
       padding: 16px 12px;
@@ -460,6 +474,10 @@ section {
   visibility: hidden;
   width: 100%;
   z-index: -1;
+
+  @media (max-width: 700px) {
+    top: 60px;
+  }
 
   &:hover {
     opacity: 0;
