@@ -1,7 +1,8 @@
 <template>
   <article class="single-article">
     <div class="featured lazy" v-if="featuredImage">
-      <img v-lazy="featuredImage">
+      <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+      <img v-lazy="featuredImage.src">
     </div>
     <transition name="slide-fade">
       <div class="narrow">
@@ -44,9 +45,9 @@ export default {
         let sizes = featuredImage[0].media_details.sizes
 
         if (sizes.large) {
-          return sizes.large.source_url
+          return { height: sizes.large.height, width: sizes.large.width, src: sizes.large.source_url }
         } else if (sizes.full) {
-          return sizes.full.source_url
+          return { height: sizes.full.height, width: sizes.full.width, src: sizes.full.source_url }
         } else {
           return false
         }
@@ -138,6 +139,21 @@ article {
       .separator {
         padding: 0 0.5rem;
       }
+    }
+  }
+
+  .lazy {
+    .image-height {
+      display: none;
+
+      @media (max-width: 700px) {
+        display: block;
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 0;
     }
   }
 

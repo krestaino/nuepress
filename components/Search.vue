@@ -218,7 +218,7 @@ section {
       @media (max-width: 700px) {
         left: initial;
         right: 16px;
-        top: -48px;
+        top: -60px;
       }
 
       svg {
@@ -296,6 +296,9 @@ section {
       transition: 0.1s;
       width: 100%;
 
+      @media (max-width: 700px) {
+        padding: 16px;
+      }
 
       &::placeholder {
         color: lighten($primary, 30%);
