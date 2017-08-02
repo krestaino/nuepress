@@ -16,7 +16,7 @@
           @focus="resultsVisible = true">
         <div class="float-right">
           <transition name="fade">
-            <spinner-2 class="spinner-2" v-if="spinnerVisible"></spinner-2>
+            <Spinner2 class="spinner-2" v-if="spinnerVisible"/>
           </transition>
           <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery">
             <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +57,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 import moment from 'moment'
+
 import Spinner2 from '~/components/Spinner2'
 
 export default {
@@ -147,8 +148,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s

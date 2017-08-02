@@ -1,13 +1,13 @@
 <template>
   <div>
-    <article class="articleList" v-for="article in articles" :key="article.id">
+    <article class="article-list" v-for="article in articles" :key="article.id">
       <div class="date">
         <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
-          <div class="lazy">
-            <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url" v-if="article._embedded['wp:featuredmedia']">
+          <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
+            <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
           </div>
         </div>
         <div class="col">
@@ -23,20 +23,18 @@
 import moment from 'moment'
 
 export default {
-  props: ['articles'],
-
   methods: {
     timestamp (date) { return moment(date).format('MMM d') }
-  }
+  },
+
+  props: ['articles']
 }
 </script>
 
-<style lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
-article.articleList {
-  margin-left: 32px;
-
+article.article-list {
   & + article {
     border-top: 1px dotted lighten($primary, 20%);
     margin-top: 32px;

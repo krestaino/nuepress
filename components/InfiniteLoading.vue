@@ -2,6 +2,7 @@
   <div class="infinite-loading-container">
     <div v-show="isLoading">
       <slot name="spinner">
+        <Spinner1 class="spinner-1"/>
       </slot>
     </div>
     <div class="infinite-status-prompt" v-show="!isLoading && isComplete && isFirstLoad">
@@ -13,6 +14,7 @@
   </div>
 </template>
 <script>
+
   /* eslint-disable */
 
   /**
@@ -55,7 +57,12 @@
     return distance;
   }
 
+  import Spinner1 from '~/components/Spinner1'
+
   export default {
+    components: {
+      Spinner1
+    },
     data() {
       return {
         scrollParent: null,

@@ -1,14 +1,16 @@
 <template>
   <div id="blog">
-    <blog-header/>
-    <nuxt/>
-    <blog-footer/>
+    <BlogHeader/>
+    <main role="main">
+      <nuxt/>
+    </main>
+    <BlogFooter/>
   </div>
 </template>
 
 <script>
-import BlogHeader from '../components/BlogHeader'
-import BlogFooter from '../components/BlogFooter'
+import BlogHeader from '../components/Header'
+import BlogFooter from '../components/Footer'
 
 export default {
   components: {
@@ -19,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/css/vars.scss';
+@import '~assets/css/vars.scss';
 
 * {
   -moz-osx-font-smoothing: grayscale;
@@ -31,21 +33,18 @@ export default {
 }
 
 html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-html {
   background-color: #f5f5f5;
+  box-sizing: border-box;
   color: $primary;
   font-family: 'Roboto Slab', serif;
   font-kerning: normal;
   font-size: 19px;
   font-weight: 400;
   overflow-y: scroll;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
@@ -57,34 +56,30 @@ body {
 #blog {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   overflow: hidden;
   padding-top: 80px;
 }
 
 main {
   background-color: #efefef;
+  margin: 0 auto;
+  max-width: $containerWidth;
   min-height: calc(100vh - 80px - 200px);
+  width: 100%;
 }
 
-main.page-enter-active {
+.page-enter-active {
   transition: opacity .2s;
 }
 
-main.page-enter, main.page-leave-active {
+.page-enter, .page-leave-active {
   opacity: 0;
-}
-
-.outer-container {
-  margin: 0 auto;
-  max-width: 1440px;
-  width: 100%;
 }
 
 .page-title {
   border-bottom: 1px dotted lighten($primary, 20%);
   margin-top: 32px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 
   h1 {
     font-family: 'Roboto', sans-serif;

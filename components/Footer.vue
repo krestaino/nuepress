@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div class="outer-container" v-if="meta">
+    <div v-if="meta">
       <nuxt-link class="fancy" to="/" exact><span v-html="meta.name"></span></nuxt-link>
       <div v-if="meta.description" v-html="meta.description"></div>
       <div>© {{ year }}</div>
@@ -17,13 +17,11 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
 footer {
-  
-
-  .outer-container {
+  > div {
     align-items: center;
     background-color: #fff;
     color: #aaa;

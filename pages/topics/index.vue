@@ -1,5 +1,5 @@
 <template>
-  <main class="outer-container page">
+  <div class="page">
     <div class="page-title">
       <h1>Topics</h1>
     </div>
@@ -7,23 +7,17 @@
       <li v-for="topic in topics" v-if="topic.slug !== 'featured'">
         <nuxt-link :to="`/topics/${topic.slug}`">
           <h2 v-html="topic.name"></h2>
-          <span>({{ topic.count }})</span>
           <div v-html="topic.description"></div>
         </nuxt-link>
       </li>
     </ul>
-  </main>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-  computed: {
-    meta () { return this.$store.state.meta },
-    topics () { return this.$store.state.topics }
-  },
-
   async asyncData ({ store, params }) {
     if (!store.state.topics) {
       let topics = await axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
@@ -34,6 +28,11 @@ export default {
       let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
+  },
+
+  computed: {
+    meta () { return this.$store.state.meta },
+    topics () { return this.$store.state.topics }
   },
 
   head () {
@@ -47,10 +46,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
-main.page {
+.page {
   background-color: #efefef;
   padding: 0 32px 64px 32px;
 
@@ -77,12 +76,6 @@ main.page {
         margin-bottom: 4px;
         margin-top: 0;
         font-weight: 400;
-      }
-
-      span {
-        color: lighten($primary, 15%);
-        font-size: 0.8rem;
-        margin-left: 4px;
       }
 
       a {

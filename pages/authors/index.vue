@@ -1,5 +1,5 @@
 <template>
-  <main class="outer-container page">
+  <div class="page">
     <div class="page-title">
       <h1>Authors</h1>
     </div>
@@ -11,18 +11,13 @@
         </nuxt-link>
       </li>
     </ul>
-  </main>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-  computed: {
-    authors () { return this.$store.state.authors },
-    meta () { return this.$store.state.meta }
-  },
-
   async asyncData ({ store, params }) {
     if (!store.state.authors) {
       let authors = await axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
@@ -33,6 +28,11 @@ export default {
       let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
+  },
+
+  computed: {
+    authors () { return this.$store.state.authors },
+    meta () { return this.$store.state.meta }
   },
 
   head () {
@@ -46,10 +46,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
-main.page {
+.page {
   background-color: #efefef;
   padding: 0 32px 64px 32px;
 
@@ -76,12 +76,6 @@ main.page {
         margin-bottom: 4px;
         margin-top: 0;
         font-weight: 400;
-      }
-
-      span {
-        color: lighten($primary, 15%);
-        font-size: 0.8rem;
-        margin-left: 4px;
       }
 
       a {

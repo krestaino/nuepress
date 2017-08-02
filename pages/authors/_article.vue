@@ -1,6 +1,6 @@
 <template>
-  <main class="outer-container">
-    <div class="inner-container">
+  <div class="author">
+    <div class="articles">
       <div class="page-title">
         <h1 v-html="author.name"></h1>
         <p v-html="author.description"></p>
@@ -8,29 +8,17 @@
       <article-list :articles="authorArticles.articles"></article-list>
     </div>
     <sidebar :featuredArticles="featuredArticles"></sidebar>
-  </main>
+  </div>
 </template>
 
 <script>
 import _ from 'lodash'
-import ArticleList from '~/components/ArticleList'
 import axios from 'axios'
+
+import ArticleList from '~/components/ArticleList'
 import Sidebar from '~/components/Sidebar'
 
 export default {
-  components: {
-    ArticleList,
-    Sidebar
-  },
-
-  computed: {
-    author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.slug}) },
-    authorArticles () { return _.find(this.$store.state.authorArticles, {'slug': this.$route.params.slug}) },
-    authors () { return this.$store.state.authors },
-    featuredArticles () { return this.$store.state.featuredArticles },
-    meta () { return this.$store.state.meta }
-  },
-
   async asyncData ({ store, params }) {
     if (!store.state.featuredArticles.length) {
       let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
@@ -42,16 +30,29 @@ export default {
       store.commit('setAuthors', authors.data)
     }
 
-    if (!_.find(store.state.authorArticles, {'slug': params.slug})) {
-      let author = _.find(store.state.authors, {'slug': params.slug})
+    if (!_.find(store.state.authorArticles, {'slug': params.article})) {
+      let author = _.find(store.state.authors, {'slug': params.article})
       let authorArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
-      store.commit('setAuthorArticles', {slug: params.slug, articles: authorArticles.data})
+      store.commit('setAuthorArticles', {slug: params.article, articles: authorArticles.data})
     }
 
     if (!store.state.meta) {
       let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
+  },
+
+  components: {
+    ArticleList,
+    Sidebar
+  },
+
+  computed: {
+    author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.article}) },
+    authorArticles () { return _.find(this.$store.state.authorArticles, {'slug': this.$route.params.article}) },
+    authors () { return this.$store.state.authors },
+    featuredArticles () { return this.$store.state.featuredArticles },
+    meta () { return this.$store.state.meta }
   },
 
   head () {
@@ -65,22 +66,17 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
-.outer-container {
+.author {
   display: flex;
 
-  .inner-container {
+  .articles {
     background-color: #efefef;
     padding: 0 32px;
     max-width: 900px;
     width: 100%;
-  }
-
-  .page-title {
-    padding-bottom: 32px;
-    padding-top: 0;
   }
 }
 </style>

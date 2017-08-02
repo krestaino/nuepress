@@ -19,8 +19,6 @@
 import moment from 'moment'
 
 export default {
-  props: ['heroArticle'],
-
   computed: {
     hero () {
       return this.$store.state.heroArticle[0]
@@ -45,11 +43,13 @@ export default {
 
   methods: {
     timestamp (date) { return moment(date).format('MMM d') }
-  }
+  },
+
+  props: ['heroArticle']
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .featured {
   margin-bottom: 32px;
   margin-top: 32px;

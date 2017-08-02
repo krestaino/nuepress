@@ -26,16 +26,16 @@
 import moment from 'moment'
 
 export default {
-  props: ['featuredArticles'],
-
   methods: {
     timestamp (date) { return moment(date).format('MMM d') }
-  }
+  },
+
+  props: ['featuredArticles']
 }
 </script>
 
-<style lang="scss">
-@import './assets/css/vars.scss';
+<style lang="scss" scoped>
+@import '~assets/css/vars.scss';
 
 aside {
   min-width: 360px;

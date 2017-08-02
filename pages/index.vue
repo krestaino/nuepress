@@ -1,46 +1,23 @@
 <template>
-  <main class="outer-container">
-    <div class="inner-container">
-      <hero :heroArticle="heroArticle" v-if="heroArticle.length"></hero>
-      <article-list :articles="articles"></article-list>
-      <infinite-loading :on-infinite="moreArticles" ref="infiniteLoading">
-        <spinner-1 class="spinner-1" slot="spinner"></spinner-1>
-      </infinite-loading>
+  <div class="home">
+    <div class="articles">
+      <Hero :heroArticle="heroArticle" v-if="heroArticle.length"/>
+      <ArticleList :articles="articles"/>
+      <InfiniteLoading :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
-    <sidebar :featuredArticles="featuredArticles"></sidebar>
-  </main>
+    <Sidebar :featuredArticles="featuredArticles"/>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
+
 import ArticleList from '~/components/ArticleList'
 import Hero from '~/components/Hero'
 import InfiniteLoading from '~/components/InfiniteLoading'
 import Sidebar from '~/components/Sidebar'
-import Spinner1 from '~/components/Spinner1'
 
 export default {
-  components: {
-    ArticleList,
-    Hero,
-    InfiniteLoading,
-    Sidebar,
-    Spinner1
-  },
-
-  data () {
-    return {
-      page: 1
-    }
-  },
-
-  computed: {
-    articles () { return this.$store.state.articles },
-    featuredArticles () { return this.$store.state.featuredArticles },
-    heroArticle () { return this.$store.state.heroArticle },
-    meta () { return this.$store.state.meta }
-  },
-
   async asyncData ({ store, params }) {
     if (!store.state.articles.length) {
       let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=194,195&_embed`)
@@ -63,6 +40,35 @@ export default {
     }
   },
 
+  components: {
+    ArticleList,
+    Hero,
+    InfiniteLoading,
+    Sidebar
+  },
+
+  computed: {
+    articles () { return this.$store.state.articles },
+    featuredArticles () { return this.$store.state.featuredArticles },
+    heroArticle () { return this.$store.state.heroArticle },
+    meta () { return this.$store.state.meta }
+  },
+
+  data () {
+    return {
+      page: 1
+    }
+  },
+
+  head () {
+    return {
+      title: `Home | ${this.meta.name}`,
+      meta: [
+        { description: this.meta.description }
+      ]
+    }
+  },
+
   methods: {
     moreArticles () {
       axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
@@ -74,26 +80,21 @@ export default {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
         })
     }
-  },
-
-  head () {
-    return {
-      title: `Home | ${this.meta.name}`,
-      meta: [
-        { description: this.meta.description }
-      ]
-    }
   }
 }
 </script>
 
-<style scoped lang="scss">
-.outer-container {
+<style lang="scss" scoped>
+.home {
   display: flex;
 
-  .inner-container {
+  .featured {
+    margin-left: -32px;
+  }
+
+  .articles {
     background-color: #efefef;
-    padding-right: 32px;
+    padding: 0 32px;
     max-width: 900px;
     width: 100%;
   }
