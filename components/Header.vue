@@ -49,15 +49,29 @@ header {
     max-width: $containerWidth;
     padding: 0 32px;
     transition: padding-top 0.5s, padding-bottom 0.5s;
+
+    @media (max-width: 700px) {
+      padding: 16px;
+    }
   }
 
   .blog-title {
     margin-right: 32px;
 
+    @media (max-width: 700px) {
+      margin-right: 16px;
+    }
+
     h1 {
       color: #666;
       font-size: 1.1rem;
       font-weight: 400;
+    }
+  }
+
+  nav {
+    @media (max-width: 500px) {
+      display: none;
     }
   }
 
@@ -81,6 +95,10 @@ header {
 
     & + a {
       margin-left: 32px;
+
+      @media (max-width: 700px) {
+        margin-left: 16px;
+      }
     } 
   }
 }

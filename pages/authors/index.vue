@@ -53,7 +53,7 @@ export default {
   background-color: #efefef;
   padding: 0 32px 64px 32px;
 
-  @media (max-width: 500px) {
+  @media (max-width: 700px) {
     padding: 0 16px 32px 16px;
   }
 

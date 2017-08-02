@@ -98,10 +98,6 @@ article {
     @media (max-width: 700px) {
       margin: 0 auto;
       max-width: none;
-      padding: 0 48px 48px 48px;
-    }
-
-    @media (max-width: 700px) {
       padding: 0 16px 16px 16px;
     }
   }
