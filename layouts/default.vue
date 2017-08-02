@@ -62,6 +62,10 @@ body {
   flex-direction: column;
   overflow: hidden;
   padding-top: 80px;
+
+  @media (max-width: 700px) {
+    padding-top: 60px;
+  }
 }
 
 main {
@@ -70,6 +74,10 @@ main {
   max-width: $containerWidth;
   min-height: calc(100vh - 80px - 200px);
   width: 100%;
+
+  @media (max-width: 700px) {
+    min-height: calc(100vh - 60px - 200px);
+  }
 }
 
 .page-enter-active {

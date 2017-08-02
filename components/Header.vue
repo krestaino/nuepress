@@ -51,6 +51,7 @@ header {
     transition: padding-top 0.5s, padding-bottom 0.5s;
 
     @media (max-width: 700px) {
+      height: 60px;
       padding: 16px;
     }
   }

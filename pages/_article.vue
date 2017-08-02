@@ -98,6 +98,7 @@ article {
     @media (max-width: 700px) {
       margin: 0 auto;
       max-width: none;
+      min-height: calc(100vh - 60px - 200px);
       padding: 0 16px 16px 16px;
     }
   }
@@ -190,6 +191,11 @@ article {
           transform: translateY(0px);
         }
       }
+    }
+
+    img {
+      height: auto;
+      max-width: 100%;
     }
 
     > *:first-child {

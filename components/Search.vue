@@ -1,7 +1,7 @@
 <template>
   <section role="search" ref="autoSuggest">
     <div class="inner-container" :class="{ 'results-visible': resultsVisible }">
-      <button class="toggle-search" @click.prevent="toggleSearch">
+      <button class="toggle-search" @click.prevent="toggleSearch" :class="{'search-open': searchOpen}">
         <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
           <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
@@ -161,6 +161,14 @@ export default {
 section {
   margin-left: auto;
   z-index: 1;
+
+  @media (max-width: 700px) {
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 100%;
+  }
 }
 
 .inner-container {
@@ -171,6 +179,13 @@ section {
   position: relative;
   transition: 0.1s;
   z-index: 2;
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: auto;
+    width: 100%;
+  }
 
   &.results-visible {
     .input-container input {
@@ -199,6 +214,12 @@ section {
       left: -32px;
       height: 100%;
       width: 32px;
+
+      @media (max-width: 700px) {
+        left: initial;
+        right: 16px;
+        top: -48px;
+      }
 
       svg {
         height: 24px;
@@ -241,6 +262,10 @@ section {
 
     &.search-open {
       width: 476px;
+
+      @media (max-width: 700px) {
+        width: 100%;
+      }
     }
 
     .float-right {
@@ -316,21 +341,23 @@ section {
         border-top: 1px dotted lighten($primary, 30%);
       }
 
-      &:nth-child(8) {
-        @media (max-height: 900px) {
-          display: none;
+      @media (min-width: 700px) {
+        &:nth-child(8) {
+          @media (max-height: 900px) {
+            display: none;
+          }
         }
-      }
 
-      &:nth-child(7) {
-        @media (max-height: 800px) {
-          display: none;
+        &:nth-child(7) {
+          @media (max-height: 800px) {
+            display: none;
+          }
         }
-      }
 
-      &:nth-child(6) {
-        @media (max-height: 720px) {
-          display: none;
+        &:nth-child(6) {
+          @media (max-height: 720px) {
+            display: none;
+          }
         }
       }
 
@@ -362,6 +389,10 @@ section {
         line-height: 18px;
         max-height: 18px;
         -webkit-line-clamp: 1;
+
+        @media (max-width: 700px) {
+          display: none;
+        }
 
         .topic + .topic {
           margin-left: 8px;
@@ -398,6 +429,10 @@ section {
           display: block;
           height: 96px;
           width: 96px;
+
+          @media (max-width: 700px) {
+            display: none;
+          }
         }
 
         svg {
