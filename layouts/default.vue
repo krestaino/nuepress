@@ -153,7 +153,7 @@ pre {
 }
 
 .lazy {
-  background-color: #ccc;
+  background-color: #bbb;
 
   div,
   img {

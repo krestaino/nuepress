@@ -4,8 +4,9 @@
       <h1>Top Articles</h1>
       <article v-for="article in featuredArticles" :key="article.id">
         <nuxt-link :to="`/${article.slug}`" v-if="article._embedded['wp:featuredmedia']">
-          <div class="lazy">
-            <div class="featured" v-lazy:background-image="article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url" :style="{ minHeight: article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height + 'px' }"></div>
+          <div class="featured lazy" v-if="featuredImage(article)">
+            <div class="image-height" :style="{ paddingTop: featuredImage(article).height / featuredImage(article).width * 100 + '%' }"></div>
+            <img v-lazy="featuredImage(article).source_url">
           </div>
         </nuxt-link>
         <div class="content">
@@ -27,6 +28,14 @@ import moment from 'moment'
 
 export default {
   methods: {
+    featuredImage (article) {
+      let featuredImage = article._embedded['wp:featuredmedia']
+
+      if (featuredImage) {
+        return featuredImage[0].media_details.sizes.medium || false
+      }
+    },
+
     timestamp (date) { return moment(date).format('MMM d') }
   },
 
@@ -55,12 +64,22 @@ aside {
 
     article {
       & + article {
+        border-top: 1px dotted lighten($primary, 20%);
         margin-top: 32px;
+        padding-top: 32px;
+      }
+
+      .featured {
+        background-position: center;
+        margin-bottom: 12px;
+
+        img {
+          position: absolute;
+          top: 0;
+        }
       }
 
       .meta {
-        margin-top: 12px;
-
         .topic {
           position: relative;
 
@@ -79,10 +98,6 @@ aside {
 
       h2 {
         margin: 12px 0;
-      }
-
-      .featured {
-        background-position: center;
       }
 
       .content {

@@ -1,11 +1,11 @@
 <template>
   <article class="single-article">
-    <div class="featured lazy" v-if="featuredImage">
+    <div class="featured-image lazy" v-if="featuredImage">
       <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
       <img v-lazy="featuredImage.source_url">
     </div>
     <transition name="slide-fade">
-      <div class="narrow">
+      <div class="narrow" :class="{ 'no-featured-image': !featuredImage }">
         <div class="meta">
           <h1 class="title" v-html="article.title.rendered"></h1>
           <div class="details">
@@ -85,26 +85,49 @@ article {
     background-color: #efefef;
     margin: 20vh auto 0 auto;
     max-width: 842px;
-    min-height: calc(100vh - 80px - 200px);
     padding: 0 96px 96px 96px;
 
     @media (max-width: 700px) {
+      background-color: transparent;
       margin: 0 auto;
       max-width: none;
-      min-height: calc(100vh - 60px - 200px);
       padding: 0 16px 16px 16px;
+    }
+
+    &::after {
+      background-color: #efefef;
+      content: '';
+      height: 1000px;
+      left: 0;
+      position: absolute;
+      top: 100%;
+      width: 100%;
+    }
+
+    &.no-featured-image {
+      margin: 0 auto;
     }
   }
 
-  .featured {
-    img {
-      display: block;
-      position: absolute;
-      width: 100%;
+  .featured-image {
+    position: absolute;
+    width: 100%;
+
+    .image-height {
+      background-color: #bbb;
 
       @media (max-width: 700px) {
-        position: relative;
+        display: block;
       }
+    }
+
+    img {
+      display: block;
+      height: auto;
+      max-width: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
   }
 
@@ -132,26 +155,6 @@ article {
         padding: 0 0.5rem;
       }
     }
-  }
-
-  .lazy {
-    .image-height {
-      display: none;
-
-      @media (max-width: 700px) {
-        display: block;
-      }
-    }
-
-    img {
-      position: absolute;
-      top: 0;
-    }
-  }
-
-  img {
-    height: auto;
-    max-width: 100%;
   }
 }
 </style>

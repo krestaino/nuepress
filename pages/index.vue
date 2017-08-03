@@ -88,8 +88,8 @@ export default {
 .home {
   display: flex;
 
-  .featured {
-    margin: 0 -32px 32px -32px;
+  .hero {
+    margin: 0 -32px;
   }
 
   .articles {
@@ -104,6 +104,10 @@ export default {
 
     @media (max-width: 700px) {
       padding: 0 16px;
+    }
+
+    .article-list {
+      margin-top: 32px;
     }
   }
 }

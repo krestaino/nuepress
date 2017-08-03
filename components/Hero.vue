@@ -1,5 +1,5 @@
 <template>
-  <article class="featured">
+  <article class="hero">
     <nuxt-link :to="`/${this.hero.slug}`">
       <div class="date">
         <span v-html="timestamp(this.hero.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.hero._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.id !== 195"></span>
@@ -8,8 +8,9 @@
         <h2 v-html="this.hero.title.rendered"></h2>
         <div v-html="this.hero.excerpt.rendered"></div>
       </div>
-      <div class="lazy">
-        <div v-lazy:background-image="featuredImage"></div>
+      <div class="featured-image lazy" v-if="featuredImage">
+        <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+        <img v-lazy="featuredImage.source_url">
       </div>
     </nuxt-link>
   </article>
@@ -28,15 +29,7 @@ export default {
       let featuredImage = this.hero._embedded['wp:featuredmedia']
 
       if (featuredImage) {
-        let sizes = featuredImage[0].media_details.sizes
-
-        if (sizes.large) {
-          return sizes.large.source_url
-        } else if (sizes.full) {
-          return sizes.full.source_url
-        } else {
-          return false
-        }
+        return featuredImage[0].media_details.sizes.large || featuredImage[0].media_details.sizes.full || false
       }
     }
   },
@@ -50,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.featured {
+.hero {
   &:before {
     content: '';
     display: block;
@@ -103,13 +96,16 @@ export default {
     }
   }
 
-  .lazy {
+  .featured-image {
     width: 100%;
 
-    div {
-      background-position: center;
-      background-size: cover;
-      min-height: 500px;
+    img {
+      display: block;
+      height: auto;
+      max-width: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
   }
 
@@ -132,12 +128,6 @@ export default {
     p {
       margin: 0;
     }
-  }
-
-  img {
-    display: block;
-    max-width: 100%;
-    z-index: 1;
   }
 }
 </style>

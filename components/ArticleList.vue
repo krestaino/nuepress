@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <article class="article-list" v-for="article in articles" :key="article.id">
+  <div class="article-list">
+    <article v-for="article in articles" :key="article.id">
       <div class="date">
         <span v-html="timestamp(article.date)"></span>
         &nbsp;–&nbsp;
@@ -38,8 +38,8 @@ export default {
 <style lang="scss" scoped>
 @import '~assets/css/vars.scss';
 
-article.article-list {
-  & + article {
+.article-list {
+  article + article {
     border-top: 1px dotted lighten($primary, 20%);
     margin-top: 32px;
     padding-top: 32px;
