@@ -1,7 +1,23 @@
 module.exports = {
-  /*
-  ** Headers of the page
-  */
+  // Build configuration
+  build: {
+    // Run ESLINT on save
+    extend (config, ctx) {
+      if (ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
+  },
+  css: [
+    'normalize.css/normalize.css'
+  ],
+
+  // Headers of the page
   head: {
     title: 'wp-vue',
     meta: [
@@ -14,34 +30,11 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto:100,300,400' }
     ]
   },
-  /*
-  ** Customize the progress-bar color
-  */
+
+  // Customize the progress-bar color
   loading: { color: '#384D66' },
 
   plugins: [
     { src: '~plugins/vue-lazyload', ssr: false }
-  ],
-
-  css: [
-    'normalize.css/normalize.css'
-  ],
-  /*
-  ** Build configuration
-  */
-  build: {
-    /*
-    ** Run ESLINT on save
-    */
-    extend (config, ctx) {
-      if (ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
-  }
+  ]
 }
