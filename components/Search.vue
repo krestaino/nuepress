@@ -227,12 +227,14 @@ section {
         height: 24px;
         width: 24px;
 
-        &.results-visible {
-          fill: #fff;
-          opacity: 0.8;
+        @media (min-width: 700px) {
+          &.results-visible {
+            fill: #fff;
+            opacity: 0.8;
 
-          &:hover {
-            opacity: 1;
+            &:hover {
+              opacity: 1;
+            }
           }
         }
       }
