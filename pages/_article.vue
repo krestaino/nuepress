@@ -113,6 +113,10 @@ article {
     position: absolute;
     width: 100%;
 
+    @media (max-width: 700px) {
+      position: relative;
+    }
+
     .image-height {
       background-color: #bbb;
 
