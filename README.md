@@ -2,6 +2,8 @@
 
 [Nuxt.js](https://github.com/nuxt/nuxt.js) + [WordPress REST API](https://developer.wordpress.org/rest-api/)
 
+![alt text](http://i.imgur.com/n5BJs6K.jpg "NuePress")
+
 ## Build Setup
 
 ``` bash
