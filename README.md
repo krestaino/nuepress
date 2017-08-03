@@ -1,6 +1,6 @@
 # NuePress
 
-Nuxt.js + WordPress REST API
+[Nuxt.js](https://github.com/nuxt/nuxt.js) + [WordPress REST API](https://developer.wordpress.org/rest-api/)
 
 ## Build Setup
 
