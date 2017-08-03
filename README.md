@@ -1,12 +1,12 @@
-# vue-wp
+# NuxtPress
 
-> Vue + WordPress
+Nuxt.js + WordPress REST API
 
 ## Build Setup
 
 ``` bash
 # install dependencies
-$ npm install # Or yarn install
+$ npm install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
