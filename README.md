@@ -1,4 +1,4 @@
-# NuxtPress
+# NuePress
 
 Nuxt.js + WordPress REST API
 
