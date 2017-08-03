@@ -52,7 +52,7 @@ export default {
     authorArticles () { return _.find(this.$store.state.authorArticles, {'slug': this.$route.params.article}) },
     authors () { return this.$store.state.authors },
     featuredArticles () { return this.$store.state.featuredArticles },
-    meta () { return this.$store.state.meta }
+    meta () { return this.$store.state.meta || {} }
   },
 
   head () {

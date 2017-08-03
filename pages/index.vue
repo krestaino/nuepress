@@ -51,7 +51,7 @@ export default {
     articles () { return this.$store.state.articles },
     featuredArticles () { return this.$store.state.featuredArticles },
     heroArticle () { return this.$store.state.heroArticle },
-    meta () { return this.$store.state.meta }
+    meta () { return this.$store.state.meta || {} }
   },
 
   data () {

@@ -2,7 +2,7 @@
   <article class="single-article">
     <div class="featured lazy" v-if="featuredImage">
       <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
-      <img v-lazy="featuredImage.src">
+      <img v-lazy="featuredImage.source_url">
     </div>
     <transition name="slide-fade">
       <div class="narrow">
@@ -42,18 +42,10 @@ export default {
       let featuredImage = this.$store.state.article._embedded['wp:featuredmedia']
 
       if (featuredImage) {
-        let sizes = featuredImage[0].media_details.sizes
-
-        if (sizes.large) {
-          return { height: sizes.large.height, width: sizes.large.width, src: sizes.large.source_url }
-        } else if (sizes.full) {
-          return { height: sizes.full.height, width: sizes.full.width, src: sizes.full.source_url }
-        } else {
-          return false
-        }
+        return featuredImage[0].media_details.sizes.large || featuredImage[0].media_details.sizes.full || false
       }
     },
-    meta () { return this.$store.state.meta }
+    meta () { return this.$store.state.meta || {} }
   },
 
   head () {
