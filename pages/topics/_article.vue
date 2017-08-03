@@ -5,9 +5,9 @@
         <h1 v-html="topic.name"></h1>
         <p v-html="topic.description" v-if="topic.description"></p>
       </div>
-      <article-list :articles="topicArticles.articles"></article-list>
+      <ArticleList :articles="topicArticles.articles"></ArticleList>
     </div>
-    <sidebar :featuredArticles="featuredArticles"></sidebar>
+    <Sidebar :featuredArticles="featuredArticles"></Sidebar>
   </div>
 </template>
 

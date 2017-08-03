@@ -5,9 +5,9 @@
         <h1 v-html="author.name"></h1>
         <p v-html="author.description"></p>
       </div>
-      <article-list :articles="authorArticles.articles"></article-list>
+      <ArticleList :articles="authorArticles.articles"></ArticleList>
     </div>
-    <sidebar :featuredArticles="featuredArticles"></sidebar>
+    <Sidebar :featuredArticles="featuredArticles"></Sidebar>
   </div>
 </template>
 
