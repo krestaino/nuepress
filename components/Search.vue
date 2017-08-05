@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import debounce from 'lodash/debounce'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -78,7 +78,7 @@ export default {
   },
 
   methods: {
-    debounceSearch: _.debounce(function (event) {
+    debounceSearch: debounce(function (event) {
       if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
         this.search()
       }

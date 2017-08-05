@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import find from 'lodash/find'
 import axios from 'axios'
 
 import ArticleList from '~/components/ArticleList'
@@ -30,8 +30,8 @@ export default {
       store.commit('setAuthors', authors.data)
     }
 
-    if (!_.find(store.state.authorArticles, {'slug': params.article})) {
-      let author = _.find(store.state.authors, {'slug': params.article})
+    if (!find(store.state.authorArticles, {'slug': params.article})) {
+      let author = find(store.state.authors, {'slug': params.article})
       let authorArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
       store.commit('setAuthorArticles', {slug: params.article, articles: authorArticles.data})
     }
@@ -48,8 +48,8 @@ export default {
   },
 
   computed: {
-    author () { return _.find(this.$store.state.authors, {'slug': this.$route.params.article}) },
-    authorArticles () { return _.find(this.$store.state.authorArticles, {'slug': this.$route.params.article}) },
+    author () { return find(this.$store.state.authors, {'slug': this.$route.params.article}) },
+    authorArticles () { return find(this.$store.state.authorArticles, {'slug': this.$route.params.article}) },
     authors () { return this.$store.state.authors },
     featuredArticles () { return this.$store.state.featuredArticles },
     meta () { return this.$store.state.meta || {} }

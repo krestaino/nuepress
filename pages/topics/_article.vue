@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import find from 'lodash/find'
 import axios from 'axios'
 
 import ArticleList from '~/components/ArticleList'
@@ -30,8 +30,8 @@ export default {
       store.commit('setTopics', topics.data)
     }
 
-    if (!_.find(store.state.topicArticles, {'slug': params.article})) {
-      let topic = _.find(store.state.topics, {'slug': params.article})
+    if (!find(store.state.topicArticles, {'slug': params.article})) {
+      let topic = find(store.state.topics, {'slug': params.article})
       let topicArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
       store.commit('setTopicArticles', {slug: params.article, articles: topicArticles.data})
     }
@@ -50,8 +50,8 @@ export default {
   computed: {
     featuredArticles () { return this.$store.state.featuredArticles },
     meta () { return this.$store.state.meta || {} },
-    topic () { return _.find(this.$store.state.topics, {'slug': this.$route.params.article}) },
-    topicArticles () { return _.find(this.$store.state.topicArticles, {'slug': this.$route.params.article}) },
+    topic () { return find(this.$store.state.topics, {'slug': this.$route.params.article}) },
+    topicArticles () { return find(this.$store.state.topicArticles, {'slug': this.$route.params.article}) },
     topics () { return this.$store.state.topics }
   },
 
