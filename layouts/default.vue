@@ -1,6 +1,7 @@
 <template>
   <div id="blog">
     <BlogHeader/>
+    <Spinner1 class="spinner"/>
     <main role="main">
       <nuxt/>
     </main>
@@ -11,11 +12,13 @@
 <script>
 import BlogHeader from '../components/Header'
 import BlogFooter from '../components/Footer'
+import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
     BlogHeader,
-    BlogFooter
+    BlogFooter,
+    Spinner1
   }
 }
 </script>
@@ -55,6 +58,30 @@ body {
   font-size: 0.85rem;
   font-weight: 300;
   line-height: 1.765em;
+}
+
+#__nuxt {
+  main {
+    transition: 0.5s;
+  }
+
+  .spinner {
+    display: none;
+  }
+}
+
+#__nuxt[data-server-rendered=true] {
+  main {
+    opacity: 0;
+  }
+
+  .spinner {
+    display: block;
+    left: calc(50% - 20px);
+    position: absolute;
+    top: calc(50vh - 40px - 64px);
+    z-index: 10;
+  }
 }
 
 #blog {
