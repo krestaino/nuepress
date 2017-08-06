@@ -1,11 +1,11 @@
 <template>
-  <div class="author">
+  <div class="topic">
     <div class="articles">
       <div class="page-title">
-        <h1 v-html="author.name"></h1>
-        <p v-html="author.description"></p>
+        <h1 v-html="topic.name"></h1>
+        <p v-html="topic.description" v-if="topic.description"></p>
       </div>
-      <ArticleList :articles="authorArticles.articles"></ArticleList>
+      <ArticleList :articles="topicArticles.articles"></ArticleList>
     </div>
     <Sidebar :featuredArticles="featuredArticles"></Sidebar>
   </div>
@@ -25,15 +25,15 @@ export default {
       store.commit('setFeaturedArticles', articles.data)
     }
 
-    if (!store.state.authors) {
-      let authors = await axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
-      store.commit('setAuthors', authors.data)
+    if (!store.state.topics) {
+      let topics = await axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
+      store.commit('setTopics', topics.data)
     }
 
-    if (!find(store.state.authorArticles, {'slug': params.article})) {
-      let author = find(store.state.authors, {'slug': params.article})
-      let authorArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
-      store.commit('setAuthorArticles', {slug: params.article, articles: authorArticles.data})
+    if (!find(store.state.topicArticles, {'slug': params.topic})) {
+      let topic = find(store.state.topics, {'slug': params.topic})
+      let topicArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
+      store.commit('setTopicArticles', {slug: params.topic, articles: topicArticles.data})
     }
 
     if (!store.state.meta) {
@@ -48,16 +48,16 @@ export default {
   },
 
   computed: {
-    author () { return find(this.$store.state.authors, {'slug': this.$route.params.article}) },
-    authorArticles () { return find(this.$store.state.authorArticles, {'slug': this.$route.params.article}) },
-    authors () { return this.$store.state.authors },
     featuredArticles () { return this.$store.state.featuredArticles },
-    meta () { return this.$store.state.meta || {} }
+    meta () { return this.$store.state.meta || {} },
+    topic () { return find(this.$store.state.topics, {'slug': this.$route.params.topic}) },
+    topicArticles () { return find(this.$store.state.topicArticles, {'slug': this.$route.params.topic}) },
+    topics () { return this.$store.state.topics }
   },
 
   head () {
     return {
-      title: `${this.author.name} | ${this.meta.name}`,
+      title: `${this.topic.name} | ${this.meta.name}`,
       meta: [
         { description: this.meta.description }
       ]
@@ -69,7 +69,7 @@ export default {
 <style lang="scss" scoped>
 @import '~assets/css/vars.scss';
 
-.author {
+.topic {
   display: flex;
 
   .articles {
