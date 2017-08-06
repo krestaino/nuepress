@@ -97,8 +97,16 @@ export default {
     max-width: 900px;
     width: 100%;
 
+    @media (max-width: 1000px) {
+      max-width: none;
+    }
+
     @media (max-width: 700px) {
       padding: 0 16px;
+    }
+
+    .article-list {
+      margin: 32px 0;
     }
   }
 }
