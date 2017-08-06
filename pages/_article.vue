@@ -206,11 +206,14 @@ article {
       display: block;
       height: auto;
       max-width: 100%;
-      opacity: .6;
       position: absolute;
       top: 0;
       transition: opacity 0.8s;
       width: 100%;
+
+      &[lazy="loaded"] {
+        opacity: 0.6;
+      }
     }
   }
 
