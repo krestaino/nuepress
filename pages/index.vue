@@ -103,7 +103,7 @@ export default {
     }
 
     .article-list {
-      margin-top: 32px;
+      margin: 32px 0;
     }
   }
 }
