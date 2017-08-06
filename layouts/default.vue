@@ -1,5 +1,5 @@
 <template>
-  <div class="loading" id="blog">
+  <div id="blog">
     <Spinner1/>
     <div class="interface">
       <BlogHeader/>
@@ -63,18 +63,16 @@ body {
 }
 
 #blog {
-  > .interface  {
-    transition: 0.5s;
-  }
-
-  > .spinner {
-    display: none;
-  }
-}
-
-#blog.loading {
   > .interface {
+    display: flex;
+    flex-direction: column;
     opacity: 0;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  @media (max-width: 700px) {
+    padding-top: 60px;
   }
 
   > .spinner {
@@ -86,16 +84,14 @@ body {
   }
 }
 
-#blog {
-  .interface > {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    padding-top: 80px;
+html.wf-active #blog {
+  > .interface  {
+    transition: 0.5s;
+    opacity: 1;
   }
 
-  @media (max-width: 700px) {
-    padding-top: 60px;
+  > .spinner {
+    display: none;
   }
 }
 
