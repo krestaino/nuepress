@@ -155,8 +155,9 @@ pre {
 .lazy {
   background-color: #bbb;
 
-  div,
+  div:not(.image-height),
   img {
+    backface-visibility: hidden;
     height: 100%;
     opacity: 0;
     transition: opacity 0.5s;

@@ -8,6 +8,7 @@
     "axios": "^0.16.2",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "node-vibrant": "^3.0.0-alpha.2",
     "nuxt": "^1.0.0-rc3",
     "vue-lazyload": "^1.0.6"
   },

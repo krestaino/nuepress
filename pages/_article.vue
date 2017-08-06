@@ -1,7 +1,8 @@
 <template>
   <article class="single-article">
     <div class="featured-image lazy" v-if="featuredImage">
-      <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+      <div class="image-height"
+        :style="{ backgroundColor: `rgb(${RGB[0]},${RGB[1]},${RGB[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
       <img v-lazy="featuredImage.source_url">
     </div>
     <transition name="slide-fade">
@@ -23,6 +24,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import * as Vibrant from 'node-vibrant'
 
 export default {
   async asyncData ({ store, params }) {
@@ -32,6 +34,18 @@ export default {
     if (!store.state.meta) {
       let meta = await axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
+    }
+  },
+
+  beforeMount () {
+    if (this.featuredImage) {
+      let img = this.article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
+
+      Vibrant.from(img).getPalette((err, palette) => {
+        if (!err) {
+          this.$store.commit('setFeaturedColor', palette)
+        }
+      })
     }
   },
 
@@ -48,6 +62,12 @@ export default {
     meta () { return this.$store.state.meta || {} }
   },
 
+  data () {
+    return {
+      RGB: {}
+    }
+  },
+
   head () {
     return {
       title: `${this.article.title.rendered} | ${this.meta.name}`,
@@ -59,6 +79,12 @@ export default {
 
   methods: {
     timestamp (date) { return moment(date).format('MMM d, YYYY') }
+  },
+
+  watch: {
+    '$store.state.featuredColor' () {
+      this.RGB = this.$store.state.featuredColor.DarkMuted._rgb
+    }
   }
 }
 </script>
@@ -131,6 +157,7 @@ article {
       max-width: 100%;
       position: absolute;
       top: 0;
+      transition: opacity 1s;
       width: 100%;
     }
   }
