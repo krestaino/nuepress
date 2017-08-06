@@ -3,7 +3,7 @@
     <div class="articles">
       <Hero :heroArticle="heroArticle" v-if="heroArticle.length"/>
       <ArticleList :articles="articles"/>
-      <InfiniteLoading v-if="!disableIndexInfiniteLoading" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <InfiniteLoading v-if="indexInfiniteLoading.enabled" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
     <Sidebar :featuredArticles="featuredArticles"/>
   </div>
@@ -49,16 +49,10 @@ export default {
 
   computed: {
     articles () { return this.$store.state.articles },
-    disableIndexInfiniteLoading () { return this.$store.state.disableIndexInfiniteLoading },
+    indexInfiniteLoading () { return this.$store.state.indexInfiniteLoading },
     featuredArticles () { return this.$store.state.featuredArticles },
     heroArticle () { return this.$store.state.heroArticle },
     meta () { return this.$store.state.meta || {} }
-  },
-
-  data () {
-    return {
-      page: 1
-    }
   },
 
   head () {
@@ -72,15 +66,16 @@ export default {
 
   methods: {
     moreArticles () {
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.page++}`)
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.indexInfiniteLoading.page++}`)
         .then(response => {
           this.$store.commit('setArticles', response.data)
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+          this.$store.commit('setindexInfiniteLoading', { page: this.indexInfiniteLoading.page })
         })
         .catch(() => {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
           this.disableInfiniteLoading = true
-          this.$store.commit('setDisableIndexInfiniteLoading', true)
+          this.$store.commit('setindexInfiniteLoading', { enabled: false })
         })
     }
   }
