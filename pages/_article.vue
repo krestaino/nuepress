@@ -114,7 +114,6 @@ article {
     padding: 0 96px 96px 96px;
 
     @media (max-width: 700px) {
-      background-color: transparent;
       margin: 0 auto;
       max-width: none;
       padding: 0 16px 16px 16px;
