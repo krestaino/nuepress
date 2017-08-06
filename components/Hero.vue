@@ -1,16 +1,16 @@
 <template>
   <article class="hero">
-    <nuxt-link :to="`/${this.hero.slug}`">
+    <nuxt-link :to="`/${this.heroArticle.slug}`">
       <div class="date">
-        <span v-html="timestamp(this.hero.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.hero._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.id !== 195"></span>
+        <span v-html="timestamp(this.heroArticle.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.heroArticle._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.id !== 195"></span>
       </div>
       <div class="meta">
-        <h2 v-html="this.hero.title.rendered"></h2>
-        <div v-html="this.hero.excerpt.rendered"></div>
+        <h2 v-html="this.heroArticle.title.rendered"></h2>
+        <div v-html="this.heroArticle.excerpt.rendered"></div>
       </div>
       <div class="featured-image lazy" v-if="featuredImage">
         <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
-        <img v-lazy="featuredImage.source_url">
+        <div class="image" v-lazy:backgroundImage="featuredImage.source_url"></div>
       </div>
     </nuxt-link>
   </article>
@@ -21,12 +21,8 @@ import moment from 'moment'
 
 export default {
   computed: {
-    hero () {
-      return this.$store.state.heroArticle[0]
-    },
-
     featuredImage () {
-      let featuredImage = this.hero._embedded['wp:featuredmedia']
+      let featuredImage = this.heroArticle._embedded['wp:featuredmedia']
 
       if (featuredImage) {
         return featuredImage[0].media_details.sizes.large || featuredImage[0].media_details.sizes.full || false
@@ -97,11 +93,15 @@ export default {
   }
 
   .featured-image {
+    min-height: 440px;
     width: 100%;
 
-    img {
+    .image {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
       display: block;
-      height: auto;
+      height: 100%;
       max-width: 100%;
       position: absolute;
       top: 0;

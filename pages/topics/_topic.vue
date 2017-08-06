@@ -23,7 +23,7 @@ import Sidebar from '~/components/Sidebar'
 export default {
   async asyncData ({ store, params }) {
     if (!store.state.featuredArticles.length) {
-      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`)
+      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
       store.commit('setFeaturedArticles', articles.data)
     }
 

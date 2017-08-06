@@ -11,9 +11,9 @@ const store = () => new Vuex.Store({
       enabled: true,
       page: 1
     },
-    featuredColor: {},
     featuredArticles: [],
-    heroArticle: [],
+    featuredColor: {},
+    featuredID: 194,
     meta: null,
     topicArticles: [],
     topics: null,
@@ -41,9 +41,6 @@ const store = () => new Vuex.Store({
     },
     setFeaturedArticles (state, data) {
       state.featuredArticles = state.featuredArticles.concat(data)
-    },
-    setHeroArticle (state, data) {
-      state.heroArticle = state.heroArticle.concat(data)
     },
     setMeta (state, data) {
       state.meta = data
