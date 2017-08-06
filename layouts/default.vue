@@ -87,7 +87,7 @@ body {
 }
 
 #blog {
-  div > {
+  .interface > {
     display: flex;
     flex-direction: column;
     overflow: hidden;
