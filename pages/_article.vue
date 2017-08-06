@@ -144,7 +144,8 @@ article {
     }
 
     .image-height {
-      background-color: #bbb;
+      background-color: #efefef;
+      transition: 0.2s;
 
       @media (max-width: 700px) {
         display: block;
@@ -157,7 +158,7 @@ article {
       max-width: 100%;
       position: absolute;
       top: 0;
-      transition: opacity 1s;
+      transition: opacity 0.8s;
       width: 100%;
     }
   }

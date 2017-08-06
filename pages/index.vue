@@ -3,7 +3,7 @@
     <div class="articles">
       <Hero :heroArticle="heroArticle" v-if="heroArticle.length"/>
       <ArticleList :articles="articles"/>
-      <InfiniteLoading :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <InfiniteLoading v-if="!disableIndexInfiniteLoading" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
     <Sidebar :featuredArticles="featuredArticles"/>
   </div>
@@ -49,6 +49,7 @@ export default {
 
   computed: {
     articles () { return this.$store.state.articles },
+    disableIndexInfiniteLoading () { return this.$store.state.disableIndexInfiniteLoading },
     featuredArticles () { return this.$store.state.featuredArticles },
     heroArticle () { return this.$store.state.heroArticle },
     meta () { return this.$store.state.meta || {} }
@@ -78,6 +79,8 @@ export default {
         })
         .catch(() => {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+          this.disableInfiniteLoading = true
+          this.$store.commit('setDisableIndexInfiniteLoading', true)
         })
     }
   }
