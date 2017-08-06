@@ -70,12 +70,10 @@ export default {
         .then(response => {
           this.$store.commit('setArticles', response.data)
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
-          this.$store.commit('setindexInfiniteLoading', { page: this.indexInfiniteLoading.page })
         })
         .catch(() => {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
-          this.disableInfiniteLoading = true
-          this.$store.commit('setindexInfiniteLoading', { enabled: false })
+          this.$store.commit('setIndexInfiniteLoading', { enabled: false })
         })
     }
   }
