@@ -195,12 +195,6 @@ article {
       }
     }
 
-    &.expanded {
-      img {
-        opacity: 1;
-      }
-    }
-
     img {
       backface-visibility: hidden;
       display: block;
@@ -213,6 +207,12 @@ article {
 
       &[lazy="loaded"] {
         opacity: 0.6;
+      }
+    }
+
+    &.expanded {
+      img[lazy="loaded"] {
+        opacity: 1;
       }
     }
   }
