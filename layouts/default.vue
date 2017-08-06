@@ -69,10 +69,10 @@ body {
     opacity: 0;
     overflow: hidden;
     padding-top: 80px;
-  }
 
-  @media (max-width: 700px) {
-    padding-top: 60px;
+    @media (max-width: 700px) {
+      padding-top: 60px;
+    }
   }
 
   > .spinner {
