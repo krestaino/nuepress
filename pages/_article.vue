@@ -1,12 +1,20 @@
 <template>
   <article class="single-article">
-    <div class="featured-image lazy" v-if="featuredImage">
+    <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
       <div class="image-height"
         :style="{ backgroundColor: `rgb(${RGB[0]},${RGB[1]},${RGB[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
       <img v-lazy="featuredImage.source_url">
     </div>
     <transition name="slide-fade">
-      <div class="narrow" :class="{ 'no-featured-image': !featuredImage }">
+      <div class="narrow"
+        :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }"
+        :style="{ marginTop: `calc(-${featuredImage.height / featuredImage.width * 100}% + 96px)`}">
+        <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }">
+          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </button>
         <div class="meta">
           <h1 class="title" v-html="article.title.rendered"></h1>
           <div class="details">
@@ -38,7 +46,7 @@ export default {
   },
 
   beforeMount () {
-    if (this.featuredImage) {
+    if (this.featuredImage.source_url) {
       let img = this.article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
 
       Vibrant.from(img).getPalette((err, palette) => {
@@ -57,6 +65,8 @@ export default {
 
       if (featuredImage) {
         return featuredImage[0].media_details.sizes.large || featuredImage[0].media_details.sizes.full || false
+      } else {
+        return { height: 0, width: 0 }
       }
     },
     meta () { return this.$store.state.meta || {} }
@@ -64,6 +74,7 @@ export default {
 
   data () {
     return {
+      expanded: false,
       RGB: {}
     }
   },
@@ -109,12 +120,22 @@ article {
 
   .narrow {
     background-color: #efefef;
-    margin: 20vh auto 0 auto;
+    margin: 0 auto;
     max-width: 842px;
     padding: 0 96px 96px 96px;
+    position: relative;
+    transition: 1s;
+
+    &.expanded {
+      margin-top: 0 !important;
+    }
+
+    @media (max-width: 900px) {
+      margin-top: 0 !important;
+      max-width: 100%;
+    }
 
     @media (max-width: 700px) {
-      margin: 0 auto;
       max-width: none;
       padding: 0 16px 16px 16px;
     }
@@ -129,18 +150,47 @@ article {
       width: 100%;
     }
 
+    .expand-featured-image {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      outline: 0;
+      position: absolute;
+      right: 32px;
+      top: 32px;
+      transition: 1s;
+      z-index: 1;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
+
+      &:hover {
+        svg {
+          opacity: 1;
+        }
+      }
+
+      &.expanded {
+        transform: rotate(180deg);
+      }
+
+      svg {
+        fill: $primary;
+        height: 24px;
+        opacity: 0.7;
+        transition: 0.1s;
+        width: 24px;
+      }
+    }
+
     &.no-featured-image {
       margin: 0 auto;
     }
   }
 
   .featured-image {
-    position: absolute;
     width: 100%;
-
-    @media (max-width: 700px) {
-      position: relative;
-    }
 
     .image-height {
       background-color: #efefef;
