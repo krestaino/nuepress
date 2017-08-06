@@ -9,7 +9,7 @@ const store = () => new Vuex.Store({
     authors: null,
     indexInfiniteLoading: {
       enabled: true,
-      page: 2
+      page: 1
     },
     featuredColor: {},
     featuredArticles: [],

@@ -6,6 +6,7 @@
         <p v-html="topic.description" v-if="topic.description"></p>
       </div>
       <ArticleList :articles="topicArticles.articles"></ArticleList>
+      <InfiniteLoading v-if="topicArticles.infiniteLoading" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
     <Sidebar :featuredArticles="featuredArticles"></Sidebar>
   </div>
@@ -16,6 +17,7 @@ import find from 'lodash/find'
 import axios from 'axios'
 
 import ArticleList from '~/components/ArticleList'
+import InfiniteLoading from '~/components/InfiniteLoading'
 import Sidebar from '~/components/Sidebar'
 
 export default {
@@ -33,7 +35,7 @@ export default {
     if (!find(store.state.topicArticles, {'slug': params.topic})) {
       let topic = find(store.state.topics, {'slug': params.topic})
       let topicArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${topic.id}&_embed`)
-      store.commit('setTopicArticles', {slug: params.topic, articles: topicArticles.data})
+      store.commit('setTopicArticles', {slug: params.topic, articles: topicArticles.data, infiniteLoading: true, page: 1})
     }
 
     if (!store.state.meta) {
@@ -44,6 +46,7 @@ export default {
 
   components: {
     ArticleList,
+    InfiniteLoading,
     Sidebar
   },
 
@@ -61,6 +64,22 @@ export default {
       meta: [
         { description: this.meta.description }
       ]
+    }
+  },
+
+  methods: {
+    moreArticles () {
+      this.topicArticles.page++
+
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${this.topic.id}&_embed&page=${this.topicArticles.page}`)
+        .then(response => {
+          this.topicArticles.articles = this.topicArticles.articles.concat(response.data)
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+        })
+        .catch(() => {
+          this.topicArticles.infiniteLoading = false
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+        })
     }
   }
 }

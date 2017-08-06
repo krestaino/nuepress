@@ -66,7 +66,9 @@ export default {
 
   methods: {
     moreArticles () {
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&_embed&page=${this.indexInfiniteLoading.page++}`)
+      this.indexInfiniteLoading.page++
+
+      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=194,195&_embed&page=${this.indexInfiniteLoading.page}`)
         .then(response => {
           this.$store.commit('setArticles', response.data)
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
