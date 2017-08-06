@@ -116,7 +116,7 @@ export default {
     },
 
     timestamp (date) {
-      return moment(date).format('MMM d, YYYY')
+      return moment(date).format('MMM D, YYYY')
     },
 
     toggleSearch () {

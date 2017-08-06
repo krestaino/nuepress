@@ -89,7 +89,7 @@ export default {
   },
 
   methods: {
-    timestamp (date) { return moment(date).format('MMM d, YYYY') }
+    timestamp (date) { return moment(date).format('MMM D, YYYY') }
   },
 
   watch: {

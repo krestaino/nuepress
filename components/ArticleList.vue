@@ -28,7 +28,16 @@ import moment from 'moment'
 
 export default {
   methods: {
-    timestamp (date) { return moment(date).format('MMM d') }
+    timestamp (date) {
+      let article = moment(date)
+      let today = moment(new Date())
+
+      if (today.diff(article) > 5.184e+8) {
+        return article.format('MMM D')
+      } else {
+        return article.fromNow()
+      }
+    }
   },
 
   props: ['articles']

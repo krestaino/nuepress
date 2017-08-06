@@ -11,7 +11,7 @@
         </nuxt-link>
         <div class="content">
           <div class="meta">
-            <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></nuxt-link>
+            <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name" v-if="topic.id !== $store.state.featuredID"></nuxt-link>
           </div>
           <nuxt-link :to="`/${article.slug}`">
             <h2 v-html="article.title.rendered"></h2>
@@ -36,7 +36,16 @@ export default {
       }
     },
 
-    timestamp (date) { return moment(date).format('MMM d') }
+    timestamp (date) {
+      let article = moment(date)
+      let today = moment(new Date())
+
+      if (today.diff(article) > 5.184e+8) {
+        return article.format('MMM D')
+      } else {
+        return article.fromNow()
+      }
+    }
   },
 
   props: ['featuredArticles']
@@ -80,6 +89,10 @@ aside {
       }
 
       .meta {
+        > span {
+          text-transform: capitalize;
+        }
+
         .topic {
           position: relative;
 

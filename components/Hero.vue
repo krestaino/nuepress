@@ -2,7 +2,7 @@
   <article class="hero">
     <nuxt-link :to="`/${this.heroArticle.slug}`">
       <div class="date">
-        <span v-html="timestamp(this.heroArticle.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.heroArticle._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.id !== 195"></span>
+        <span v-html="timestamp(this.heroArticle.date)"></span>&nbsp;–&nbsp;<span class="topic fancy" v-for="topic in this.heroArticle._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name"></span>
       </div>
       <div class="meta">
         <h2 v-html="this.heroArticle.title.rendered"></h2>
@@ -31,7 +31,17 @@ export default {
   },
 
   methods: {
-    timestamp (date) { return moment(date).format('MMM d') }
+    timestamp (date) {
+      let article = moment(date)
+      let today = moment(new Date())
+      console.log(today.diff(article))
+
+      if (today.diff(article) > 5.184e+8) {
+        return article.format('MMM D')
+      } else {
+        return article.fromNow()
+      }
+    }
   },
 
   props: ['heroArticle']
@@ -71,6 +81,10 @@ export default {
     position: absolute;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
     z-index: 2;
+
+    span {
+      text-transform: capitalize;
+    }
 
     a {
       color: #eee;
