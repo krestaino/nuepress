@@ -1,11 +1,13 @@
 <template>
   <div id="blog">
-    <BlogHeader/>
-    <Spinner1 class="spinner"/>
-    <main role="main">
-      <nuxt/>
-    </main>
-    <BlogFooter/>
+    <Spinner1/>
+    <div class="interface">
+      <BlogHeader/>
+      <main role="main">
+        <nuxt/>
+      </main>
+      <BlogFooter/>
+    </div>
   </div>
 </template>
 
@@ -61,34 +63,36 @@ body {
 }
 
 #__nuxt {
-  main {
+  #blog > .interface  {
     transition: 0.5s;
   }
 
-  .spinner {
+  #blog > .spinner {
     display: none;
   }
 }
 
 #__nuxt[data-server-rendered=true] {
-  main {
+  #blog > .interface {
     opacity: 0;
   }
 
-  .spinner {
+  #blog > .spinner {
     display: block;
     left: calc(50% - 20px);
     position: absolute;
-    top: calc(50vh - 40px - 64px);
+    top: calc(50vh - 20px - 64px);
     z-index: 10;
   }
 }
 
 #blog {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding-top: 80px;
+  div > {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 80px;
+  }
 
   @media (max-width: 700px) {
     padding-top: 60px;
