@@ -6,7 +6,7 @@
         <p v-html="topic.description" v-if="topic.description"></p>
       </div>
       <ArticleList :articles="topicArticles.articles"></ArticleList>
-      <InfiniteLoading v-if="topicArticles.infiniteLoading" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <InfiniteLoading v-if="(topicArticles.infiniteLoading)  && (topicArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
     <Sidebar :featuredArticles="featuredArticles"></Sidebar>
   </div>
