@@ -1,5 +1,5 @@
 <template>
-  <div id="blog">
+  <div class="loading" id="blog">
     <Spinner1/>
     <div class="interface">
       <BlogHeader/>
@@ -62,22 +62,22 @@ body {
   line-height: 1.765em;
 }
 
-#__nuxt {
-  #blog > .interface  {
+#blog {
+  > .interface  {
     transition: 0.5s;
   }
 
-  #blog > .spinner {
+  > .spinner {
     display: none;
   }
 }
 
-#__nuxt[data-server-rendered=true] {
-  #blog > .interface {
+#blog.loading {
+  > .interface {
     opacity: 0;
   }
 
-  #blog > .spinner {
+  > .spinner {
     display: block;
     left: calc(50% - 20px);
     position: absolute;
