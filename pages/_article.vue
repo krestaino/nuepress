@@ -254,9 +254,55 @@ article {
     padding-top: 32px;
     margin-top: 32px;
 
+    .alignnone,
+    .size-full,
     .wp-caption {
-      margin-top: 16px;
-      max-width: 100%;
+      background-color: #fff;
+      padding: 16px;
+      display: block;
+      margin-bottom: 32px;
+
+      img {
+        display: block;
+        padding: 0;
+        margin-bottom: 16px;
+      }
+
+      &.alignnone {
+        max-width: 100%;
+      }
+
+      &.aligncenter {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &.alignleft {
+        float: left;
+        margin-right: 32px;
+        width: initial;
+      }
+
+      &.alignright {
+        float: right;
+        margin-left: 32px;
+        width: initial;
+      }
+    }
+
+    .wp-caption {    
+      p {
+        margin-bottom: 0;
+
+        & + p {
+          margin-top: 16px;
+        }
+      }
+    }
+
+    p {
+      margin-bottom: 32px;
+      margin-top: 0;
     }
 
     a {
