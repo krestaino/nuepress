@@ -92,8 +92,9 @@ export default {
   methods: {
     sanitize (html) {
       return sanitizeHtml(html, {
+        allowedAttributes: false,
         allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-          'abbr', 'address', 'cite', 'dd', 'dl', 'dt', 'h1', 'h2', 'ins', 'kbd', 'q', 'sub', 'sup', 'var'
+          'abbr', 'address', 'cite', 'dd', 'dl', 'dt', 'h1', 'h2', 'img', 'ins', 'kbd', 'q', 'sub', 'sup', 'var'
         ])
       })
     },
