@@ -16,7 +16,7 @@
           </svg>
         </button>
         <div class="meta">
-          <h1 class="title">{{ article.title.rendered }}"></h1>
+          <h1 class="title">{{ article.title.rendered }}</h1>
           <div class="details">
             <span>{{ timestamp(article.date) }}</span>
             <span class="separator">|</span>
