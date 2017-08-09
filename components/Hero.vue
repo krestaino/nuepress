@@ -34,7 +34,6 @@ export default {
     timestamp (date) {
       let article = moment(date)
       let today = moment(new Date())
-      console.log(today.diff(article))
 
       if (today.diff(article) > 5.184e+8) {
         return article.format('MMM D')

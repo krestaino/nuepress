@@ -5,13 +5,7 @@
   "author": "Kevin Restaino <kevinrestaino@gmail.com>",
   "private": true,
   "dependencies": {
-    "axios": "^0.16.2",
-    "lodash": "^4.17.4",
-    "moment": "^2.18.1",
-    "node-vibrant": "^3.0.0-alpha.2",
-    "nuxt": "^1.0.0-rc3",
-    "vue-lazyload": "^1.0.6",
-    "webfontloader": "^1.6.28"
+    "nuxt": "^1.0.0-rc3"
   },
   "config": {
     "nuxt": {
@@ -28,6 +22,7 @@
     "precommit": "npm run lint"
   },
   "devDependencies": {
+    "axios": "^0.16.2",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.15.0",
     "eslint-config-standard": "^6.2.1",
@@ -35,9 +30,15 @@
     "eslint-plugin-html": "^2.0.0",
     "eslint-plugin-promise": "^3.4.1",
     "eslint-plugin-standard": "^2.0.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "node-sass": "^4.5.3",
+    "node-vibrant": "^3.0.0-alpha.2",
     "normalize.css": "^7.0.0",
+    "sanitize-html": "^1.14.1",
     "sass-loader": "^6.0.6",
+    "vue-lazyload": "^1.0.6",
+    "webfontloader": "^1.6.28",
     "webpack": "^3.4.1"
   }
 }
