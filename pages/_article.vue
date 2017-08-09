@@ -16,14 +16,14 @@
           </svg>
         </button>
         <div class="meta">
-          <h1 class="title" v-html="article.title.rendered"></h1>
+          <h1 class="title">{{ article.title.rendered }}"></h1>
           <div class="details">
-            <span v-html="timestamp(article.date)"></span>
+            <span>{{ timestamp(article.date) }}</span>
             <span class="separator">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`" v-html="author.name"></nuxt-link>
+            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
           </div>
         </div>
-        <div class="content" v-html="article.content.rendered"></div>
+        <div class="content" v-html="sanitize(article.content.rendered)"></div>
       </div>
     </transition>
   </article>
@@ -32,6 +32,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import sanitizeHtml from 'sanitize-html'
 import * as Vibrant from 'node-vibrant'
 
 export default {
@@ -83,12 +84,19 @@ export default {
     return {
       title: `${this.article.title.rendered} | ${this.meta.name}`,
       meta: [
-        { description: this.article.excerpt.rendered.replace(/(<([^>]+)>)/ig, '') } // strips html tags
+        { description: this.sanitize(this.article.excerpt.rendered) }
       ]
     }
   },
 
   methods: {
+    sanitize (html) {
+      return sanitizeHtml(html, {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+          'abbr', 'address', 'cite', 'dd', 'dl', 'dt', 'h1', 'h2', 'ins', 'kbd', 'q', 'sub', 'sup', 'var'
+        ])
+      })
+    },
     timestamp (date) { return moment(date).format('MMM D, YYYY') }
   },
 
