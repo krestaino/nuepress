@@ -23,7 +23,7 @@
             <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
           </div>
         </div>
-        <div class="content" v-html="sanitize(article.content.rendered)"></div>
+        <div class="content" v-html="article.content.rendered"></div>
       </div>
     </transition>
   </article>
@@ -32,7 +32,6 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-import sanitizeHtml from 'sanitize-html'
 import * as Vibrant from 'node-vibrant'
 
 export default {
@@ -90,21 +89,15 @@ export default {
     return {
       title: `${this.article.title.rendered} | ${this.meta.name}`,
       meta: [
-        { description: this.sanitize(this.article.excerpt.rendered) }
+        { description: this.article.excerpt.rendered }
       ]
     }
   },
 
   methods: {
-    sanitize (html) {
-      return sanitizeHtml(html, {
-        allowedAttributes: false,
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-          'abbr', 'address', 'cite', 'dd', 'dl', 'dt', 'h1', 'h2', 'img', 'ins', 'kbd', 'q', 'sub', 'sup', 'var'
-        ])
-      })
-    },
-    timestamp (date) { return moment(date).format('MMM D, YYYY') }
+    timestamp (date) {
+      return moment(date).format('MMM D, YYYY')
+    }
   },
 
   watch: {
