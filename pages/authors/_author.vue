@@ -51,11 +51,25 @@ export default {
   },
 
   computed: {
-    author () { return find(this.$store.state.authors, {'slug': this.$route.params.author}) },
-    authorArticles () { return find(this.$store.state.authorArticles, {'slug': this.$route.params.author}) },
-    authors () { return this.$store.state.authors },
-    featuredArticles () { return this.$store.state.featuredArticles },
-    meta () { return this.$store.state.meta || {} }
+    author () {
+      return find(this.$store.state.authors, {
+        'slug': this.$route.params.author
+      })
+    },
+    authorArticles () {
+      return find(this.$store.state.authorArticles, {
+        'slug': this.$route.params.author
+      })
+    },
+    authors () {
+      return this.$store.state.authors
+    },
+    featuredArticles () {
+      return this.$store.state.featuredArticles
+    },
+    meta () {
+      return this.$store.state.meta
+    }
   },
 
   head () {

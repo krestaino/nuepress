@@ -59,8 +59,12 @@ export default {
   },
 
   computed: {
-    article () { return this.$store.state.article },
-    author () { return this.$store.state.article._embedded.author[0] },
+    article () {
+      return this.$store.state.article
+    },
+    author () {
+      return this.$store.state.article._embedded.author[0]
+    },
     featuredImage () {
       let featuredImage = this.$store.state.article._embedded['wp:featuredmedia']
 
@@ -70,7 +74,9 @@ export default {
         return { height: 0, width: 0 }
       }
     },
-    meta () { return this.$store.state.meta || {} }
+    meta () {
+      return this.$store.state.meta
+    }
   },
 
   data () {

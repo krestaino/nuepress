@@ -31,8 +31,12 @@ export default {
   },
 
   computed: {
-    meta () { return this.$store.state.meta || {} },
-    topics () { return this.$store.state.topics }
+    meta () {
+      return this.$store.state.meta
+    },
+    topics () {
+      return this.$store.state.topics
+    }
   },
 
   head () {

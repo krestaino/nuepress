@@ -43,11 +43,21 @@ export default {
   },
 
   computed: {
-    articles () { return this.$store.state.articles },
-    heroArticle () { return this.$store.state.articles[0] },
-    indexInfiniteLoading () { return this.$store.state.indexInfiniteLoading },
-    featuredArticles () { return this.$store.state.featuredArticles },
-    meta () { return this.$store.state.meta || {} }
+    articles () {
+      return this.$store.state.articles
+    },
+    heroArticle () {
+      return this.$store.state.articles[0]
+    },
+    indexInfiniteLoading () {
+      return this.$store.state.indexInfiniteLoading
+    },
+    featuredArticles () {
+      return this.$store.state.featuredArticles
+    },
+    meta () {
+      return this.$store.state.meta
+    }
   },
 
   head () {

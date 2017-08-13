@@ -51,11 +51,25 @@ export default {
   },
 
   computed: {
-    featuredArticles () { return this.$store.state.featuredArticles },
-    meta () { return this.$store.state.meta || {} },
-    topic () { return find(this.$store.state.topics, {'slug': this.$route.params.topic}) },
-    topicArticles () { return find(this.$store.state.topicArticles, {'slug': this.$route.params.topic}) },
-    topics () { return this.$store.state.topics }
+    featuredArticles () {
+      return this.$store.state.featuredArticles
+    },
+    meta () {
+      return this.$store.state.meta
+    },
+    topic () {
+      return find(this.$store.state.topics, {
+        'slug': this.$route.params.topic
+      })
+    },
+    topicArticles () {
+      return find(this.$store.state.topicArticles, {
+        'slug': this.$route.params.topic
+      })
+    },
+    topics () {
+      return this.$store.state.topic
+    }
   },
 
   head () {

@@ -11,8 +11,12 @@
 <script>
 export default {
   computed: {
-    meta () { return this.$store.state.meta },
-    year () { return new Date().getFullYear() }
+    meta () {
+      return this.$store.state.meta
+    },
+    year () {
+      return new Date().getFullYear()
+    }
   }
 }
 </script>

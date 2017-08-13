@@ -23,7 +23,9 @@ export default {
   },
 
   computed: {
-    meta () { return this.$store.state.meta }
+    meta () {
+      return this.$store.state.meta
+    }
   }
 }
 </script>
