@@ -154,7 +154,7 @@ article {
     min-height: calc(100vh - 80px - 96px - 200px);
     padding: 0 96px 96px 96px;
     position: relative;
-    transition: min-height 1s,margin-top 1s;
+    transition: min-height 1s, margin-top 1s, transform 1s;
     transform: translateY(16px);
     width: 100%;
 
