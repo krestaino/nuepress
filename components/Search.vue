@@ -335,6 +335,7 @@ section {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     border-top: 0;
+    left: 0;
     list-style: none;
     margin: 0;
     padding: 0;

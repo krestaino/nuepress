@@ -4,11 +4,12 @@
       <div class="image-height"
         :style="{ backgroundColor: `rgb(${RGB[0]},${RGB[1]},${RGB[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
       <img v-lazy="featuredImage.source_url">
+      <div class="featured-image-padding"
+        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
+      </div>
     </div>
     <transition name="slide-fade">
-      <div class="narrow"
-        :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }"
-        :style="{ marginTop: `calc(-${featuredImage.height / featuredImage.width * 100}% + 96px)`}">
+      <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
         <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
           <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
@@ -144,7 +145,7 @@ article {
   }
 
   &.page-enter .narrow, .page-leave-to .narrow {
-    transform: translateY(0);
+    transform: translateY(-16px);
   }
 
   .narrow {
@@ -154,13 +155,12 @@ article {
     min-height: calc(100vh - 80px - 96px - 200px);
     padding: 0 96px 96px 96px;
     position: relative;
-    transition: min-height 1s, margin-top 1s, transform 1s;
-    transform: translateY(16px);
+    transition: min-height 1s, transform 1s;
+    transform: translateY(0);
     width: 100%;
 
     &.expanded {
       min-height: 0;
-      margin-top: 0 !important;
     }
 
     @media (max-width: 900px) {
@@ -218,7 +218,9 @@ article {
 
     .image-height {
       background-color: #efefef;
+      position: absolute;
       transition: 0.2s;
+      width: 100%;
 
       @media (max-width: 700px) {
         display: block;
@@ -243,6 +245,18 @@ article {
     &.expanded {
       img[lazy="loaded"] {
         opacity: 1;
+      }
+    }
+
+    .featured-image-padding {
+      transition: padding-top 1s;
+    }
+
+    @media (min-width: 901px) {
+      &:not(.expanded) {
+        .featured-image-padding {
+          padding-top: 96px !important;
+        }
       }
     }
   }
