@@ -106,7 +106,10 @@ export default {
 
       for (let i = 0; i < galleries.length; i++) {
         // eslint-disable-next-line
-        lightGallery(galleries[i], {selector: 'a'})
+        lightGallery(galleries[i], {
+          download: false,
+          selector: 'a'
+        })
       }
     },
     timestamp (date) {
@@ -273,8 +276,50 @@ article {
 </style>
 
 <style lang="scss">
-@import '~assets/css/vars.scss';
 @import '../node_modules/lightgallery.js/dist/css/lightgallery.css';
+@import '~assets/css/vars.scss';
+
+.lg-backdrop {
+  background-color: #111;
+}
+
+#lg-counter {
+  font-family: 'Roboto', sans-serif;
+}
+
+.lg-toolbar,
+.lg-actions .lg-next,
+.lg-actions .lg-prev,
+.lg-outer .lg-thumb-outer,
+.lg-outer .lg-toggle-thumb {
+  background-color: #1a1a1a;
+}
+
+#lg-actual-size:after {
+  content: "\E311";
+}
+
+#lg-zoom-in,
+#lg-zoom-out {
+  display: none;
+}
+
+.lg-outer .lg-thumb-item {
+  border-radius: 2px;
+}
+
+.lg-outer .lg-thumb-item {
+  border-color: #aaa;
+}
+
+.lg-outer .lg-thumb-item.active,
+.lg-outer .lg-thumb-item:hover {
+  border-color: #fff;
+}
+</style>
+
+<style lang="scss">
+@import '~assets/css/vars.scss';
 
 .single-article {
   .content {
