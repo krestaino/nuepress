@@ -34,6 +34,12 @@ import axios from 'axios'
 import moment from 'moment'
 import * as Vibrant from 'node-vibrant'
 
+if (process.browser) {
+  require('lightgallery.js')
+  require('lg-zoom.js')
+  require('lg-thumbnail.js')
+}
+
 export default {
   async asyncData ({ store, params }) {
     let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
@@ -95,9 +101,21 @@ export default {
   },
 
   methods: {
+    gallery () {
+      let galleries = document.querySelectorAll('.content > .gallery')
+
+      for (let i = 0; i < galleries.length; i++) {
+        // eslint-disable-next-line
+        lightGallery(galleries[i], {selector: 'a'})
+      }
+    },
     timestamp (date) {
       return moment(date).format('MMM D, YYYY')
     }
+  },
+
+  mounted () {
+    this.gallery()
   },
 
   watch: {
@@ -256,6 +274,7 @@ article {
 
 <style lang="scss">
 @import '~assets/css/vars.scss';
+@import '../node_modules/lightgallery.js/dist/css/lightgallery.css';
 
 .single-article {
   .content {

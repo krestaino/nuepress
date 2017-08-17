@@ -1,5 +1,5 @@
 <template>
-  <div id="blog">
+  <div class="blog" id="blog">
     <Spinner1/>
     <div class="interface">
       <BlogHeader/>
@@ -28,7 +28,7 @@ export default {
 <style lang="scss">
 @import '~assets/css/vars.scss';
 
-* {
+.blog * {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   background-repeat: no-repeat;
