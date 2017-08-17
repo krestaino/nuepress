@@ -133,11 +133,12 @@ article {
     min-height: calc(100vh - 80px - 96px - 200px);
     padding: 0 96px 96px 96px;
     position: relative;
-    transition: 1s;
+    transition: min-height 1s,margin-top 1s;
     transform: translateY(16px);
     width: 100%;
 
     &.expanded {
+      min-height: 0;
       margin-top: 0 !important;
     }
 
