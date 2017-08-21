@@ -5,7 +5,7 @@
   "author": "Kevin Restaino <kevinrestaino@gmail.com>",
   "private": true,
   "dependencies": {
-    "nuxt": "^1.0.0-rc4"
+    "nuxt": "^1.0.0-rc5"
   },
   "config": {
     "nuxt": {
@@ -44,6 +44,6 @@
     "sass-loader": "^6.0.6",
     "vue-lazyload": "^1.0.6",
     "webfontloader": "^1.6.28",
-    "webpack": "^3.5.3"
+    "webpack": "^3.5.5"
   }
 }
