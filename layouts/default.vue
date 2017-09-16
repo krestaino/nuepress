@@ -46,6 +46,8 @@ html {
   font-size: 19px;
   font-weight: 400;
   overflow-y: scroll;
+  transition: background-color 0.8s;
+  transition-timing-function: cubic-bezier(.11,.89,.31,.99);
 
   @media (max-width: 500px) {
     font-size: 18px;
