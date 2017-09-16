@@ -2,7 +2,7 @@
   <article class="single-article">
     <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
       <div class="image-height"
-        :style="{ backgroundColor: `rgb(${RGB[0]},${RGB[1]},${RGB[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+        :style="{ backgroundColor: `rgb(${RGB.DarkMuted[0]},${RGB.DarkMuted[1]},${RGB.DarkMuted[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
       <img v-lazy="featuredImage.source_url">
       <div class="featured-image-padding"
         :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
@@ -27,6 +27,7 @@
         <div class="content" v-html="article.content.rendered"></div>
       </div>
     </transition>
+    <div v-html="linkRGB"></div>
   </article>
 </template>
 
@@ -43,8 +44,8 @@ if (process.browser) {
 
 export default {
   async asyncData ({ store, params }) {
-    let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
-    store.commit('setArticle', articles.data[0])
+    let article = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
+    store.commit('setArticle', article.data[0])
 
     if (!store.state.meta) {
       let meta = await axios.get(store.state.wordpressAPI)
@@ -80,6 +81,21 @@ export default {
         return { height: 0, width: 0 }
       }
     },
+    linkRGB () {
+      return `
+        <style>
+          a {
+            color: rgb(${this.RGB.DarkVibrant[0]},${this.RGB.DarkVibrant[1]},${this.RGB.DarkVibrant[2]}) !important
+          }
+          a:hover{
+            color: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
+          }
+          a.fancy:after {
+            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
+          }
+        </style>
+      `
+    },
     meta () {
       return this.$store.state.meta
     }
@@ -88,7 +104,10 @@ export default {
   data () {
     return {
       expanded: false,
-      RGB: {}
+      RGB: {
+        DarkMuted: {},
+        DarkVibrant: {}
+      }
     }
   },
 
@@ -124,7 +143,10 @@ export default {
 
   watch: {
     '$store.state.featuredColor' () {
-      this.RGB = this.$store.state.featuredColor.DarkMuted._rgb
+      this.RGB = {
+        DarkMuted: this.$store.state.featuredColor.DarkMuted._rgb,
+        DarkVibrant: this.$store.state.featuredColor.DarkVibrant._rgb
+      }
     }
   }
 }
