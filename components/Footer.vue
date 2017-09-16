@@ -34,7 +34,7 @@ footer {
     height: 200px;
     font-family: 'Roboto', sans-serif;
     font-size: .7rem;
-    margin: auto;
+    margin: 0 auto;
     max-width: $containerWidth;
     padding: 64px 32px;
     text-align: center;

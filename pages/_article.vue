@@ -24,7 +24,7 @@
             <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
           </div>
         </div>
-        <div class="content" v-html="article.content.rendered"></div>
+        <div class="content" id="article-content" v-html="article.content.rendered"></div>
       </div>
     </transition>
     <div v-html="linkRGB"></div>
@@ -84,13 +84,23 @@ export default {
     linkRGB () {
       return `
         <style>
-          a {
+          html {
+            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
+          }
+
+          nav a,
+          main a,
+          footer a {
             color: rgb(${this.RGB.DarkVibrant[0]},${this.RGB.DarkVibrant[1]},${this.RGB.DarkVibrant[2]}) !important
           }
-          a:hover{
+          nav a:hover,
+          main a:hover,
+          footer a:hover  {
             color: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
           }
-          a.fancy:after {
+          nav a.fancy:after,
+          main a::after,
+          footer a::after {
             background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
           }
         </style>
@@ -167,7 +177,7 @@ article {
   }
 
   &.page-enter .narrow, .page-leave-to .narrow {
-    transform: translateY(-16px);
+    transform: translateY(16px);
   }
 
   .narrow {

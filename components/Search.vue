@@ -1,5 +1,5 @@
 <template>
-  <section role="search" ref="autoSuggest">
+  <section id="search" role="search" ref="autoSuggest">
     <div class="inner-container" :class="{ 'results-visible': resultsVisible }">
       <button class="toggle-search" title="Search" @click.prevent="toggleSearch" :class="{'search-open': searchOpen}">
         <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
