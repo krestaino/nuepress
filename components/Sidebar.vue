@@ -72,6 +72,10 @@ aside {
     }
 
     article {
+      div {
+        font-weight: 300;
+      }
+
       & + article {
         border-top: 1px dotted lighten($primary, 20%);
         margin-top: 32px;
@@ -89,13 +93,13 @@ aside {
       }
 
       .meta {
-        > span {
-          text-transform: capitalize;
-        }
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 400;
+        margin-bottom: 12px;
+        text-transform: uppercase;
 
         .topic {
-          position: relative;
-
           & + .topic {
             margin-left: 8px;
 
@@ -106,6 +110,10 @@ aside {
               position: absolute;
             }
           }
+        }
+
+        a:hover {
+          color: $accent;
         }
       }
 

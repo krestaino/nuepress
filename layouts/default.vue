@@ -142,6 +142,7 @@ h1, h2, h3, h4, h5 {
 
 a {
   color: $primary;
+  font-weight: 400;
   position: relative;
   text-decoration: none;
   transition: 0.1s;

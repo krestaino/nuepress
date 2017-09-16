@@ -140,3 +140,13 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+.article-list {
+  article {
+    p {
+      font-weight: 300;
+    }
+  }
+}
+</style>
