@@ -87,20 +87,13 @@ export default {
           html {
             background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
           }
-
-          nav a,
-          main a,
-          footer a {
+          main a {
             color: rgb(${this.RGB.DarkVibrant[0]},${this.RGB.DarkVibrant[1]},${this.RGB.DarkVibrant[2]}) !important
           }
-          nav a:hover,
-          main a:hover,
-          footer a:hover  {
+          main a:hover {
             color: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
           }
-          nav a.fancy:after,
-          main a::after,
-          footer a::after {
+          main a::after {
             background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
           }
         </style>
