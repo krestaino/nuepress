@@ -1,6 +1,6 @@
 <template>
   <section id="search" role="search" ref="autoSuggest">
-    <div class="inner-container" :class="{ 'results-visible': resultsVisible }">
+    <div class="inner-container" :class="{ 'results-visible': resultsVisible && searchQuery }">
       <button class="toggle-search" title="Search" @click.prevent="toggleSearch" :class="{'search-open': searchOpen}">
         <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
           <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -31,7 +31,9 @@
           <li ref="result" v-for="(article, index) in articles">
             <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
               <div class="col">
-                <img v-if="article._embedded['wp:featuredmedia']" class="lazy" v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+                <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
+                  <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+                </div>
                 <svg v-else fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M24 24H0V0h24v24z" fill="none"/>
                   <path d="M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z"/>
