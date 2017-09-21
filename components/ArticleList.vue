@@ -127,11 +127,12 @@ export default {
 
   a {
     color: $primary;
-    transition: 0.1s;
+    transition: 0.2s;
     text-decoration: none;
 
     &:hover {
-      color: #111;
+      color: #000;
+      transform: translateX(4px);
     }
   }
 
