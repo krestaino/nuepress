@@ -3,7 +3,7 @@
     <div class="inner-container">
       <h1>Top Articles</h1>
       <article v-for="article in featuredArticles" :key="article.id">
-        <nuxt-link :to="`/${article.slug}`" v-if="article._embedded['wp:featuredmedia']">
+        <nuxt-link :to="`/${article.slug}`" v-if="article._embedded['wp:featuredmedia']" class="image">
           <div class="featured lazy" v-if="featuredImage(article)">
             <div class="image-height" :style="{ paddingTop: featuredImage(article).height / featuredImage(article).width * 100 + '%' }"></div>
             <img v-lazy="featuredImage(article).source_url">
@@ -15,7 +15,7 @@
           </div>
           <nuxt-link :to="`/${article.slug}`">
             <h2 v-html="article.title.rendered"></h2>
-            <div v-html="article.excerpt.rendered"></div>
+            <div class="excerpt" v-html="article.excerpt.rendered"></div>
           </nuxt-link>
         </div>
       </article>
@@ -82,6 +82,41 @@ aside {
         padding-top: 32px;
       }
 
+      .image {
+        position: relative;
+
+        .featured {
+          overflow: hidden;
+
+          &::before {
+            background-color: rgba(0, 0, 0, 0);
+            content: '';
+            height: 100%;
+            position: absolute;
+            top: 0;
+            transition: 0.4s;
+            width: 100%;
+            z-index: 1;
+          }
+
+          img {
+            transition: 0.4s;
+          }
+        }
+
+        &:hover {
+          .featured {
+            &::before {
+              background-color: rgba(0, 0, 0, 0.25);
+            }
+
+            img {
+              transform: scale(1.0125);
+            }
+          }
+        }
+      }
+
       .featured {
         background-position: center;
         margin-bottom: 12px;
@@ -89,6 +124,22 @@ aside {
         img {
           position: absolute;
           top: 0;
+        }
+      }
+
+      .content {
+        transition: 0.2s;
+
+        .excerpt {
+          transition: 0.2s;
+        }
+
+        &:hover {
+          transform: translateX(4px);
+
+          .excerpt {
+            color: #000;
+          }
         }
       }
 
