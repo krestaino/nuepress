@@ -80,7 +80,7 @@ export default {
         })
         .catch(() => {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
-          this.$store.commit('setIndexInfiniteLoading', { enabled: false })
+          // this.$store.commit('setIndexInfiniteLoading', { enabled: false })
         })
     }
   }
