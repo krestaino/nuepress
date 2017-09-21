@@ -48,7 +48,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~assets/css/vars.scss';
+
 .hero {
+  overflow: hidden;
+
+  &:hover {
+    &::before {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+  }
+
   &:before {
     content: '';
     display: block;
@@ -63,45 +73,50 @@ export default {
         to top,
         rgba(0,0,0,.85), rgba(0,0,0,0) 60%
       );
+    transition: 0.4s;
     z-index: 2;
   }
 
   a {
     align-items: flex-end;
     display: flex;
+
+    &:hover {
+      .image {
+        transform: scale(1.0125);
+      }
+    }
   }
 
   .date {
-    top: 0;
     color: #eee;
-    display: flex;
-    margin: 0 auto 0 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    left: 0;
+    margin-bottom: 12px;
     padding: 32px;
     position: absolute;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+    text-transform: uppercase;
+    top: 0;
     z-index: 2;
 
-    span {
-      text-transform: capitalize;
-    }
+    .topic {
+      & + .topic {
+        margin-left: 8px;
 
-    a {
-      color: #eee;
-
-      &::after {
-        background: #eee;
+        &::before {
+          content: ', ';
+          color: $primary;
+          left: -7px;
+          position: absolute;
+        }
       }
     }
 
-    .topic + .topic {
-      margin-left: 8px;
-
-      &::before {
-        content: ', ';
-        color: #eee;
-        left: -7px;
-        position: absolute;
-      }
+    a:hover {
+      color: $accent;
     }
   }
 
@@ -118,6 +133,7 @@ export default {
       max-width: 100%;
       position: absolute;
       top: 0;
+      transition: 0.4s;
       width: 100%;
     }
   }
