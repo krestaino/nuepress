@@ -91,7 +91,7 @@ export default {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
         })
         .catch(() => {
-          this.topicArticles.infiniteLoading = false
+          // this.topicArticles.infiniteLoading = false
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
         })
     }
