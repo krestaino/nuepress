@@ -57,6 +57,10 @@ export default {
     &::before {
       background-color: rgba(0, 0, 0, 0.25);
     }
+
+    .meta {
+      transform: translateX(4px)
+    }
   }
 
   &:before {
@@ -133,7 +137,7 @@ export default {
       max-width: 100%;
       position: absolute;
       top: 0;
-      transition: 0.4s;
+      transition: transform 0.4s;
       width: 100%;
     }
   }
@@ -145,6 +149,7 @@ export default {
     padding: 32px;
     position: absolute;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+    transition: 0.4s;
     z-index: 2;
 
     h2 {

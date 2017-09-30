@@ -13,7 +13,7 @@
           <div class="meta">
             <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name" v-if="topic.id !== $store.state.featuredID"></nuxt-link>
           </div>
-          <nuxt-link :to="`/${article.slug}`">
+          <nuxt-link :to="`/${article.slug}`" class="article">
             <h2 v-html="article.title.rendered"></h2>
             <div class="excerpt" v-html="article.excerpt.rendered"></div>
           </nuxt-link>
@@ -130,15 +130,16 @@ aside {
       .content {
         transition: 0.2s;
 
-        .excerpt {
+        .article {
+          display: block;
           transition: 0.2s;
-        }
 
-        &:hover {
-          transform: translateX(4px);
+          &:hover {
+            transform: translateX(4px);
 
-          .excerpt {
-            color: #000;
+            .excerpt {
+              color: #000;
+            }
           }
         }
       }
