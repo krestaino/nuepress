@@ -28,7 +28,7 @@
       </div>
       <transition name="fade">
         <ul class="results" v-if="searchQuery && resultsVisible && apiResponse">
-          <li ref="result" v-for="(article, index) in articles">
+          <li ref="result" v-for="(article, index) in articles" :key="article.id">
             <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
               <div class="col">
                 <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
