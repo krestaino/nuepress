@@ -137,7 +137,7 @@ export default {
       max-width: 100%;
       position: absolute;
       top: 0;
-      transition: transform 0.4s;
+      transition: transform 0.4s, opacity .5s;
       width: 100%;
     }
   }
