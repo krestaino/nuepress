@@ -10,27 +10,25 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import ArticleList from '~/components/ArticleList'
 import Hero from '~/components/Hero'
 import InfiniteLoading from '~/components/InfiniteLoading'
 import Sidebar from '~/components/Sidebar'
 
 export default {
-  async asyncData ({ store, params }) {
+  async asyncData ({ app, store, params }) {
     if (!store.state.articles.length) {
-      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${store.state.featuredID}&_embed`)
+      let articles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${store.state.featuredID}&_embed`)
       store.commit('setArticles', articles.data)
     }
 
     if (!store.state.featuredArticles.length) {
-      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
+      let articles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
       store.commit('setFeaturedArticles', articles.data)
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wordpressAPI)
+      let meta = await app.$axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },
@@ -73,7 +71,7 @@ export default {
     moreArticles () {
       this.indexInfiniteLoading.page++
 
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${this.$store.state.featuredID}&page=${this.indexInfiniteLoading.page}&_embed`)
+      this.$axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${this.$store.state.featuredID}&page=${this.indexInfiniteLoading.page}&_embed`)
         .then(response => {
           this.$store.commit('setArticles', response.data)
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')

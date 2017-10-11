@@ -1,10 +1,7 @@
 <template>
   <div class="page">
-    <div class="page-title">
-      <h1>Topics</h1>
-    </div>
     <ul>
-      <li v-for="topic in topics" v-if="topic.slug !== 'featured'">
+      <li v-for="topic in topics" v-if="topic.slug !== 'featured'" :key="topic.id">
         <nuxt-link :to="`/topics/${topic.slug}`">
           <h2 v-html="topic.name"></h2>
           <div v-html="topic.description"></div>
@@ -15,17 +12,15 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
-  async asyncData ({ store, params }) {
+  async asyncData ({ app, store, params }) {
     if (!store.state.topics) {
-      let topics = await axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
+      let topics = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
       store.commit('setTopics', topics.data)
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wordpressAPI)
+      let meta = await app.$axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },
@@ -55,7 +50,7 @@ export default {
 
 .page {
   background-color: #efefef;
-  padding: 0 32px 64px 32px;
+  padding: 32px;
 
   @media (max-width: 700px) {
     padding: 0 16px 32px 16px;
@@ -64,6 +59,7 @@ export default {
   ul {
     column-count: 3;
     column-gap: 64px;
+    margin: 0;
     padding: 0;
     list-style: none;
 

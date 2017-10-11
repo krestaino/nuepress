@@ -14,32 +14,30 @@
 
 <script>
 import find from 'lodash/find'
-import axios from 'axios'
-
 import ArticleList from '~/components/ArticleList'
 import InfiniteLoading from '~/components/InfiniteLoading'
 import Sidebar from '~/components/Sidebar'
 
 export default {
-  async asyncData ({ store, params }) {
+  async asyncData ({ app, store, params }) {
     if (!store.state.featuredArticles.length) {
-      let articles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
+      let articles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
       store.commit('setFeaturedArticles', articles.data)
     }
 
     if (!store.state.authors) {
-      let authors = await axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
+      let authors = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
       store.commit('setAuthors', authors.data)
     }
 
     if (!find(store.state.authorArticles, {'slug': params.author})) {
       let author = find(store.state.authors, {'slug': params.author})
-      let authorArticles = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
+      let authorArticles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
       store.commit('setAuthorArticles', {slug: params.author, articles: authorArticles.data, infiniteLoading: true, page: 1})
     }
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wordpressAPI)
+      let meta = await app.$axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },
@@ -85,7 +83,7 @@ export default {
     moreArticles () {
       this.authorArticles.page++
 
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${this.author.id}&_embed&page=${this.authorArticles.page}`)
+      this.$axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${this.author.id}&_embed&page=${this.authorArticles.page}`)
         .then(response => {
           this.authorArticles.articles = this.authorArticles.articles.concat(response.data)
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')

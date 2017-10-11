@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import moment from 'moment'
 import * as Vibrant from 'node-vibrant'
 
@@ -43,12 +42,12 @@ if (process.browser) {
 }
 
 export default {
-  async asyncData ({ store, params }) {
-    let article = await axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
+  async asyncData ({ app, store, params }) {
+    let article = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
     store.commit('setArticle', article.data[0])
 
     if (!store.state.meta) {
-      let meta = await axios.get(store.state.wordpressAPI)
+      let meta = await app.$axios.get(store.state.wordpressAPI)
       store.commit('setMeta', meta.data)
     }
   },

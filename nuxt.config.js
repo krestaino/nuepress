@@ -33,6 +33,10 @@ module.exports = {
   // Customize the progress-bar color
   loading: { color: '#384D66' },
 
+  modules: [
+    '@nuxtjs/axios'
+  ],
+
   plugins: [
     { src: '~plugins/vue-lazyload', ssr: false },
     { src: '~plugins/web-font-loader', ssr: false }
