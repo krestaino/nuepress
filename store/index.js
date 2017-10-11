@@ -3,11 +3,9 @@ import Vuex from 'vuex'
 const store = () => new Vuex.Store({
 
   actions: {
-    nuxtServerInit ({ commit, state }) {
-      this.$axios.get(state.wordpressAPI)
-        .then((response) => {
-          commit('setMeta', response.data)
-        })
+    async nuxtServerInit ({ commit, state }) {
+      let meta = await this.$axios.get(state.wordpressAPI)
+      commit('setMeta', meta.data)
     }
   },
 
@@ -23,7 +21,10 @@ const store = () => new Vuex.Store({
     featuredArticles: [],
     featuredColor: {},
     featuredID: 194,
-    meta: null,
+    meta: {
+      description: '',
+      name: ''
+    },
     topicArticles: [],
     topics: null,
     wordpressAPI: 'https://wp.kmr.io/wp-json'
