@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <ul>
-      <li v-for="author in authors" :key="author.id">
+      <li v-for="author in $store.state.authors" :key="author.id">
         <nuxt-link :to="`/authors/${author.slug}`">
           <h2 v-html="author.name"></h2>
           <div v-html="author.description"></div>
@@ -18,27 +18,13 @@ export default {
       let authors = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
       store.commit('setAuthors', authors.data)
     }
-
-    if (!store.state.meta) {
-      let meta = await app.$axios.get(store.state.wordpressAPI)
-      store.commit('setMeta', meta.data)
-    }
-  },
-
-  computed: {
-    authors () {
-      return this.$store.state.authors
-    },
-    meta () {
-      return this.$store.state.meta
-    }
   },
 
   head () {
     return {
-      title: `Authors | ${this.meta.name}`,
+      title: `Authors | ${this.$store.state.meta.name}`,
       meta: [
-        { description: this.meta.description }
+        { description: this.$store.state.meta.description }
       ]
     }
   }

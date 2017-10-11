@@ -2,6 +2,15 @@ import Vuex from 'vuex'
 
 const store = () => new Vuex.Store({
 
+  actions: {
+    nuxtServerInit ({ commit, state }) {
+      this.$axios.get(state.wordpressAPI)
+        .then((response) => {
+          commit('setMeta', response.data)
+        })
+    }
+  },
+
   state: {
     article: null,
     articles: [],

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <ul>
-      <li v-for="topic in topics" v-if="topic.slug !== 'featured'" :key="topic.id">
+      <li v-for="topic in $store.state.topics" v-if="topic.slug !== 'featured' && topic.count" :key="topic.id">
         <nuxt-link :to="`/topics/${topic.slug}`">
           <h2 v-html="topic.name"></h2>
           <div v-html="topic.description"></div>
@@ -18,27 +18,13 @@ export default {
       let topics = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/categories?per_page=100`)
       store.commit('setTopics', topics.data)
     }
-
-    if (!store.state.meta) {
-      let meta = await app.$axios.get(store.state.wordpressAPI)
-      store.commit('setMeta', meta.data)
-    }
-  },
-
-  computed: {
-    meta () {
-      return this.$store.state.meta
-    },
-    topics () {
-      return this.$store.state.topics
-    }
   },
 
   head () {
     return {
-      title: `Topics | ${this.meta.name}`,
+      title: `Topics | ${this.$store.state.meta.name}`,
       meta: [
-        { description: this.meta.description }
+        { description: this.$store.state.meta.description }
       ]
     }
   }

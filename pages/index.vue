@@ -2,10 +2,10 @@
   <div class="home">
     <div class="articles">
       <Hero :heroArticle="heroArticle" v-if="heroArticle"/>
-      <ArticleList :articles="articles"/>
+      <ArticleList :articles="$store.state.articles"/>
       <InfiniteLoading v-if="indexInfiniteLoading.enabled" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
-    <Sidebar :featuredArticles="featuredArticles"/>
+    <Sidebar :featuredArticles="$store.state.featuredArticles"/>
   </div>
 </template>
 
@@ -26,11 +26,6 @@ export default {
       let articles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
       store.commit('setFeaturedArticles', articles.data)
     }
-
-    if (!store.state.meta) {
-      let meta = await app.$axios.get(store.state.wordpressAPI)
-      store.commit('setMeta', meta.data)
-    }
   },
 
   components: {
@@ -41,28 +36,19 @@ export default {
   },
 
   computed: {
-    articles () {
-      return this.$store.state.articles
-    },
     heroArticle () {
       return this.$store.state.articles[0]
     },
     indexInfiniteLoading () {
       return this.$store.state.indexInfiniteLoading
-    },
-    featuredArticles () {
-      return this.$store.state.featuredArticles
-    },
-    meta () {
-      return this.$store.state.meta
     }
   },
 
   head () {
     return {
-      title: `Home | ${this.meta.name}`,
+      title: `Home | ${this.$store.state.meta.name}`,
       meta: [
-        { description: this.meta.description }
+        { description: this.$store.state.meta.description }
       ]
     }
   },
@@ -78,7 +64,6 @@ export default {
         })
         .catch(() => {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
-          // this.$store.commit('setIndexInfiniteLoading', { enabled: false })
         })
     }
   }

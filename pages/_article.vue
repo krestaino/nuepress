@@ -45,11 +45,6 @@ export default {
   async asyncData ({ app, store, params }) {
     let article = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
     store.commit('setArticle', article.data[0])
-
-    if (!store.state.meta) {
-      let meta = await app.$axios.get(store.state.wordpressAPI)
-      store.commit('setMeta', meta.data)
-    }
   },
 
   beforeMount () {
@@ -97,9 +92,6 @@ export default {
           }
         </style>
       `
-    },
-    meta () {
-      return this.$store.state.meta
     }
   },
 
@@ -115,7 +107,7 @@ export default {
 
   head () {
     return {
-      title: `${this.article.title.rendered} | ${this.meta.name}`,
+      title: `${this.article.title.rendered} | ${this.$store.state.meta.name}`,
       meta: [
         { description: this.article.excerpt.rendered }
       ]

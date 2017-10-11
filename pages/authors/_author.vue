@@ -2,13 +2,13 @@
   <div class="author">
     <div class="articles">
       <div class="page-title">
-        <h1 v-html="author.name"></h1>
-        <p v-html="author.description"></p>
+        <h1>{{ author.name }}</h1>
+        <p v-if="author.description">{{ author.description }}</p>
       </div>
       <ArticleList :articles="authorArticles.articles"></ArticleList>
       <InfiniteLoading v-if="(authorArticles.infiniteLoading)  && (authorArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
-    <Sidebar :featuredArticles="featuredArticles"></Sidebar>
+    <Sidebar :featuredArticles="$store.state.featuredArticles"></Sidebar>
   </div>
 </template>
 
@@ -35,11 +35,6 @@ export default {
       let authorArticles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
       store.commit('setAuthorArticles', {slug: params.author, articles: authorArticles.data, infiniteLoading: true, page: 1})
     }
-
-    if (!store.state.meta) {
-      let meta = await app.$axios.get(store.state.wordpressAPI)
-      store.commit('setMeta', meta.data)
-    }
   },
 
   components: {
@@ -58,23 +53,14 @@ export default {
       return find(this.$store.state.authorArticles, {
         'slug': this.$route.params.author
       })
-    },
-    authors () {
-      return this.$store.state.authors
-    },
-    featuredArticles () {
-      return this.$store.state.featuredArticles
-    },
-    meta () {
-      return this.$store.state.meta
     }
   },
 
   head () {
     return {
-      title: `${this.author.name} | ${this.meta.name}`,
+      title: `${this.author.name} | ${this.$store.state.meta.name}`,
       meta: [
-        { description: this.meta.description }
+        { description: this.$store.state.meta.description }
       ]
     }
   },
@@ -89,7 +75,6 @@ export default {
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
         })
         .catch(() => {
-          // this.authorArticles.infiniteLoading = false
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
         })
     }
