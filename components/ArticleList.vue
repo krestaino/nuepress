@@ -145,7 +145,7 @@ export default {
 <style lang="scss">
 .article-list {
   article {
-    p {
+    .excerpt {
       font-weight: 300;
     }
   }
