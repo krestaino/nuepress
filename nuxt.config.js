@@ -1,3 +1,5 @@
+const webpack = require('webpack')
+
 module.exports = {
   // Build configuration
   build: {
