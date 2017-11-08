@@ -11,7 +11,13 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    plugins: [
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    ],
+    vendor: [
+      'moment'
+    ]
   },
   css: [
     'normalize.css/normalize.css'
