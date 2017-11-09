@@ -37,6 +37,9 @@ const store = () => new Vuex.Store({
     setArticles (state, data) {
       state.articles = state.articles.concat(data)
     },
+    setPage (state, data) {
+      state.page = data
+    },
     setAuthorArticles (state, data) {
       state.authorArticles.push(data)
     },
