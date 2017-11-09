@@ -21,7 +21,7 @@
           <div class="details">
             <span>{{ timestamp(page.date) }}</span>
             <span class="separator">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${page.slug}`">{{ page.name }}</nuxt-link>
+            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
           </div>
         </div>
         <div class="content" id="article-content" v-html="page.content.rendered"></div>
