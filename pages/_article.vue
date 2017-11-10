@@ -1,5 +1,5 @@
 <template>
-  <article class="single-article">
+  <article class="single-article" v-if="article">
     <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
       <div class="image-height"
         :style="{ backgroundColor: `rgb(${RGB.DarkMuted[0]},${RGB.DarkMuted[1]},${RGB.DarkMuted[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
