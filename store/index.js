@@ -10,11 +10,9 @@ const store = () => new Vuex.Store({
   },
 
   state: {
-    article: {
-      title: ''
-    },
+    article: null,
     articles: [],
-    page: [],
+    page: null,
     authorArticles: [],
     authors: null,
     indexInfiniteLoading: {
