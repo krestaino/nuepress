@@ -6,7 +6,8 @@
   "private": true,
   "dependencies": {
     "@nuxtjs/axios": "^4.4.0",
-    "nuxt": "1.0.0-rc11"
+    "nuxt": "1.0.0-rc11",
+    "vue-disqus": "^2.0.4"
   },
   "config": {
     "nuxt": {

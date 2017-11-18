@@ -25,6 +25,9 @@
           </div>
         </div>
         <div class="content" id="article-content" v-html="article.content.rendered"></div>
+        <div class="comments">
+          <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug"></VueDisqus>
+        </div>
       </div>
     </transition>
     <div v-html="linkRGB"></div>
@@ -32,6 +35,7 @@
 </template>
 
 <script>
+import VueDisqus from 'vue-disqus/VueDisqus.vue'
 import moment from 'moment'
 import * as Vibrant from 'node-vibrant'
 
@@ -57,6 +61,10 @@ export default {
         }
       })
     }
+  },
+
+  components: {
+    VueDisqus
   },
 
   computed: {
@@ -301,6 +309,12 @@ article {
         padding: 0 0.5rem;
       }
     }
+  }
+
+  .comments {
+    border-top: 1px dotted #65676a;
+    padding-top: 32px;
+    margin-top: 32px;
   }
 }
 </style>
