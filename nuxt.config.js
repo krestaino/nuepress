@@ -47,7 +47,8 @@ module.exports = {
 
   plugins: [
     { src: '~plugins/vue-lazyload', ssr: false },
-    { src: '~plugins/web-font-loader', ssr: false }
+    { src: '~plugins/web-font-loader', ssr: false },
+    { src: '~plugins/mixins' }
   ],
 
   vendor: ['lightgallery.js']

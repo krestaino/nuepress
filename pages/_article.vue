@@ -19,7 +19,7 @@
         <div class="meta">
           <h1 class="title" v-html="article.title.rendered"></h1>
           <div class="details">
-            <span>{{ timestamp(article.date) }}</span>
+            <span>{{ longTimestamp(article.date) }}</span>
             <span class="separator">|</span>
             <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
           </div>
@@ -44,7 +44,6 @@
 
 <script>
 import VueDisqus from 'vue-disqus/VueDisqus.vue'
-import moment from 'moment'
 import * as Vibrant from 'node-vibrant'
 import Spinner1 from '~/components/Spinner1'
 
@@ -70,6 +69,10 @@ export default {
         }
       })
     }
+  },
+
+  mixins: {
+    longTimestamp: Function
   },
 
   components: {
@@ -144,9 +147,6 @@ export default {
           selector: 'a'
         })
       }
-    },
-    timestamp (date) {
-      return moment(date).format('MMM D, YYYY')
     }
   },
 

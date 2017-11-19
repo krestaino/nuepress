@@ -11,7 +11,7 @@
         </nuxt-link>
         <div class="content">
           <div class="meta">
-            <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name" v-if="topic.id !== $store.state.featuredID"></nuxt-link>
+            <span v-html="shortTimestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name" v-if="topic.id !== $store.state.featuredID"></nuxt-link>
           </div>
           <nuxt-link :to="`/${article.slug}`" class="article">
             <h2 v-html="article.title.rendered"></h2>
@@ -24,9 +24,13 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
+  props: {
+    featuredArticles: Array
+  },
+  mixins: {
+    shortTimestamp: Function
+  },
   methods: {
     featuredImage (article) {
       let featuredImage = article._embedded['wp:featuredmedia']
@@ -34,21 +38,8 @@ export default {
       if (featuredImage) {
         return featuredImage[0].media_details.sizes.medium || false
       }
-    },
-
-    timestamp (date) {
-      let article = moment(date)
-      let today = moment(new Date())
-
-      if (today.diff(article) > 5.184e+8) {
-        return article.format('MMM D')
-      } else {
-        return article.fromNow()
-      }
     }
-  },
-
-  props: ['featuredArticles']
+  }
 }
 </script>
 

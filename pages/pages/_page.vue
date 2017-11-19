@@ -19,7 +19,7 @@
         <div class="meta">
           <h1 class="title" v-html="page.title.rendered"></h1>
           <div class="details">
-            <span>{{ timestamp(page.date) }}</span>
+            <span>{{ longTimestamp(page.date) }}</span>
             <span class="separator">|</span>
             <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
           </div>
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import * as Vibrant from 'node-vibrant'
 
 if (process.browser) {
@@ -125,9 +124,6 @@ export default {
           selector: 'a'
         })
       }
-    },
-    timestamp (date) {
-      return moment(date).format('MMM D, YYYY')
     }
   },
 

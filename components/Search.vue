@@ -42,7 +42,7 @@
               <div class="col copy">
                 <span class="title" v-html="article.title.rendered"></span>
                 <div class="meta">
-                  <span v-html="timestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
+                  <span v-html="longTimestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
                 </div>
               </div>
             </nuxt-link>
@@ -58,11 +58,13 @@
 <script>
 import debounce from 'lodash/debounce'
 import axios from 'axios'
-import moment from 'moment'
-
 import Spinner2 from '~/components/Spinner2'
 
 export default {
+  mixins: {
+    longTimestamp: Function
+  },
+
   components: {
     Spinner2
   },
@@ -115,10 +117,6 @@ export default {
 
     selectedResult (index) {
       return index === this.current
-    },
-
-    timestamp (date) {
-      return moment(date).format('MMM D, YYYY')
     },
 
     toggleSearch () {

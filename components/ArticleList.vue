@@ -2,7 +2,7 @@
   <div class="article-list">
     <article v-for="article in articles" :key="article.id">
       <div class="date">
-        <span v-html="timestamp(article.date)"></span>
+        <span v-html="shortTimestamp(article.date)"></span>
         &nbsp;–&nbsp;
         <span class="topics">
           <nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name"></nuxt-link>
@@ -24,23 +24,13 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
-  methods: {
-    timestamp (date) {
-      let article = moment(date)
-      let today = moment(new Date())
-
-      if (today.diff(article) > 5.184e+8) {
-        return article.format('MMM D')
-      } else {
-        return article.fromNow()
-      }
-    }
+  props: {
+    articles: Array
   },
-
-  props: ['articles']
+  mixins: {
+    shortTimestamp: Function
+  }
 }
 </script>
 
