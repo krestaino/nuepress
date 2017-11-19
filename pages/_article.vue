@@ -30,9 +30,11 @@
             <Spinner1></Spinner1>
             <span>Loading comments</span>
           </div>
-          <lazy-component class="disqus" :class="{ ready: disqusReady }">
-            <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug" @ready="disqusReady = true"></VueDisqus>
-          </lazy-component>
+          <div class="disqus" :class="{ ready: disqusReady }">
+            <lazy-component>
+              <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug" @ready="disqusReady = true"></VueDisqus>
+            </lazy-component>
+          </div>
         </div>
       </div>
     </transition>
