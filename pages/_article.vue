@@ -26,7 +26,13 @@
         </div>
         <div class="content" id="article-content" v-html="article.content.rendered"></div>
         <div class="comments">
-          <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug"></VueDisqus>
+          <div class="loading" v-if="!disqusReady">
+            <Spinner1></Spinner1>
+            <span>Loading comments</span>
+          </div>
+          <lazy-component class="disqus" :class="{ ready: disqusReady }">
+            <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug" @ready="disqusReady = true"></VueDisqus>
+          </lazy-component>
         </div>
       </div>
     </transition>
@@ -38,6 +44,7 @@
 import VueDisqus from 'vue-disqus/VueDisqus.vue'
 import moment from 'moment'
 import * as Vibrant from 'node-vibrant'
+import Spinner1 from '~/components/Spinner1'
 
 if (process.browser) {
   require('lightgallery.js')
@@ -64,6 +71,7 @@ export default {
   },
 
   components: {
+    Spinner1,
     VueDisqus
   },
 
@@ -105,6 +113,7 @@ export default {
 
   data () {
     return {
+      disqusReady: false,
       expanded: false,
       RGB: {
         DarkMuted: {},
@@ -315,6 +324,31 @@ article {
     border-top: 1px dotted #65676a;
     padding-top: 32px;
     margin-top: 32px;
+
+    .loading {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      width: 100%;
+
+      .spinner {
+        margin-bottom: 16px;
+      }
+    }
+
+    .disqus {
+      min-height: 440px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: 1s;
+
+      &.ready {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   }
 }
 </style>
