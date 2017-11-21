@@ -389,7 +389,7 @@ article {
       }
     }
 
-    .wp-caption {    
+    .wp-caption {
       p {
         margin-bottom: 0;
 
