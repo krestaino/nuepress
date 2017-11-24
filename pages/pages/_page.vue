@@ -1,13 +1,6 @@
 <template>
   <article class="single-article">
-    <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
-      <div class="image-height"
-        :style="{ backgroundColor: `rgb(${RGB.DarkMuted[0]},${RGB.DarkMuted[1]},${RGB.DarkMuted[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
-      <img v-lazy="featuredImage.source_url">
-      <div class="featured-image-padding"
-        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
-      </div>
-    </div>
+    <FeaturedImage v-if="featuredImage" :expanded="expanded" :featuredImage="featuredImage"></FeaturedImage>
     <transition name="slide-fade">
       <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
         <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
@@ -27,12 +20,12 @@
         <div class="content" id="article-content" v-html="page.content.rendered"></div>
       </div>
     </transition>
-    <div v-html="linkRGB"></div>
   </article>
 </template>
 
 <script>
 import * as Vibrant from 'node-vibrant'
+import FeaturedImage from '~/components/FeaturedImage.vue'
 
 if (process.browser) {
   require('lightgallery.js')
@@ -58,6 +51,10 @@ export default {
     }
   },
 
+  components: {
+    FeaturedImage
+  },
+
   computed: {
     page () {
       return this.$store.state.page
@@ -73,34 +70,12 @@ export default {
       } else {
         return { height: 0, width: 0 }
       }
-    },
-    linkRGB () {
-      return `
-        <style>
-          html {
-            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-          main a {
-            color: rgb(${this.RGB.DarkVibrant[0]},${this.RGB.DarkVibrant[1]},${this.RGB.DarkVibrant[2]}) !important
-          }
-          main a:hover {
-            color: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-          main a::after {
-            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-        </style>
-      `
     }
   },
 
   data () {
     return {
-      expanded: false,
-      RGB: {
-        DarkMuted: {},
-        DarkVibrant: {}
-      }
+      expanded: false
     }
   },
 
@@ -129,15 +104,6 @@ export default {
 
   mounted () {
     this.gallery()
-  },
-
-  watch: {
-    '$store.state.featuredColor' () {
-      this.RGB = {
-        DarkMuted: this.$store.state.featuredColor.DarkMuted._rgb,
-        DarkVibrant: this.$store.state.featuredColor.DarkVibrant._rgb
-      }
-    }
   }
 }
 </script>
@@ -225,53 +191,6 @@ article {
     }
   }
 
-  .featured-image {
-    width: 100%;
-
-    .image-height {
-      background-color: #efefef;
-      position: absolute;
-      transition: 0.2s;
-      width: 100%;
-
-      @media (max-width: 700px) {
-        display: block;
-      }
-    }
-
-    img {
-      backface-visibility: hidden;
-      display: block;
-      height: auto;
-      max-width: 100%;
-      position: absolute;
-      top: 0;
-      transition: opacity 0.8s;
-      width: 100%;
-
-      &[lazy="loaded"] {
-        opacity: 0.6;
-      }
-    }
-
-    &.expanded {
-      img[lazy="loaded"] {
-        opacity: 1;
-      }
-    }
-
-    .featured-image-padding {
-      transition: padding-top 1s;
-    }
-
-    @media (min-width: 901px) {
-      &:not(.expanded) {
-        .featured-image-padding {
-          padding-top: 96px !important;
-        }
-      }
-    }
-  }
 
   .meta {
     .title {
