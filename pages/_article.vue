@@ -1,13 +1,6 @@
 <template>
   <article class="single-article">
-    <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
-      <div class="image-height"
-        :style="{ backgroundColor: `rgb(${RGB.DarkMuted[0]},${RGB.DarkMuted[1]},${RGB.DarkMuted[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
-      <img v-lazy="featuredImage.source_url">
-      <div class="featured-image-padding"
-        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
-      </div>
-    </div>
+    <FeaturedImage v-if="featuredImage" :expanded="expanded" :featuredImage="featuredImage"></FeaturedImage>
     <transition name="slide-fade">
       <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
         <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
@@ -47,6 +40,7 @@
 <script>
 import VueDisqus from 'vue-disqus/VueDisqus.vue'
 import * as Vibrant from 'node-vibrant'
+import FeaturedImage from '~/components/FeaturedImage.vue'
 import Spinner1 from '~/components/Spinner1'
 
 if (process.browser) {
@@ -79,7 +73,8 @@ export default {
 
   components: {
     Spinner1,
-    VueDisqus
+    VueDisqus,
+    FeaturedImage
   },
 
   computed: {
@@ -247,54 +242,6 @@ article {
 
     &.no-featured-image {
       margin: 0 auto;
-    }
-  }
-
-  .featured-image {
-    width: 100%;
-
-    .image-height {
-      background-color: #efefef;
-      position: absolute;
-      transition: 0.2s;
-      width: 100%;
-
-      @media (max-width: 700px) {
-        display: block;
-      }
-    }
-
-    img {
-      backface-visibility: hidden;
-      display: block;
-      height: auto;
-      max-width: 100%;
-      position: absolute;
-      top: 0;
-      transition: opacity 0.8s;
-      width: 100%;
-
-      &[lazy="loaded"] {
-        opacity: 0.6;
-      }
-    }
-
-    &.expanded {
-      img[lazy="loaded"] {
-        opacity: 1;
-      }
-    }
-
-    .featured-image-padding {
-      transition: padding-top 1s;
-    }
-
-    @media (min-width: 901px) {
-      &:not(.expanded) {
-        .featured-image-padding {
-          padding-top: 96px !important;
-        }
-      }
     }
   }
 
