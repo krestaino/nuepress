@@ -24,9 +24,11 @@
             <span>Loading comments</span>
           </div>
           <div class="disqus" :class="{ ready: disqusReady }">
-            <lazy-component>
-              <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug" @ready="disqusReady = true"></VueDisqus>
-            </lazy-component>
+            <no-ssr>
+              <lazy-component>
+                <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug" @ready="disqusReady = true"></VueDisqus>
+              </lazy-component>
+            </no-ssr>
           </div>
         </div>
       </div>
