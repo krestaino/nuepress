@@ -29,7 +29,6 @@
 import VueDisqus from 'vue-disqus/VueDisqus.vue'
 import * as Vibrant from 'node-vibrant'
 import FeaturedImage from '~/components/FeaturedImage.vue'
-import Spinner1 from '~/components/Spinner1'
 import Comments from '~/components/Comments'
 
 if (process.browser) {
@@ -61,7 +60,6 @@ export default {
   },
 
   components: {
-    Spinner1,
     VueDisqus,
     FeaturedImage,
     Comments
