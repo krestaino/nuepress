@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import VueDisqus from 'vue-disqus/VueDisqus.vue'
 import * as Vibrant from 'node-vibrant'
 import FeaturedImage from '~/components/FeaturedImage.vue'
 import Comments from '~/components/Comments'
@@ -60,7 +59,6 @@ export default {
   },
 
   components: {
-    VueDisqus,
     FeaturedImage,
     Comments
   },
