@@ -1,4 +1,8 @@
-# NuePress
+<p align="left">
+  <a href="https://travis-ci.org/krestaino/nuepress"><img src="https://travis-ci.org/krestaino/nuepress.svg?branch=master" alt="Build Status"></a>
+</p>
+
+## NuePress
 
 [Nuxt.js](https://github.com/nuxt/nuxt.js) + [WordPress REST API](https://developer.wordpress.org/rest-api/)
 
@@ -18,6 +22,9 @@ $ npm run dev
 # build for production and launch server
 $ npm run build
 $ npm start
+
+# build for production and view the bundle analyzer report
+$ npm run analyze
 
 # generate static project
 $ npm run generate
