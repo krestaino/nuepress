@@ -10,17 +10,17 @@
         <nuxt-link to="/authors">Authors</nuxt-link>
         <nuxt-link to="/pages/sample-page">Sample Page</nuxt-link>
       </nav>
-      <the-search/>
+      <the-header-search />
     </div>
   </header>
 </template>
 
 <script>
-import TheSearch from '~/components/TheSearch'
+import TheHeaderSearch from '~/components/TheHeaderSearch'
 
 export default {
   components: {
-    TheSearch
+    TheHeaderSearch
   },
 
   computed: {
