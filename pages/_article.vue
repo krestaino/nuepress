@@ -1,6 +1,6 @@
 <template>
   <article class="single-article">
-    <FeaturedImage v-if="featuredImage" :expanded="expanded" :featuredImage="featuredImage"></FeaturedImage>
+    <article-featured-image v-if="featuredImage" :expanded="expanded" :featuredImage="featuredImage" />
     <transition name="slide-fade">
       <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
         <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="content" id="article-content" v-html="article.content.rendered"></div>
-        <Comments :article="article"/>
+        <article-comments :article="article"/>
       </div>
     </transition>
     <div v-html="linkRGB"></div>
@@ -27,8 +27,8 @@
 
 <script>
 import * as Vibrant from 'node-vibrant'
-import FeaturedImage from '~/components/FeaturedImage.vue'
-import Comments from '~/components/Comments'
+import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue'
+import ArticleComments from '~/components/ArticleComments'
 
 if (process.browser) {
   require('lightgallery.js')
@@ -59,8 +59,8 @@ export default {
   },
 
   components: {
-    FeaturedImage,
-    Comments
+    ArticleFeaturedImage,
+    ArticleComments
   },
 
   computed: {

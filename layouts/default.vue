@@ -1,25 +1,25 @@
 <template>
   <div class="blog" id="blog">
-    <Spinner1/>
+    <spinner1/>
     <div class="interface">
-      <BlogHeader/>
+      <the-header/>
       <main role="main">
         <nuxt/>
       </main>
-      <BlogFooter/>
+      <the-footer/>
     </div>
   </div>
 </template>
 
 <script>
-import BlogHeader from '../components/Header'
-import BlogFooter from '../components/Footer'
+import TheHeader from '../components/TheHeader'
+import TheFooter from '../components/TheFooter'
 import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
-    BlogHeader,
-    BlogFooter,
+    TheHeader,
+    TheFooter,
     Spinner1
   }
 }

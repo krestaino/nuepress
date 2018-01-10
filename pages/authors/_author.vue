@@ -5,10 +5,10 @@
         <h1>{{ author.name }}</h1>
         <p v-if="author.description">{{ author.description }}</p>
       </div>
-      <ArticleList :articles="authorArticles.articles"></ArticleList>
-      <InfiniteLoading v-if="(authorArticles.infiniteLoading)  && (authorArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <article-list :articles="authorArticles.articles" />
+      <infinite-loading v-if="(authorArticles.infiniteLoading)  && (authorArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
-    <Sidebar :featuredArticles="$store.state.featuredArticles"></Sidebar>
+    <the-sidebar :featuredArticles="$store.state.featuredArticles" />
   </div>
 </template>
 
@@ -16,7 +16,7 @@
 import find from 'lodash/find'
 import ArticleList from '~/components/ArticleList'
 import InfiniteLoading from '~/components/InfiniteLoading'
-import Sidebar from '~/components/Sidebar'
+import TheSidebar from '~/components/TheSidebar'
 
 export default {
   async asyncData ({ app, store, params }) {
@@ -40,7 +40,7 @@ export default {
   components: {
     ArticleList,
     InfiniteLoading,
-    Sidebar
+    TheSidebar
   },
 
   computed: {

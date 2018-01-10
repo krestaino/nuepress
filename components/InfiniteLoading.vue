@@ -2,7 +2,7 @@
   <div class="infinite-loading-container">
     <div v-show="isLoading">
       <slot name="spinner">
-        <Spinner1 class="spinner-1"/>
+        <spinner1 class="spinner-1"/>
       </slot>
     </div>
     <div class="infinite-status-prompt" v-show="!isLoading && isComplete && isFirstLoad">
@@ -165,7 +165,7 @@
 
 .infinite-status-prompt {
   position: relative;
-  
+
   svg {
     display: block;
     fill: rgba($primary, .45);
