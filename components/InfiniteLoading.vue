@@ -30,7 +30,6 @@
   </div>
 </template>
 <script>
-
   /* eslint-disable */
 
   /**
@@ -165,7 +164,7 @@
 
 .infinite-status-prompt {
   position: relative;
-  
+
   svg {
     display: block;
     fill: rgba($primary, .45);
