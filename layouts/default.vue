@@ -1,12 +1,12 @@
 <template>
   <div class="blog" id="blog">
-    <spinner1/>
+    <Spinner1 />
     <div class="interface">
-      <the-header/>
+      <TheHeader />
       <main role="main">
         <nuxt/>
       </main>
-      <the-footer/>
+      <TheFooter />
     </div>
   </div>
 </template>

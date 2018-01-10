@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <div class="articles">
-      <the-hero :heroArticle="heroArticle" v-if="heroArticle"/>
-      <article-list :articles="$store.state.articles"/>
-      <infinite-loading v-if="indexInfiniteLoading.enabled" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <TheHero :heroArticle="heroArticle" v-if="heroArticle" />
+      <ArticleList :articles="$store.state.articles" />
+      <InfiniteLoading v-if="indexInfiniteLoading.enabled" :on-infinite="moreArticles" ref="infiniteLoading" />
     </div>
-    <the-sidebar :featuredArticles="$store.state.featuredArticles" />
+    <TheSidebar :featuredArticles="$store.state.featuredArticles" />
   </div>
 </template>
 

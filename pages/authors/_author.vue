@@ -5,10 +5,10 @@
         <h1>{{ author.name }}</h1>
         <p v-if="author.description">{{ author.description }}</p>
       </div>
-      <article-list :articles="authorArticles.articles" />
-      <infinite-loading v-if="(authorArticles.infiniteLoading)  && (authorArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <ArticleListt :articles="authorArticles.articles" />
+      <InfiniteLoading v-if="(authorArticles.infiniteLoading)  && (authorArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
     </div>
-    <the-sidebar :featuredArticles="$store.state.featuredArticles" />
+    <TheSidebar :featuredArticles="$store.state.featuredArticles" />
   </div>
 </template>
 
