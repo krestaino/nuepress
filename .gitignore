@@ -9,3 +9,12 @@ npm-debug.log
 
 # Nuxt generate
 dist
+
+# IntelliJ
+.idea
+
+# Visual Studio Code
+.vscode
+
+# Log files
+*.log
