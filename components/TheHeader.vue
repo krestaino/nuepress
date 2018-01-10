@@ -10,7 +10,7 @@
         <nuxt-link to="/authors">Authors</nuxt-link>
         <nuxt-link to="/pages/sample-page">Sample Page</nuxt-link>
       </nav>
-      <TheHeaderSearch />
+      <TheHeaderSearch/>
     </div>
   </header>
 </template>

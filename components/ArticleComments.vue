@@ -1,7 +1,7 @@
 <template>
   <div class="comments">
     <div class="loading" v-if="!disqusReady">
-      <Spinner1 />
+      <Spinner1/>
       <span>Loading comments</span>
     </div>
     <div class="disqus" :class="{ ready: disqusReady }">
