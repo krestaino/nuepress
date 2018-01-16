@@ -1,11 +1,19 @@
 <template>
   <div>
-    <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
-      <div class="image-height"
-        :style="{ backgroundColor: `rgb(${RGB.DarkMuted[0]},${RGB.DarkMuted[1]},${RGB.DarkMuted[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+    <div
+      v-if="featuredImage.source_url"
+      class="featured-image lazy"
+      :class="{ 'expanded': expanded }"
+    >
+      <div
+        class="image-height"
+        :style="[backgroundColor, paddingTop]"
+      ></div>
       <img v-lazy="featuredImage.source_url">
-      <div class="featured-image-padding"
-        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
+      <div
+        class="featured-image-padding"
+        :style="paddingTop"
+      >
       </div>
     </div>
     <div v-html="linkRGB"></div>
@@ -27,6 +35,16 @@ export default {
     }
   },
   computed: {
+    backgroundColor () {
+      return {
+        backgroundColor: `rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]})`
+      }
+    },
+    paddingTop () {
+      return {
+        paddingTop: this.featuredImage.height / this.featuredImage.width * 100 + '%'
+      }
+    },
     linkRGB () {
       return `
         <style>
