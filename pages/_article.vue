@@ -1,6 +1,10 @@
 <template>
   <article class="single-article">
-    <ArticleFeaturedImage v-if="featuredImage" :expanded="expanded" :featuredImage="featuredImage"/>
+    <ArticleFeaturedImage
+      v-if="featuredImage"
+      :expanded="expanded"
+      :featured-image="featuredImage"
+    />
     <transition name="slide-fade">
       <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
         <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">

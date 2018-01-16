@@ -16,7 +16,10 @@
           @focus="resultsVisible = true">
         <div class="float-right">
           <transition name="fade">
-            <Spinner2 class="spinner-2" v-if="spinnerVisible"/>
+            <Spinner2
+              class="spinner-2"
+              v-if="spinnerVisible"
+            />
           </transition>
           <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery">
             <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">

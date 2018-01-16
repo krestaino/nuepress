@@ -5,10 +5,14 @@
         <h1>{{ author.name }}</h1>
         <p v-if="author.description">{{ author.description }}</p>
       </div>
-      <ArticleListt :articles="authorArticles.articles"/>
-      <InfiniteLoading v-if="(authorArticles.infiniteLoading)  && (authorArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <ArticleList :articles="authorArticles.articles"/>
+      <InfiniteLoading
+        v-if="isLoadingMore"
+        ref="infiniteLoading"
+        :on-infinite="moreArticles"
+    />
     </div>
-    <TheSidebar :featuredArticles="$store.state.featuredArticles"/>
+    <TheSidebar :featured-articles="$store.state.featuredArticles"/>
   </div>
 </template>
 
@@ -53,6 +57,9 @@ export default {
       return find(this.$store.state.authorArticles, {
         'slug': this.$route.params.author
       })
+    },
+    isLoadingMore () {
+      return this.authorArticles.infiniteLoading && this.authorArticles.articles.length >= 10
     }
   },
 

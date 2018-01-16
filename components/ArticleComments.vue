@@ -7,7 +7,11 @@
     <div class="disqus" :class="{ ready: disqusReady }">
       <no-ssr>
         <lazy-component>
-          <VueDisqus shortname="nuepress-kmr-io" :identifier="article.slug" @ready="disqusReady = true"></VueDisqus>
+          <VueDisqus
+            shortname="nuepress-kmr-io"
+            :identifier="article.slug"
+            @ready="disqusReady = true"
+          />
         </lazy-component>
       </no-ssr>
     </div>

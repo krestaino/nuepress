@@ -1,6 +1,10 @@
 <template>
   <article class="single-article">
-    <ArticleFeaturedImage v-if="featuredImage" :expanded="expanded" :featuredImage="featuredImage"/>
+    <ArticleFeaturedImage
+      v-if="featuredImage"
+      :expanded="expanded"
+      :featured-image="featuredImage"
+    />
     <transition name="slide-fade">
       <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
         <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
@@ -63,8 +67,10 @@ export default {
       return this.$store.state.page._embedded.author[0]
     },
     featuredImage () {
-      let featuredImage = this.$store.state.page._embedded['wp:featuredmedia']
-
+      let featuredImage = null
+      if (this.$store.state.article) {
+        featuredImage = this.$store.state.article._embedded['wp:featuredmedia']
+      }
       if (featuredImage) {
         return featuredImage[0].media_details.sizes.large || featuredImage[0].media_details.sizes.full || false
       } else {

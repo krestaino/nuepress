@@ -10,7 +10,7 @@
       </div>
       <div class="featured-image lazy" v-if="featuredImage">
         <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
-        <div class="image" v-lazy:backgroundImage="featuredImage.source_url"></div>
+        <div class="image" v-lazy:background-image="featuredImage.source_url"></div>
       </div>
     </nuxt-link>
   </article>
