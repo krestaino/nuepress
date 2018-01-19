@@ -78,24 +78,6 @@ export default {
       } else {
         return { height: 0, width: 0 }
       }
-    },
-    linkRGB () {
-      return `
-        <style>
-          html {
-            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-          main a {
-            color: rgb(${this.RGB.DarkVibrant[0]},${this.RGB.DarkVibrant[1]},${this.RGB.DarkVibrant[2]}) !important
-          }
-          main a:hover {
-            color: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-          main a::after {
-            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-        </style>
-      `
     }
   },
 
@@ -103,10 +85,7 @@ export default {
     return {
       disqusReady: false,
       expanded: false,
-      RGB: {
-        DarkMuted: {},
-        DarkVibrant: {}
-      }
+      linkRGB: {}
     }
   },
 
@@ -139,9 +118,27 @@ export default {
 
   watch: {
     '$store.state.featuredColor' () {
-      this.RGB = {
-        DarkMuted: this.$store.state.featuredColor.DarkMuted._rgb,
-        DarkVibrant: this.$store.state.featuredColor.DarkVibrant._rgb
+      let DarkMuted = this.$store.state.featuredColor.DarkMuted
+      let DarkVibrant = this.$store.state.featuredColor.DarkVibrant
+
+      if (DarkMuted !== null && DarkVibrant !== null) {
+        this.linkRGB = `
+          <style>
+            html,
+            .featured-image .image-height {
+              background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
+            }
+            main a {
+              color: rgb(${DarkVibrant._rgb[0]},${DarkVibrant._rgb[1]},${DarkVibrant._rgb[2]}) !important
+            }
+            main a:hover {
+              color: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
+            }
+            main a::after {
+              background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
+            }
+          </style>
+        `
       }
     }
   }

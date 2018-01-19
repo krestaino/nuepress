@@ -2,13 +2,12 @@
   <div>
     <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
       <div class="image-height"
-        :style="{ backgroundColor: `rgb(${RGB.DarkMuted[0]},${RGB.DarkMuted[1]},${RGB.DarkMuted[2]})`, paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
       <img v-lazy="featuredImage.source_url">
       <div class="featured-image-padding"
         :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
       </div>
     </div>
-    <div v-html="linkRGB"></div>
   </div>
 </template>
 
@@ -17,42 +16,6 @@ export default {
   props: {
     expanded: Boolean,
     featuredImage: Object
-  },
-  data () {
-    return {
-      RGB: {
-        DarkMuted: {},
-        DarkVibrant: {}
-      }
-    }
-  },
-  computed: {
-    linkRGB () {
-      return `
-        <style>
-          html {
-            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-          main a {
-            color: rgb(${this.RGB.DarkVibrant[0]},${this.RGB.DarkVibrant[1]},${this.RGB.DarkVibrant[2]}) !important
-          }
-          main a:hover {
-            color: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-          main a::after {
-            background: rgb(${this.RGB.DarkMuted[0]},${this.RGB.DarkMuted[1]},${this.RGB.DarkMuted[2]}) !important
-          }
-        </style>
-      `
-    }
-  },
-  watch: {
-    '$store.state.featuredColor' () {
-      this.RGB = {
-        DarkMuted: this.$store.state.featuredColor.DarkMuted._rgb,
-        DarkVibrant: this.$store.state.featuredColor.DarkVibrant._rgb
-      }
-    }
   }
 }
 </script>
@@ -62,7 +25,7 @@ export default {
   width: 100%;
 
   .image-height {
-    background-color: #efefef;
+    background-color: #525252;
     position: absolute;
     transition: 0.2s;
     width: 100%;
