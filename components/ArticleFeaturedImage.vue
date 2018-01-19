@@ -1,11 +1,19 @@
 <template>
   <div>
-    <div class="featured-image lazy" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
-      <div class="image-height"
-        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
+    <div
+      v-if="featuredImage.source_url"
+      class="featured-image lazy"
+      :class="{ 'expanded': expanded }"
+    >
+      <div
+        class="image-height"
+        :style="{ paddingTop: featuredImageAspectRatio}"
+      ></div>
       <img v-lazy="featuredImage.source_url">
-      <div class="featured-image-padding"
-        :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }">
+      <div
+        class="featured-image-padding"
+        :style="{ paddingTop: featuredImageAspectRatio}"
+      >
       </div>
     </div>
   </div>
@@ -16,6 +24,12 @@ export default {
   props: {
     expanded: Boolean,
     featuredImage: Object
+  },
+
+  computed: {
+    featuredImageAspectRatio () {
+      return this.featuredImage.height / this.featuredImage.width * 100 + '%'
+    }
   }
 }
 </script>

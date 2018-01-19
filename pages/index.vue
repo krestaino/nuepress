@@ -1,19 +1,26 @@
 <template>
   <div class="home">
     <div class="articles">
-      <Hero :heroArticle="heroArticle" v-if="heroArticle"/>
+      <TheHero
+        v-if="heroArticle"
+        :hero-article="heroArticle"
+      />
       <ArticleList :articles="$store.state.articles"/>
-      <InfiniteLoading v-if="indexInfiniteLoading.enabled" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <InfiniteLoading
+        v-if="indexInfiniteLoading.enabled"
+        ref="infiniteLoading"
+        :on-infinite="moreArticles"
+      />
     </div>
-    <Sidebar :featuredArticles="$store.state.featuredArticles"/>
+    <TheSidebar :featured-articles="$store.state.featuredArticles"/>
   </div>
 </template>
 
 <script>
 import ArticleList from '~/components/ArticleList'
-import Hero from '~/components/Hero'
+import TheHero from '~/components/TheHero'
 import InfiniteLoading from '~/components/InfiniteLoading'
-import Sidebar from '~/components/Sidebar'
+import TheSidebar from '~/components/TheSidebar'
 
 export default {
   async asyncData ({ app, store, params }) {
@@ -30,9 +37,9 @@ export default {
 
   components: {
     ArticleList,
-    Hero,
+    TheHero,
     InfiniteLoading,
-    Sidebar
+    TheSidebar
   },
 
   computed: {
