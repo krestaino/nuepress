@@ -214,4 +214,42 @@ pre {
     top: 50%;
   }
 }
+
+.infinite-loading-container {
+  min-height: calc(64px * 2 + 40px) !important;
+  padding: 64px;
+}
+
+.infinite-status-prompt {
+  padding: 0 !important;
+  position: relative;
+
+  span {
+    display: block;
+  }
+
+  svg {
+    display: block;
+    fill: rgba($primary, .45);
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: auto;
+  }
+
+  div {
+    bottom: -26px;
+    color: rgba($primary, .65);
+    font-size: 14px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.spinner {
+  position: relative;
+  margin: auto;
+}
 </style>

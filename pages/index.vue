@@ -10,7 +10,19 @@
         v-if="indexInfiniteLoading.enabled"
         ref="infiniteLoading"
         :on-infinite="moreArticles"
-      />
+      >
+        <span slot="spinner">
+          <Spinner1/>
+        </span>
+        <span slot="no-results">
+          <Smile/>
+          <div>No more articles!</div>
+        </span>
+        <span slot="no-more">
+          <Smile/>
+          <div>No more articles!</div>
+        </span>
+      </InfiniteLoading>
     </div>
     <TheSidebar :featured-articles="$store.state.featuredArticles"/>
   </div>
@@ -19,8 +31,10 @@
 <script>
 import ArticleList from '~/components/ArticleList'
 import TheHero from '~/components/TheHero'
-import InfiniteLoading from '~/components/InfiniteLoading'
 import TheSidebar from '~/components/TheSidebar'
+import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
+import Smile from '~/assets/svg/Smile.vue'
+import Spinner1 from '~/components/Spinner1.vue'
 
 export default {
   async asyncData ({ app, store, params }) {
@@ -38,8 +52,10 @@ export default {
   components: {
     ArticleList,
     TheHero,
+    TheSidebar,
     InfiniteLoading,
-    TheSidebar
+    Smile,
+    Spinner1
   },
 
   computed: {

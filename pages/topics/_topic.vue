@@ -6,7 +6,23 @@
         <p v-if="topic.description">{{ topic.description }}</p>
       </div>
       <ArticleList :articles="topicArticles.articles"/>
-      <InfiniteLoading v-if="(topicArticles.infiniteLoading)  && (topicArticles.articles.length >= 10)" :on-infinite="moreArticles" ref="infiniteLoading"/>
+      <InfiniteLoading
+        v-if="isLoadingMore"
+        ref="infiniteLoading"
+        :on-infinite="moreArticles"
+      >
+        <span slot="spinner">
+          <Spinner1/>
+        </span>
+        <span slot="no-results">
+          <Smile/>
+          <div>No more articles!</div>
+        </span>
+        <span slot="no-more">
+          <Smile/>
+          <div>No more articles!</div>
+        </span>
+      </InfiniteLoading>
     </div>
     <TheSidebar :featuredArticles="$store.state.featuredArticles"/>
   </div>
@@ -15,8 +31,10 @@
 <script>
 import find from 'lodash/find'
 import ArticleList from '~/components/ArticleList'
-import InfiniteLoading from '~/components/InfiniteLoading'
 import TheSidebar from '~/components/TheSidebar'
+import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
+import Smile from '~/assets/svg/Smile.vue'
+import Spinner1 from '~/components/Spinner1.vue'
 
 export default {
   async asyncData ({ app, store, params }) {
@@ -39,8 +57,10 @@ export default {
 
   components: {
     ArticleList,
+    TheSidebar,
     InfiniteLoading,
-    TheSidebar
+    Smile,
+    Spinner1
   },
 
   computed: {
@@ -53,6 +73,9 @@ export default {
       return find(this.$store.state.topicArticles, {
         'slug': this.$route.params.topic
       })
+    },
+    isLoadingMore () {
+      return this.topicArticles.infiniteLoading && this.topicArticles.articles.length >= 10
     }
   },
 
