@@ -12,6 +12,7 @@
         <div class="col">
           <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
             <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+            <Spinner1/>
           </div>
         </div>
         <div class="col">
@@ -24,7 +25,12 @@
 </template>
 
 <script>
+import Spinner1 from '~/components/Spinner1'
+
 export default {
+  components: {
+    Spinner1
+  },
   props: {
     articles: Array
   },

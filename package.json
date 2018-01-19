@@ -6,8 +6,9 @@
   "private": true,
   "dependencies": {
     "@nuxtjs/axios": "^4.5.2",
-    "nuxt": "1.0.0",
-    "vue-disqus": "^2.0.4"
+    "nuxt": "1.1.1",
+    "vue-disqus": "^2.0.4",
+    "vue-router": "https://github.com/homerjam/vue-router#dist"
   },
   "config": {
     "nuxt": {

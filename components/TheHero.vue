@@ -17,14 +17,20 @@
       </div>
       <div class="featured-image lazy" v-if="featuredImage">
         <div class="image-height" :style="paddingTop"></div>
-        <div class="image" v-lazy:background-image="featuredImage.source_url"></div>
+        <div class="image" v-lazy:backgroundImage="featuredImage.source_url"></div>
+        <Spinner1/>
       </div>
     </nuxt-link>
   </article>
 </template>
 
 <script>
+import Spinner1 from '~/components/Spinner1'
+
 export default {
+  components: {
+    Spinner1
+  },
   props: {
     heroArticle: Object
   },
