@@ -11,13 +11,19 @@
       <div class="featured-image lazy" v-if="featuredImage">
         <div class="image-height" :style="{ paddingTop: featuredImage.height / featuredImage.width * 100 + '%' }"></div>
         <div class="image" v-lazy:backgroundImage="featuredImage.source_url"></div>
+        <Spinner1/>
       </div>
     </nuxt-link>
   </article>
 </template>
 
 <script>
+import Spinner1 from '~/components/Spinner1'
+
 export default {
+  components: {
+    Spinner1
+  },
   props: {
     heroArticle: Object
   },

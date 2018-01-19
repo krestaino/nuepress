@@ -7,6 +7,7 @@
           <div class="featured lazy" v-if="featuredImage(article)">
             <div class="image-height" :style="{ paddingTop: featuredImage(article).height / featuredImage(article).width * 100 + '%' }"></div>
             <img v-lazy="featuredImage(article).source_url">
+            <Spinner1/>
           </div>
         </nuxt-link>
         <div class="content">
@@ -24,7 +25,12 @@
 </template>
 
 <script>
+import Spinner1 from '~/components/Spinner1'
+
 export default {
+  components: {
+    Spinner1
+  },
   props: {
     featuredArticles: Array
   },

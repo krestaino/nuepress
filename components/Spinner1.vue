@@ -11,9 +11,6 @@
 .spinner {
   width: 40px;
   height: 40px;
-
-  position: relative;
-  margin: 64px auto;
 }
 
 .double-bounce1, .double-bounce2 {
