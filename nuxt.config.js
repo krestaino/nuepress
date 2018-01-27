@@ -93,10 +93,10 @@ module.exports = {
 
   sitemap: {
     routes (callback) {
-      let posts = axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date`).then(res => {
+      const posts = axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date`).then(res => {
         return res.data.map(item => '/' + item.slug)
       })
-      let pages = ['/pages/sample-page']
+      const pages = ['/pages/sample-page']
       return Promise.all([posts, pages]).then(values => {
         callback(null, values.join().split(','))
       })
