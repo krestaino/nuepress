@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const axios = require('axios')
 
 const scrollBehavior = function (to, from, savedPosition) {
   // if the returned position is falsy or an empty object,
@@ -76,7 +77,8 @@ module.exports = {
   loading: { color: '#384D66' },
 
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/sitemap'
   ],
 
   plugins: [
@@ -87,6 +89,18 @@ module.exports = {
 
   router: {
     scrollBehavior
+  },
+
+  sitemap: {
+    routes (callback) {
+      let posts = axios.get(`https://wp.kmr.io/wp-json/wp/v2/posts?orderby=date`).then(res => {
+        return res.data.map(item => '/' + item.slug)
+      })
+      let pages = ['/pages/sample-page']
+      return Promise.all([posts, pages]).then(values => {
+        callback(null, values.join().split(','))
+      })
+    }
   },
 
   transition: {
