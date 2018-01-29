@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@nuxtjs/axios": "^4.5.2",
+    "@nuxtjs/google-analytics": "^2.0.2",
     "nuxt": "1.1.1",
     "vue-disqus": "^2.0.4",
     "vue-infinite-loading": "^2.2.3",
