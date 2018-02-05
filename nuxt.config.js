@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const axios = require('axios')
 
 module.exports = {
   // Build configuration
