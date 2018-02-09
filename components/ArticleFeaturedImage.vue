@@ -61,6 +61,10 @@ export default {
 
     &[lazy="loaded"] {
       opacity: 0.6;
+
+      @media (max-width: 900px) {
+        opacity: 1 !important;
+      }
     }
   }
 

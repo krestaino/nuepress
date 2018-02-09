@@ -7,7 +7,7 @@
     />
     <transition name="slide-fade">
       <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
-        <button class="expand-featured-image" title="Show full image" @click.prevent="expanded = !expanded" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
+        <button class="expand-featured-image" title="Show full image" @click.prevent="expandFeaturedImage" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
           <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -103,6 +103,19 @@ export default {
   },
 
   methods: {
+    expandFeaturedImage () {
+      if (!this.expanded) {
+        this.$router.push({ query: { image: null } })
+      } else {
+        this.$router.push({ query: null })
+      }
+      this.expanded = !this.expanded
+    },
+    loadFeaturedImageExpanded () {
+      if (this.$route.query.image === null) {
+        this.expanded = true
+      }
+    },
     gallery () {
       let galleries = document.querySelectorAll('.content > .gallery')
 
@@ -118,6 +131,7 @@ export default {
 
   mounted () {
     this.gallery()
+    this.loadFeaturedImageExpanded()
   },
 
   watch: {
