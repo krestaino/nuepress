@@ -13,6 +13,7 @@
           @keydown.prevent.enter="enter"
           @keydown.prevent.down="down"
           @keydown.prevent.up="up"
+          @blur="searchBlur"
           @focus="resultsVisible = true">
         <div class="float-right">
           <transition name="fade">
@@ -116,6 +117,12 @@ export default {
           this.articles = response.data
           this.resultsVisible = true
         })
+    },
+
+    searchBlur () {
+      if (!this.searchQuery) {
+        this.searchOpen = false
+      }
     },
 
     selectedResult (index) {
