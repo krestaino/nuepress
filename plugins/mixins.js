@@ -27,6 +27,14 @@ Vue.mixin({
      */
     longTimestamp (date) {
       return moment(date).format('MMM D, YYYY')
+    },
+
+    homeScrollTop () {
+      if (window.location.pathname === '/') {
+        this.$scrollTo(document, 500)
+      } else {
+        this.$router.push('/')
+      }
     }
   }
 })

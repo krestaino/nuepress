@@ -150,7 +150,9 @@ a {
   transition: 0.1s;
 }
 
-a.fancy {
+.fancy {
+  cursor: pointer;
+  
   &:hover {
     color: $accent;
   }

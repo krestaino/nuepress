@@ -1,9 +1,9 @@
 <template>
   <header>
     <div v-if="meta">
-      <nuxt-link class="blog-title" to="/" exact>
+      <span class="blog-title" to="/" @click="homeScrollTop">
         <h1 v-html="meta.name"></h1>
-      </nuxt-link>
+      </span>
       <nav>
         <nuxt-link to="/" exact>Latest Articles</nuxt-link>
         <nuxt-link to="/topics">Topics</nuxt-link>
@@ -27,6 +27,10 @@ export default {
     meta () {
       return this.$store.state.meta
     }
+  },
+
+  mixins: {
+    homeScrollTop: Function
   }
 }
 </script>
@@ -68,6 +72,7 @@ header {
 
     h1 {
       color: #666;
+      cursor: pointer;
       font-size: 1.1rem;
       font-weight: 400;
     }

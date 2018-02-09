@@ -1,7 +1,9 @@
 <template>
   <footer>
     <div v-if="meta">
-      <nuxt-link class="fancy" to="/" exact><span v-html="meta.name"></span></nuxt-link>
+      <span class="fancy link" to="/" @click="homeScrollTop">
+        <span v-html="meta.name"></span>
+      </span>
       <div v-if="meta.description" v-html="meta.description"></div>
       <div>© {{ year }}</div>
     </div>
@@ -17,6 +19,10 @@ export default {
     year () {
       return new Date().getFullYear()
     }
+  },
+
+  mixins: {
+    homeScrollTop: Function
   }
 }
 </script>
@@ -40,8 +46,9 @@ footer {
     text-align: center;
   }
 
-  a {
+  .link {
     color: #aaa;
+    font-weight: 400;
   }
 }
 </style>
