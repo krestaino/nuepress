@@ -86,7 +86,8 @@ body {
   }
 }
 
-html.wf-active #blog {
+html.wf-active #blog,
+html.wf-inactive #blog {
   > .interface  {
     transition: 0.5s;
     opacity: 1;
