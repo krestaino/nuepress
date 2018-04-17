@@ -1,7 +1,7 @@
 <template>
   <footer>
-    <div v-if="meta">
-      <span class="fancy link" to="/" @click="homeScrollTop">
+    <div>
+      <span class="fancy link" to="/" @click.prevent="homeScrollTop">
         <span v-html="meta.name"></span>
       </span>
       <div v-if="meta.description" v-html="meta.description"></div>

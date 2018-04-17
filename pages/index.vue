@@ -117,6 +117,10 @@ export default {
 
     .article-list {
       margin: 32px 0;
+
+      @media (max-width: 700px) {
+        margin: 16px 0;
+      }
     }
   }
 }

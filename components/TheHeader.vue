@@ -1,7 +1,7 @@
 <template>
   <header>
-    <div v-if="meta">
-      <span class="blog-title" to="/" @click="homeScrollTop">
+    <div>
+      <span class="blog-title" to="/" @click.prevent="homeScrollTop">
         <h1 v-html="meta.name"></h1>
       </span>
       <nav>
@@ -79,6 +79,8 @@ header {
   }
 
   nav {
+    flex-shrink: 0;
+
     @media (max-width: 500px) {
       display: none;
     }

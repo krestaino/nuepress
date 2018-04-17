@@ -10,9 +10,13 @@
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col">
-          <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
+          <div class="lazy thumbnail" v-if="article._embedded['wp:featuredmedia']">
             <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
-            <Spinner1/>
+            <Spinner1 class="spinner"/>
+          </div>
+          <div class="lazy medium" v-if="article._embedded['wp:featuredmedia']">
+            <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
+            <Spinner1 class="spinner"/>
           </div>
         </div>
         <div class="col">
@@ -53,6 +57,10 @@ export default {
   .row {
     display: flex;
 
+    @media (max-width: 700px) {
+      flex-direction: column;
+    }
+
     & + .row {
       margin-top: 16px;
     }
@@ -60,6 +68,12 @@ export default {
     .col {
       display: flex;
       flex-direction: column;
+
+      @media (max-width: 700px) {
+        & + .col {
+          margin-top: 16px;
+        }
+      }
     }
   }
 
@@ -97,12 +111,32 @@ export default {
 
   .excerpt {
     @media (max-width: 500px) {
-      display: none;
+      // display: none;
     }
   }
 
   .lazy {
     margin: 0 22px 0 0;
+
+     &.thumbnail {
+      display: block;
+    }
+
+    &.medium {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      margin: 0;
+
+      &.thumbnail {
+        display: none;
+      }
+
+      &.medium {
+        display: block;
+      }
+    }
 
     img {
       display: block;
@@ -114,9 +148,16 @@ export default {
         width: 96px;
       }
 
+      @media (max-width: 700px) {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+
+    .spinner {
       @media (max-width: 500px) {
-        height: 64px;
-        width: 64px;
+        transform: scale(0.4);
       }
     }
   }

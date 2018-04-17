@@ -11,6 +11,10 @@
 .spinner {
   width: 40px;
   height: 40px;
+
+  @media (max-width: 700px) {
+    transform: scale(0.6);
+  }
 }
 
 .double-bounce1, .double-bounce2 {

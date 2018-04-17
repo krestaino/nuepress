@@ -1,12 +1,12 @@
 <template>
   <section id="search" role="search" ref="autoSuggest" :class="{'search-open': searchOpen}">
+    <button class="toggle-search" title="Search" @click.prevent="toggleSearch">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+    </button>
     <div class="inner-container" :class="{ 'results-visible': resultsVisible && searchQuery }">
-      <button class="toggle-search" title="Search" @click.prevent="toggleSearch">
-        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
-          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-          <path d="M0 0h24v24H0z" fill="none"/>
-        </svg>
-      </button>
       <div class="input-container" ref="inputContainer">
         <input name="search" placeholder="Search articles" ref="searchQuery" type="text" v-model="searchQuery"
           @keyup.prevent="debounceSearch($event)"
@@ -32,9 +32,9 @@
       </div>
       <transition name="fade">
         <ul class="results" v-if="searchQuery && resultsVisible && apiResponse">
-          <li ref="result" v-for="(article, index) in articles" :key="article.id">
+          <li ref="result" v-for="(article, index) in articles" :key="article.id" v-if="$route.params.article != article.slug">
             <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
-              <div class="col">
+              <div class="col thumb">
                 <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
                   <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
                 </div>
@@ -130,12 +130,8 @@ export default {
     },
 
     toggleSearch () {
-      if (!this.searchOpen) {
-        this.$refs.searchQuery.focus()
-        this.resultsVisible = true
-      } else {
-        this.resultsVisible = false
-      }
+      this.$refs.searchQuery.focus()
+      this.resultsVisible = !this.resultsVisible
       this.searchOpen = !this.searchOpen
     },
 
@@ -170,43 +166,21 @@ export default {
 
 section {
   margin-left: auto;
-  pointer-events: none;
-  z-index: 1;
 
   &.search-open {
-      pointer-events: all;
+    @media (max-width: 700px) {
+      top: 100%;
+      z-index: -1;
+    }
   }
 
   @media (max-width: 700px) {
     margin: 0;
     position: absolute;
     right: 0;
-    top: 100%;
+    top: -100%;
+    transition: top 0.5s, z-index .2s 0.5s;
     width: 100%;
-  }
-}
-
-.inner-container {
-  display: flex;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  position: relative;
-  transition: 0.1s;
-  z-index: 2;
-
-  @media (max-width: 700px) {
-    display: flex;
-    flex-direction: row-reverse;
-    margin-left: auto;
-    width: 100%;
-  }
-
-  &.results-visible {
-    .input-container input {
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
   }
 
   button {
@@ -218,7 +192,6 @@ section {
     height: 100%;
     justify-content: center;
     position: absolute;
-    pointer-events: all;
 
     &:hover {
       svg {
@@ -229,6 +202,7 @@ section {
     &.toggle-search {
       left: -32px;
       height: 100%;
+      justify-content: flex-end;
       width: 32px;
 
       @media (max-width: 700px) {
@@ -242,17 +216,6 @@ section {
       svg {
         height: 24px;
         width: 24px;
-
-        @media (min-width: 700px) {
-          &.results-visible {
-            fill: #fff;
-            opacity: 0.8;
-
-            &:hover {
-              opacity: 1;
-            }
-          }
-        }
       }
     }
 
@@ -277,6 +240,29 @@ section {
       transition: 0.1s;
     }
   }
+}
+
+.inner-container {
+  display: flex;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  position: relative;
+  transition: 0.1s;
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: auto;
+    width: 100%;
+  }
+
+  &.results-visible {
+    .input-container input {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+  }
 
   .input-container {
     overflow: hidden;
@@ -290,6 +276,10 @@ section {
       @media (max-width: 700px) {
         width: 100%;
       }
+    }
+
+    @media (max-width: 700px) {
+      width: 100%;
     }
 
     .float-right {
@@ -359,7 +349,6 @@ section {
     top: 100%;
     transition: 0.1s;
     width: 100%;
-    z-index: 10;
 
     @media (max-width: 700px) {
       border-left: 0;
@@ -415,6 +404,10 @@ section {
         line-height: 18px;
         max-height: 36px;
         -webkit-line-clamp: 2;
+
+        @media (max-width: 720px) {
+            font-weight: normal;
+          }
       }
 
       .meta {
@@ -453,28 +446,42 @@ section {
           color: darken($primary, 30%);
         }
 
-        .copy {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 16px 12px;
-        }
+        .thumb {
+          img,
+          svg {
+            display: block;
+            height: 96px;
+            max-width: 100%;
+            width: 96px;
 
-        img,
-        svg {
-          display: block;
-          height: 96px;
-          width: 96px;
+            @media (max-width: 700px) {
+              height: 32px;
+              width: 32px;
+            }
+          }
+
+          svg {
+            background-color: #f1f1f1;
+            fill: #ccc;
+            padding: 32px;
+
+            @media (max-width: 700px) {
+              padding: 8px;
+            }
+          }
 
           @media (max-width: 700px) {
-            display: none;
+            padding: 16px 0 16px 12px;
+            width: calc(32px + 12px)
           }
         }
 
-        svg {
-          background-color: #f1f1f1;
-          padding: 32px;
-          fill: #ccc;
+        .copy {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          justify-content: center;
+          padding: 16px 12px;
         }
       }
     }
@@ -492,7 +499,7 @@ section {
   transition: 0.5s;
   visibility: hidden;
   width: 100%;
-  z-index: -1;
+  z-index: -2;
 
   @media (max-width: 700px) {
     top: 60px;
