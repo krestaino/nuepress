@@ -3,16 +3,34 @@
     <div class="inner-container">
       <h1>Top Articles</h1>
       <article v-for="article in featuredArticles" :key="article.id">
-        <nuxt-link :to="`/${article.slug}`" v-if="article._embedded['wp:featuredmedia']" class="image">
+        <nuxt-link
+          :to="`/${article.slug}`"
+          v-if="article._embedded['wp:featuredmedia']"
+          class="image"
+        >
           <div class="featured lazy" v-if="featuredImage(article)">
-            <div class="image-height" :style="{ paddingTop: featuredImage(article).height / featuredImage(article).width * 100 + '%' }"></div>
-            <img v-lazy="featuredImage(article).source_url">
-            <Spinner1/>
+            <div
+              class="image-height"
+              :style="{
+                paddingTop:
+                  (featuredImage(article).height / featuredImage(article).width) * 100 + '%'
+              }"
+            ></div>
+            <img v-lazy="featuredImage(article).source_url" />
+            <Spinner1 />
           </div>
         </nuxt-link>
         <div class="content">
           <div class="meta">
-            <span v-html="shortTimestamp(article.date)"></span>&nbsp;–&nbsp;<nuxt-link class="topic fancy" v-for="topic in article._embedded['wp:term'][0]" :to="`/topics/${topic.slug}`" :key="topic.id" v-html="topic.name" v-if="topic.id !== $store.state.featuredID"></nuxt-link>
+            <span v-html="shortTimestamp(article.date)"></span>&nbsp;–&nbsp;
+            <nuxt-link
+              class="topic fancy"
+              v-for="topic in article._embedded['wp:term'][0]"
+              :to="`/topics/${topic.slug}`"
+              :key="topic.id"
+              v-html="topic.name"
+              v-if="notFeatured(topic.id)"
+            ></nuxt-link>
           </div>
           <nuxt-link :to="`/${article.slug}`" class="article">
             <h2 v-html="article.title.rendered"></h2>
@@ -25,28 +43,35 @@
 </template>
 
 <script>
-import Spinner1 from '~/components/Spinner1'
+import Spinner1 from '~/components/Spinner1';
 
 export default {
   components: {
     Spinner1
   },
+
   props: {
     featuredArticles: Array
   },
+
   mixins: {
     shortTimestamp: Function
   },
+
   methods: {
-    featuredImage (article) {
-      let featuredImage = article._embedded['wp:featuredmedia']
+    notFeatured(id) {
+      return process.env.FEATURED_ID !== id.toString();
+    },
+
+    featuredImage(article) {
+      let featuredImage = article._embedded['wp:featuredmedia'];
 
       if (featuredImage) {
-        return featuredImage[0].media_details.sizes.medium || false
+        return featuredImage[0].media_details.sizes.medium || false;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

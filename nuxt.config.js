@@ -1,29 +1,12 @@
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 module.exports = {
   // Build configuration
   build: {
-    // Run ESLINT on save
-    extend (config, ctx) {
-      if (ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    },
-    plugins: [
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    ],
-    vendor: [
-      'moment'
-    ]
+    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+    vendor: ['moment']
   },
-  css: [
-    'normalize.css/normalize.css'
-  ],
+  css: ['normalize.css/normalize.css'],
 
   // Headers of the page
   head: {
@@ -33,9 +16,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Customize the progress-bar color
@@ -43,9 +24,13 @@ module.exports = {
 
   modules: [
     '@nuxtjs/axios',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-93904346-3'
-    }]
+    '@nuxtjs/dotenv',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-93904346-3'
+      }
+    ]
   ],
 
   plugins: [
@@ -56,4 +41,4 @@ module.exports = {
   ],
 
   vendor: ['lightgallery.js']
-}
+};

@@ -1,20 +1,20 @@
 <template>
   <div class="blog" id="blog">
-    <Spinner1/>
+    <Spinner1 />
     <div class="interface">
-      <TheHeader/>
+      <TheHeader />
       <main role="main">
-        <nuxt/>
+        <nuxt />
       </main>
-      <TheFooter/>
+      <TheFooter />
     </div>
   </div>
 </template>
 
 <script>
-import TheHeader from '../components/TheHeader'
-import TheFooter from '../components/TheFooter'
-import Spinner1 from '~/components/Spinner1'
+import TheHeader from '../components/TheHeader';
+import TheFooter from '../components/TheFooter';
+import Spinner1 from '~/components/Spinner1';
 
 export default {
   components: {
@@ -22,7 +22,7 @@ export default {
     TheFooter,
     Spinner1
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -34,7 +34,7 @@ export default {
   background-repeat: no-repeat;
   box-sizing: border-box;
   position: relative;
-  transition-timing-function: cubic-bezier(.11,.89,.31,.99);
+  transition-timing-function: cubic-bezier(0.11, 0.89, 0.31, 0.99);
 }
 
 html {
@@ -47,14 +47,16 @@ html {
   font-weight: 400;
   overflow-y: scroll;
   transition: background-color 0.8s;
-  transition-timing-function: cubic-bezier(.11,.89,.31,.99);
+  transition-timing-function: cubic-bezier(0.11, 0.89, 0.31, 0.99);
 
   @media (max-width: 500px) {
     font-size: 18px;
   }
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -88,7 +90,7 @@ body {
 
 html.wf-active #blog,
 html.wf-inactive #blog {
-  > .interface  {
+  > .interface {
     transition: 0.5s;
     opacity: 1;
   }
@@ -111,10 +113,11 @@ main {
 }
 
 .page-enter-active {
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 
-.page-enter, .page-leave-active {
+.page-enter,
+.page-leave-active {
   opacity: 0;
 }
 
@@ -138,7 +141,11 @@ main {
   }
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   color: #333;
   font-weight: 400;
 }
@@ -153,7 +160,7 @@ a {
 
 .fancy {
   cursor: pointer;
-  
+
   &:hover {
     color: $accent;
   }
@@ -197,16 +204,16 @@ pre {
     width: 100%;
   }
 
-  [lazy=loading] {
+  [lazy='loading'] {
     opacity: 0;
   }
 
-  [lazy=loaded] {
+  [lazy='loaded'] {
     opacity: 1;
   }
 
-  [lazy=loading] + .spinner {
-    opacity: 1;;
+  [lazy='loading'] + .spinner {
+    opacity: 1;
   }
 
   .spinner {
@@ -233,7 +240,7 @@ pre {
 
   svg {
     display: block;
-    fill: rgba($primary, .45);
+    fill: rgba($primary, 0.45);
     width: 40px;
     height: 40px;
     position: relative;
@@ -242,7 +249,7 @@ pre {
 
   div {
     bottom: -26px;
-    color: rgba($primary, .65);
+    color: rgba($primary, 0.65);
     font-size: 14px;
     left: 0;
     position: absolute;

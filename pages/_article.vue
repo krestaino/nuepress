@@ -6,11 +6,23 @@
       :featured-image="featuredImage"
     />
     <transition name="slide-fade">
-      <div class="narrow" :class="{ 'expanded': expanded, 'no-featured-image': !featuredImage }">
-        <button class="expand-featured-image" title="Show full image" @click.prevent="expandFeaturedImage" :class="{ 'expanded': expanded }" v-if="featuredImage.source_url">
-          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
+      <div class="narrow" :class="{ expanded: expanded, 'no-featured-image': !featuredImage }">
+        <button
+          class="expand-featured-image"
+          title="Show full image"
+          @click.prevent="expandFeaturedImage"
+          :class="{ expanded: expanded }"
+          v-if="featuredImage.source_url"
+        >
+          <svg
+            fill="#000000"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+            <path d="M0 0h24v24H0z" fill="none" />
           </svg>
         </button>
         <div class="meta">
@@ -18,11 +30,13 @@
           <div class="details">
             <span>{{ longTimestamp(article.date) }}</span>
             <span class="separator">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{ author.name }}</nuxt-link>
+            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{
+              author.name
+            }}</nuxt-link>
           </div>
         </div>
         <div class="content" id="article-content" v-html="article.content.rendered"></div>
-        <ArticleComments :article="article"/>
+        <ArticleComments :article="article" />
       </div>
     </transition>
     <div v-html="linkRGB"></div>
@@ -30,31 +44,34 @@
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant'
-import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue'
-import ArticleComments from '~/components/ArticleComments'
+import * as Vibrant from 'node-vibrant';
+import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue';
+import ArticleComments from '~/components/ArticleComments';
 
 if (process.browser) {
-  require('lightgallery.js')
-  require('lg-zoom.js')
-  require('lg-thumbnail.js')
+  require('lightgallery.js');
+  require('lg-zoom.js');
+  require('lg-thumbnail.js');
 }
 
 export default {
-  async asyncData ({ app, store, params }) {
-    let article = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?slug=${params.article}&_embed`)
-    store.commit('setArticle', article.data[0])
+  async asyncData({ app, store, params }) {
+    let article = await app.$axios.get(
+      `${process.env.WORDPRESS_API_URL}/wp/v2/posts?slug=${params.article}&_embed`
+    );
+    store.commit('setArticle', article.data[0]);
   },
 
-  beforeMount () {
+  beforeMount() {
     if (this.featuredImage.source_url) {
-      let img = this.article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
+      let img = this.article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
+        .source_url;
 
       Vibrant.from(img).getPalette((err, palette) => {
         if (!err) {
-          this.$store.commit('setFeaturedColor', palette)
+          this.$store.commit('setFeaturedColor', palette);
         }
-      })
+      });
     }
   },
 
@@ -68,76 +85,78 @@ export default {
   },
 
   computed: {
-    article () {
-      return this.$store.state.article
+    article() {
+      return this.$store.state.article;
     },
-    author () {
-      return this.$store.state.article._embedded.author[0]
+    author() {
+      return this.$store.state.article._embedded.author[0];
     },
-    featuredImage () {
-      let featuredImage = this.$store.state.article._embedded['wp:featuredmedia']
+    featuredImage() {
+      let featuredImage = this.$store.state.article._embedded['wp:featuredmedia'];
 
       if (featuredImage) {
-        return featuredImage[0].media_details.sizes.large || featuredImage[0].media_details.sizes.full || false
+        return (
+          featuredImage[0].media_details.sizes.large ||
+          featuredImage[0].media_details.sizes.full ||
+          false
+        );
       } else {
-        return { height: 0, width: 0 }
+        return { height: 0, width: 0 };
       }
     }
   },
 
-  data () {
+  data() {
     return {
       disqusReady: false,
       expanded: false,
       linkRGB: {}
-    }
+    };
   },
 
-  head () {
+  head() {
     return {
       title: `${this.article.title.rendered} | ${this.$store.state.meta.name}`,
-      meta: [
-        { description: this.article.excerpt.rendered }
-      ]
-    }
+      meta: [{ description: this.article.excerpt.rendered }]
+    };
   },
 
   methods: {
-    expandFeaturedImage () {
+    expandFeaturedImage() {
       if (!this.expanded) {
-        this.$router.push({ query: { image: null } })
+        this.$router.push({ query: { image: null } });
       } else {
-        this.$router.push({ query: null })
+        this.$router.push({ query: null });
       }
-      this.expanded = !this.expanded
+      this.expanded = !this.expanded;
     },
-    loadFeaturedImageExpanded () {
+    loadFeaturedImageExpanded() {
       if (this.$route.query.image === null) {
-        this.expanded = true
+        this.expanded = true;
       }
     },
-    gallery () {
-      let galleries = document.querySelectorAll('.content > .gallery')
+    gallery() {
+      let galleries = document.querySelectorAll('.content > .gallery');
 
       for (let i = 0; i < galleries.length; i++) {
         // eslint-disable-next-line
         lightGallery(galleries[i], {
           download: false,
           selector: 'a'
-        })
+        });
       }
     }
   },
 
-  mounted () {
-    this.gallery()
-    this.loadFeaturedImageExpanded()
+  mounted() {
+    this.gallery();
+    this.loadFeaturedImageExpanded();
   },
 
   watch: {
-    '$store.state.featuredColor' () {
-      let DarkMuted = this.$store.state.featuredColor.DarkMuted
-      let DarkVibrant = this.$store.state.featuredColor.DarkVibrant
+    '$store.state.featuredColor'() {
+      let DarkMuted = this.$store.state.featuredColor.DarkMuted;
+      let DarkVibrant = this.$store.state.featuredColor.DarkVibrant;
 
       if (DarkMuted !== null && DarkVibrant !== null) {
         this.linkRGB = `
@@ -156,11 +175,11 @@ export default {
               background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
             }
           </style>
-        `
+        `;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -174,10 +193,11 @@ article {
   height: 100%;
 
   &.page-enter-active .narrow {
-    transition: transform 1s cubic-bezier(.11,.89,.31,.99), opacity 0.75s ease-out;
+    transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99), opacity 0.75s ease-out;
   }
 
-  &.page-enter .narrow, .page-leave-to .narrow {
+  &.page-enter .narrow,
+  .page-leave-to .narrow {
     transform: translateY(16px);
   }
 
@@ -295,7 +315,7 @@ article {
 }
 
 #lg-actual-size:after {
-  content: "\E311";
+  content: '\E311';
 }
 
 #lg-zoom-in,

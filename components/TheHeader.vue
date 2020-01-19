@@ -10,13 +10,13 @@
         <nuxt-link to="/authors">Authors</nuxt-link>
         <nuxt-link to="/pages/sample-page">Sample Page</nuxt-link>
       </nav>
-      <TheHeaderSearch/>
+      <TheHeaderSearch />
     </div>
   </header>
 </template>
 
 <script>
-import TheHeaderSearch from '~/components/TheHeaderSearch'
+import TheHeaderSearch from '~/components/TheHeaderSearch';
 
 export default {
   components: {
@@ -24,15 +24,15 @@ export default {
   },
 
   computed: {
-    meta () {
-      return this.$store.state.meta
+    meta() {
+      return this.$store.state.meta;
     }
   },
 
   mixins: {
     homeScrollTop: Function
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

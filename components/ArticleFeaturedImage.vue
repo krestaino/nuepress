@@ -3,18 +3,11 @@
     <div
       v-if="featuredImage.source_url"
       class="featured-image lazy"
-      :class="{ 'expanded': expanded }"
+      :class="{ expanded: expanded }"
     >
-      <div
-        class="image-height"
-        :style="{ paddingTop: featuredImageAspectRatio}"
-      ></div>
-      <img v-lazy="featuredImage.source_url">
-      <div
-        class="featured-image-padding"
-        :style="{ paddingTop: featuredImageAspectRatio}"
-      >
-      </div>
+      <div class="image-height" :style="{ paddingTop: featuredImageAspectRatio }"></div>
+      <img v-lazy="featuredImage.source_url" />
+      <div class="featured-image-padding" :style="{ paddingTop: featuredImageAspectRatio }"></div>
     </div>
   </div>
 </template>
@@ -27,11 +20,11 @@ export default {
   },
 
   computed: {
-    featuredImageAspectRatio () {
-      return this.featuredImage.height / this.featuredImage.width * 100 + '%'
+    featuredImageAspectRatio() {
+      return (this.featuredImage.height / this.featuredImage.width) * 100 + '%';
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -59,7 +52,7 @@ export default {
     transition: opacity 0.8s;
     width: 100%;
 
-    &[lazy="loaded"] {
+    &[lazy='loaded'] {
       opacity: 0.6;
 
       @media (max-width: 900px) {
@@ -69,7 +62,7 @@ export default {
   }
 
   &.expanded {
-    img[lazy="loaded"] {
+    img[lazy='loaded'] {
       opacity: 1;
     }
   }

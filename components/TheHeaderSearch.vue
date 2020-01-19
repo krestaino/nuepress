@@ -1,68 +1,124 @@
 <template>
-  <section id="search" role="search" ref="autoSuggest" :class="{'search-open': searchOpen}">
+  <section id="search" role="search" ref="autoSuggest" :class="{ 'search-open': searchOpen }">
     <button class="toggle-search" title="Search" @click.prevent="toggleSearch">
-      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" :class="{ 'results-visible': searchQuery && resultsVisible }">
-        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-        <path d="M0 0h24v24H0z" fill="none"/>
+      <svg
+        fill="#000000"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+        :class="{ 'results-visible': searchQuery && resultsVisible }"
+      >
+        <path
+          d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+        <path d="M0 0h24v24H0z" fill="none" />
       </svg>
     </button>
     <div class="inner-container" :class="{ 'results-visible': resultsVisible && searchQuery }">
       <div class="input-container" ref="inputContainer">
-        <input name="search" placeholder="Search articles" ref="searchQuery" type="text" v-model="searchQuery"
+        <input
+          name="search"
+          placeholder="Search articles"
+          ref="searchQuery"
+          type="text"
+          v-model="searchQuery"
           @keyup.prevent="debounceSearch($event)"
           @keydown.prevent.enter="enter"
           @keydown.prevent.down="down"
           @keydown.prevent.up="up"
           @blur="searchBlur"
-          @focus="resultsVisible = true">
+          @focus="resultsVisible = true"
+        />
         <div class="float-right">
           <transition name="fade">
-            <Spinner2
-              class="spinner-2"
-              v-if="spinnerVisible"
-            />
+            <Spinner2 class="spinner-2" v-if="spinnerVisible" />
           </transition>
           <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery">
-            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
+            <svg
+              fill="#000000"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+              <path d="M0 0h24v24H0z" fill="none" />
             </svg>
           </button>
         </div>
       </div>
       <transition name="fade">
         <ul class="results" v-if="searchQuery && resultsVisible && apiResponse">
-          <li ref="result" v-for="(article, index) in articles" :key="article.id" v-if="$route.params.article != article.slug">
-            <nuxt-link :to="`/${article.slug}`" class="row" :class="{'active': selectedResult(index)}" @mouseover.native="current = index">
+          <li
+            ref="result"
+            v-for="(article, index) in articles"
+            :key="article.id"
+            v-if="$route.params.article != article.slug"
+          >
+            <nuxt-link
+              :to="`/${article.slug}`"
+              class="row"
+              :class="{ active: selectedResult(index) }"
+              @mouseover.native="current = index"
+            >
               <div class="col thumb">
                 <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
-                  <img v-lazy="article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url">
+                  <img
+                    v-lazy="
+                      article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
+                        .source_url
+                    "
+                  />
                 </div>
-                <svg v-else fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24 24H0V0h24v24z" fill="none"/>
-                  <path d="M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z"/>
+                <svg
+                  v-else
+                  fill="#000000"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M24 24H0V0h24v24z" fill="none" />
+                  <path
+                    d="M21 3H3C2 3 1 4 1 5v14c0 1.1.9 2 2 2h18c1 0 2-1 2-2V5c0-1-1-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z"
+                  />
                 </svg>
               </div>
               <div class="col copy">
                 <span class="title" v-html="article.title.rendered"></span>
                 <div class="meta">
-                  <span v-html="longTimestamp(article.date)"></span>&nbsp;–&nbsp;<span class="topic" v-for="topic in article._embedded['wp:term'][0]" :key="topic.id" v-html="topic.name" v-if="topic.slug !== 'featured'"></span>
+                  <span v-html="longTimestamp(article.date)"></span>&nbsp;–&nbsp;<span
+                    class="topic"
+                    v-for="topic in article._embedded['wp:term'][0]"
+                    :key="topic.id"
+                    v-html="topic.name"
+                    v-if="topic.slug !== 'featured'"
+                  ></span>
                 </div>
               </div>
             </nuxt-link>
           </li>
-          <li class="no-results" v-if="searchQuery && (articles.length === 0) && (apiResponse)">No results found</li>
+          <li class="no-results" v-if="searchQuery && articles.length === 0 && apiResponse">
+            No results found
+          </li>
         </ul>
       </transition>
     </div>
-    <div class="shade" @click.prevent="resultsVisible = false" :class="{ 'results-visible': searchQuery && resultsVisible }"></div>
+    <div
+      class="shade"
+      @click.prevent="resultsVisible = false"
+      :class="{ 'results-visible': searchQuery && resultsVisible }"
+    ></div>
   </section>
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
-import axios from 'axios'
-import Spinner2 from '~/components/Spinner2'
+import debounce from 'lodash/debounce';
+import axios from 'axios';
+import Spinner2 from '~/components/Spinner2';
 
 export default {
   mixins: {
@@ -73,7 +129,7 @@ export default {
     Spinner2
   },
 
-  data () {
+  data() {
     return {
       apiResponse: false,
       articles: [],
@@ -82,86 +138,87 @@ export default {
       searchOpen: false,
       searchQuery: '',
       spinnerVisible: false
-    }
+    };
   },
 
   methods: {
-    debounceSearch: debounce(function (event) {
+    debounceSearch: debounce(function(event) {
       if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
-        this.search()
+        this.search();
       }
     }, 200),
 
-    down () {
-      (this.current < this.articles.length - 1)
-        ? this.current++
-        : this.current = 0
+    down() {
+      this.current < this.articles.length - 1 ? this.current++ : (this.current = 0);
     },
 
-    enter () {
-      this.$refs.result[this.current].querySelector('a').click()
+    enter() {
+      this.$refs.result[this.current].querySelector('a').click();
     },
 
-    clearSearchQuery () {
-      this.searchQuery = ''
-      this.$refs.searchQuery.focus()
+    clearSearchQuery() {
+      this.searchQuery = '';
+      this.$refs.searchQuery.focus();
     },
 
-    search () {
-      this.spinnerVisible = true
+    search() {
+      this.spinnerVisible = true;
 
-      axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=8`)
+      axios
+        .get(
+          `${process.env.WORDPRESS_API_URL}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=8`
+        )
         .then(response => {
-          this.apiResponse = true
-          this.spinnerVisible = false
-          this.articles = response.data
-          this.resultsVisible = true
-        })
+          this.apiResponse = true;
+          this.spinnerVisible = false;
+          this.articles = response.data;
+          this.resultsVisible = true;
+        });
     },
 
-    searchBlur () {
+    searchBlur() {
       if (!this.searchQuery) {
-        this.searchOpen = false
+        this.searchOpen = false;
       }
     },
 
-    selectedResult (index) {
-      return index === this.current
+    selectedResult(index) {
+      return index === this.current;
     },
 
-    toggleSearch () {
-      this.$refs.searchQuery.focus()
-      this.resultsVisible = !this.resultsVisible
-      this.searchOpen = !this.searchOpen
+    toggleSearch() {
+      this.$refs.searchQuery.focus();
+      this.resultsVisible = !this.resultsVisible;
+      this.searchOpen = !this.searchOpen;
     },
 
-    up () {
-      (this.current <= 0)
-        ? this.current = this.articles.length - 1
-        : this.current--
+    up() {
+      this.current <= 0 ? (this.current = this.articles.length - 1) : this.current--;
     }
   },
 
   watch: {
-    '$route' () {
-      this.apiResponse = false
-      this.current = -1
-      this.searchQuery = ''
-      this.searchOpen = false
-      this.resultsVisible = false
+    $route() {
+      this.apiResponse = false;
+      this.current = -1;
+      this.searchQuery = '';
+      this.searchOpen = false;
+      this.resultsVisible = false;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 @import '~assets/css/vars.scss';
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
 }
-.fade-enter, .fade-leave-to {
-  opacity: 0
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 section {
@@ -179,7 +236,7 @@ section {
     position: absolute;
     right: 0;
     top: -100%;
-    transition: top 0.5s, z-index .2s 0.5s;
+    transition: top 0.5s, z-index 0.2s 0.5s;
     width: 100%;
   }
 
@@ -266,7 +323,7 @@ section {
 
   .input-container {
     overflow: hidden;
-    transition: width 0.3s cubic-bezier(.11,.89,.31,.99);
+    transition: width 0.3s cubic-bezier(0.11, 0.89, 0.31, 0.99);
     width: 0;
     will-change: width;
 
@@ -406,8 +463,8 @@ section {
         -webkit-line-clamp: 2;
 
         @media (max-width: 720px) {
-            font-weight: normal;
-          }
+          font-weight: normal;
+        }
       }
 
       .meta {
@@ -472,7 +529,7 @@ section {
 
           @media (max-width: 700px) {
             padding: 16px 0 16px 12px;
-            width: calc(32px + 12px)
+            width: calc(32px + 12px);
           }
         }
 
@@ -489,7 +546,7 @@ section {
 }
 
 .shade {
-  background-color: rgba(#000, .5);
+  background-color: rgba(#000, 0.5);
   content: '';
   height: 100%;
   left: 0;

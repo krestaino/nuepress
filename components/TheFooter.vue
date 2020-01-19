@@ -13,18 +13,18 @@
 <script>
 export default {
   computed: {
-    meta () {
-      return this.$store.state.meta
+    meta() {
+      return this.$store.state.meta;
     },
-    year () {
-      return new Date().getFullYear()
+    year() {
+      return new Date().getFullYear();
     }
   },
 
   mixins: {
     homeScrollTop: Function
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +39,7 @@ footer {
     flex-direction: column;
     height: 200px;
     font-family: 'Roboto', sans-serif;
-    font-size: .7rem;
+    font-size: 0.7rem;
     margin: 0 auto;
     max-width: $containerWidth;
     padding: 64px 32px;

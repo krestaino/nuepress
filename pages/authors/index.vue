@@ -13,22 +13,22 @@
 
 <script>
 export default {
-  async asyncData ({ app, store, params }) {
+  async asyncData({ app, store, params }) {
     if (!store.state.authors) {
-      let authors = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
-      store.commit('setAuthors', authors.data)
+      let authors = await app.$axios.get(
+        `${process.env.WORDPRESS_API_URL}/wp/v2/users?per_page=100`
+      );
+      store.commit('setAuthors', authors.data);
     }
   },
 
-  head () {
+  head() {
     return {
       title: `Authors | ${this.$store.state.meta.name}`,
-      meta: [
-        { description: this.$store.state.meta.description }
-      ]
-    }
+      meta: [{ description: this.$store.state.meta.description }]
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -97,4 +97,3 @@ export default {
   }
 }
 </style>
-

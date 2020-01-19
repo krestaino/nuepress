@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import moment from 'moment'
+import Vue from 'vue';
+import moment from 'moment';
 
 Vue.mixin({
   methods: {
@@ -10,14 +10,14 @@ Vue.mixin({
      * @param {String} date
      * @return {String} formatted date
      */
-    shortTimestamp (date) {
-      let article = moment(date)
-      let today = moment(new Date())
+    shortTimestamp(date) {
+      let article = moment(date);
+      let today = moment(new Date());
 
       if (today.diff(article) > 518400000) {
-        return article.format('MMM D')
+        return article.format('MMM D');
       } else {
-        return article.fromNow()
+        return article.fromNow();
       }
     },
     /**
@@ -25,16 +25,16 @@ Vue.mixin({
      * @param {String} date
      * @return {String} formatted date
      */
-    longTimestamp (date) {
-      return moment(date).format('MMM D, YYYY')
+    longTimestamp(date) {
+      return moment(date).format('MMM D, YYYY');
     },
 
-    homeScrollTop () {
+    homeScrollTop() {
       if (window.location.pathname === '/') {
-        this.$scrollTo(document, 500)
+        this.$scrollTo(document, 500);
       } else {
-        this.$router.push('/')
+        this.$router.push('/');
       }
     }
   }
-})
+});

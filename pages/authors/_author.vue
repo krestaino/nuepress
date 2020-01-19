@@ -5,53 +5,60 @@
         <h1>{{ author.name }}</h1>
         <p v-if="author.description">{{ author.description }}</p>
       </div>
-      <ArticleList :articles="authorArticles.articles"/>
-      <InfiniteLoading
-        v-if="isLoadingMore"
-        ref="infiniteLoading"
-        :on-infinite="moreArticles"
-      >
+      <ArticleList :articles="authorArticles.articles" />
+      <InfiniteLoading v-if="isLoadingMore" ref="infiniteLoading" :on-infinite="moreArticles">
         <span slot="spinner">
-          <Spinner1/>
+          <Spinner1 />
         </span>
         <span slot="no-results">
-          <Smile/>
+          <Smile />
           <div>No more articles!</div>
         </span>
         <span slot="no-more">
-          <Smile/>
+          <Smile />
           <div>No more articles!</div>
         </span>
       </InfiniteLoading>
     </div>
-    <TheSidebar :featured-articles="$store.state.featuredArticles"/>
+    <TheSidebar :featured-articles="$store.state.featuredArticles" />
   </div>
 </template>
 
 <script>
-import find from 'lodash/find'
-import ArticleList from '~/components/ArticleList'
-import TheSidebar from '~/components/TheSidebar'
-import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
-import Smile from '~/assets/svg/Smile.vue'
-import Spinner1 from '~/components/Spinner1.vue'
+import find from 'lodash/find';
+import ArticleList from '~/components/ArticleList';
+import TheSidebar from '~/components/TheSidebar';
+import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue';
+import Smile from '~/assets/svg/Smile.vue';
+import Spinner1 from '~/components/Spinner1.vue';
 
 export default {
-  async asyncData ({ app, store, params }) {
+  async asyncData({ app, store, params }) {
     if (!store.state.featuredArticles.length) {
-      let articles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&categories=${store.state.featuredID}&_embed`)
-      store.commit('setFeaturedArticles', articles.data)
+      let articles = await app.$axios.get(
+        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_ID}&_embed`
+      );
+      store.commit('setFeaturedArticles', articles.data);
     }
 
     if (!store.state.authors) {
-      let authors = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/users?per_page=100`)
-      store.commit('setAuthors', authors.data)
+      let authors = await app.$axios.get(
+        `${process.env.WORDPRESS_API_URL}/wp/v2/users?per_page=100`
+      );
+      store.commit('setAuthors', authors.data);
     }
 
-    if (!find(store.state.authorArticles, {'slug': params.author})) {
-      let author = find(store.state.authors, {'slug': params.author})
-      let authorArticles = await app.$axios.get(`${store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`)
-      store.commit('setAuthorArticles', {slug: params.author, articles: authorArticles.data, infiniteLoading: true, page: 1})
+    if (!find(store.state.authorArticles, { slug: params.author })) {
+      let author = find(store.state.authors, { slug: params.author });
+      let authorArticles = await app.$axios.get(
+        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&author=${author.id}&_embed`
+      );
+      store.commit('setAuthorArticles', {
+        slug: params.author,
+        articles: authorArticles.data,
+        infiniteLoading: true,
+        page: 1
+      });
     }
   },
 
@@ -64,45 +71,46 @@ export default {
   },
 
   computed: {
-    author () {
+    author() {
       return find(this.$store.state.authors, {
-        'slug': this.$route.params.author
-      })
+        slug: this.$route.params.author
+      });
     },
-    authorArticles () {
+    authorArticles() {
       return find(this.$store.state.authorArticles, {
-        'slug': this.$route.params.author
-      })
+        slug: this.$route.params.author
+      });
     },
-    isLoadingMore () {
-      return this.authorArticles.infiniteLoading && this.authorArticles.articles.length >= 10
+    isLoadingMore() {
+      return this.authorArticles.infiniteLoading && this.authorArticles.articles.length >= 10;
     }
   },
 
-  head () {
+  head() {
     return {
       title: `${this.author.name} | ${this.$store.state.meta.name}`,
-      meta: [
-        { description: this.$store.state.meta.description }
-      ]
-    }
+      meta: [{ description: this.$store.state.meta.description }]
+    };
   },
 
   methods: {
-    moreArticles () {
-      this.authorArticles.page++
+    moreArticles() {
+      this.authorArticles.page++;
 
-      this.$axios.get(`${this.$store.state.wordpressAPI}/wp/v2/posts?orderby=date&per_page=10&author=${this.author.id}&_embed&page=${this.authorArticles.page}`)
+      this.$axios
+        .get(
+          `${this.$process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&author=${this.author.id}&_embed&page=${this.authorArticles.page}`
+        )
         .then(response => {
-          this.authorArticles.articles = this.authorArticles.articles.concat(response.data)
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+          this.authorArticles.articles = this.authorArticles.articles.concat(response.data);
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
         })
         .catch(() => {
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
-        })
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete');
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
