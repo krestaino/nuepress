@@ -2,7 +2,7 @@
   <div class="home">
     <div class="articles">
       <TheHero v-if="heroArticle" :hero-article="heroArticle" />
-      <ArticleList :articles="$store.state.articles" />
+      <ArticleList :articles="articles" />
       <client-only>
         <InfiniteLoading
           v-if="indexInfiniteLoading.enabled"
@@ -62,6 +62,9 @@ export default {
   },
 
   computed: {
+    articles() {
+      return [...this.$store.state.articles].slice(1)
+    },
     heroArticle() {
       return this.$store.state.articles[0];
     },
@@ -124,23 +127,6 @@ export default {
 
       @media (max-width: 700px) {
         margin: 16px 0;
-      }
-    }
-  }
-}
-</style>
-
-<style lang="scss">
-.home {
-  .article-list {
-    article {
-      &:first-child {
-        display: none;
-      }
-
-      &:nth-child(2) {
-        border-top: 0;
-        padding-top: 0;
       }
     }
   }
