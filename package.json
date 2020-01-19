@@ -47,7 +47,7 @@
     "lg-thumbnail.js": "^1.0.0",
     "lg-zoom.js": "^1.0.1",
     "lightgallery.js": "^1.0.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "moment": "^2.20.1",
     "node-sass": "^4.7.2",
     "node-vibrant": "^3.0.0",
