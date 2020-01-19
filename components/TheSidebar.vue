@@ -13,7 +13,10 @@
               class="image-height"
               :style="{
                 paddingTop:
-                  (featuredImage(article).height / featuredImage(article).width) * 100 + '%'
+                  (featuredImage(article).height /
+                    featuredImage(article).width) *
+                    100 +
+                  '%'
               }"
             ></div>
             <img v-lazy="featuredImage(article).source_url" />
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import Spinner1 from '~/components/Spinner1';
+import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
@@ -60,22 +63,22 @@ export default {
 
   methods: {
     notFeatured(id) {
-      return process.env.FEATURED_ID !== id.toString();
+      return process.env.FEATURED_ID !== id.toString()
     },
 
     featuredImage(article) {
-      let featuredImage = article._embedded['wp:featuredmedia'];
+      let featuredImage = article._embedded['wp:featuredmedia']
 
       if (featuredImage) {
-        return featuredImage[0].media_details.sizes.medium || false;
+        return featuredImage[0].media_details.sizes.medium || false
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 aside {
   min-width: 360px;

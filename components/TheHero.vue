@@ -17,7 +17,10 @@
       </div>
       <div class="featured-image lazy" v-if="featuredImage">
         <div class="image-height" :style="paddingTop"></div>
-        <div class="image" v-lazy:backgroundImage="featuredImage.source_url"></div>
+        <div
+          class="image"
+          v-lazy:backgroundImage="featuredImage.source_url"
+        ></div>
         <Spinner1 />
       </div>
     </nuxt-link>
@@ -25,7 +28,7 @@
 </template>
 
 <script>
-import Spinner1 from '~/components/Spinner1';
+import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
@@ -40,29 +43,30 @@ export default {
   computed: {
     paddingTop() {
       return {
-        paddingTop: (this.featuredImage.height / this.featuredImage.width) * 100 + '%'
-      };
+        paddingTop:
+          (this.featuredImage.height / this.featuredImage.width) * 100 + '%'
+      }
     },
     topics() {
-      return this.heroArticle._embedded['wp:term'][0];
+      return this.heroArticle._embedded['wp:term'][0]
     },
     featuredImage() {
-      let featuredImage = this.heroArticle._embedded['wp:featuredmedia'];
+      let featuredImage = this.heroArticle._embedded['wp:featuredmedia']
 
       if (featuredImage) {
         return (
           featuredImage[0].media_details.sizes.large ||
           featuredImage[0].media_details.sizes.full ||
           false
-        );
+        )
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .hero {
   overflow: hidden;
@@ -86,7 +90,11 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0) 60%);
+    background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0) 60%
+    );
     transition: 0.4s;
     z-index: 2;
   }

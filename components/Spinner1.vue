@@ -6,7 +6,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .spinner {
   width: 40px;

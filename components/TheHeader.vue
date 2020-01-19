@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import TheHeaderSearch from '~/components/TheHeaderSearch';
+import TheHeaderSearch from '~/components/TheHeaderSearch'
 
 export default {
   components: {
@@ -25,18 +25,18 @@ export default {
 
   computed: {
     meta() {
-      return this.$store.state.meta;
+      return this.$store.state.meta
     }
   },
 
   mixins: {
     homeScrollTop: Function
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 header {
   font-family: 'Roboto', sans-serif;
@@ -99,7 +99,7 @@ header {
       border-color: #555;
     }
 
-    &.nuxt-link-active:not(.blog-title) {
+    &.nuxt-link-active {
       padding-bottom: 4px;
       border-bottom: 2px solid;
     }

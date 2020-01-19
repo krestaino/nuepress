@@ -15,11 +15,15 @@
         </span>
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
-        <div class="col">
-          <div class="lazy thumbnail" v-if="article._embedded['wp:featuredmedia']">
+        <div class="col no-flex-shrink">
+          <div
+            class="lazy thumbnail"
+            v-if="article._embedded['wp:featuredmedia']"
+          >
             <img
               v-lazy="
-                article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
+                article._embedded['wp:featuredmedia'][0].media_details.sizes
+                  .thumbnail.source_url
               "
             />
             <Spinner1 class="spinner" />
@@ -27,7 +31,8 @@
           <div class="lazy medium" v-if="article._embedded['wp:featuredmedia']">
             <img
               v-lazy="
-                article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
+                article._embedded['wp:featuredmedia'][0].media_details.sizes
+                  .medium.source_url
               "
             />
             <Spinner1 class="spinner" />
@@ -43,7 +48,7 @@
 </template>
 
 <script>
-import Spinner1 from '~/components/Spinner1';
+import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
@@ -55,11 +60,11 @@ export default {
   mixins: {
     shortTimestamp: Function
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .article-list {
   article + article {
@@ -89,6 +94,10 @@ export default {
         }
       }
     }
+  }
+
+  .no-flex-shrink {
+    flex-shrink: 0;
   }
 
   .date {

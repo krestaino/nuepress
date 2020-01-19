@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import { differenceInDays, format, formatDistanceStrict } from 'date-fns';
+import Vue from 'vue'
+import { differenceInDays, format, formatDistanceStrict } from 'date-fns'
 
 Vue.mixin({
   methods: {
@@ -11,13 +11,13 @@ Vue.mixin({
      * @return {String} formatted date
      */
     shortTimestamp(date) {
-      const articleDate = new Date(date);
-      const todayDate = new Date();
+      const articleDate = new Date(date)
+      const todayDate = new Date()
 
       if (differenceInDays(todayDate, articleDate) > 6) {
-        return format(articleDate, 'MMM d');
+        return format(articleDate, 'MMM d')
       } else {
-        return formatDistanceStrict(articleDate, todayDate, { addSuffix: true });
+        return formatDistanceStrict(articleDate, todayDate, { addSuffix: true })
       }
     },
     /**
@@ -26,15 +26,15 @@ Vue.mixin({
      * @return {String} formatted date
      */
     longTimestamp(date) {
-      return format(new Date(date), 'MMM d, yyyy');
+      return format(new Date(date), 'MMM d, yyyy')
     },
 
     homeScrollTop() {
       if (window.location.pathname === '/') {
-        this.$scrollTo(document, 500);
+        this.$scrollTo(document, 500)
       } else {
-        this.$router.push('/');
+        this.$router.push('/')
       }
     }
   }
-});
+})

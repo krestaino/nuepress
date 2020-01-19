@@ -21,8 +21,8 @@ export default {
     if (!store.state.topics) {
       let topics = await app.$axios.get(
         `${process.env.WORDPRESS_API_URL}/wp/v2/categories?per_page=100`
-      );
-      store.commit('setTopics', topics.data);
+      )
+      store.commit('setTopics', topics.data)
     }
   },
 
@@ -30,13 +30,13 @@ export default {
     return {
       title: `Topics | ${this.$store.state.meta.name}`,
       meta: [{ description: this.$store.state.meta.description }]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .page {
   background-color: #efefef;

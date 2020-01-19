@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Spinner1 from '~/components/Spinner1';
-import VueDisqus from 'vue-disqus/VueDisqus.vue';
+import Spinner1 from '~/components/Spinner1'
+import VueDisqus from 'vue-disqus'
 
 export default {
   props: {
@@ -33,9 +33,9 @@ export default {
   data() {
     return {
       disqusReady: false
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

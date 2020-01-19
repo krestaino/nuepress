@@ -17,8 +17,8 @@ export default {
     if (!store.state.authors) {
       let authors = await app.$axios.get(
         `${process.env.WORDPRESS_API_URL}/wp/v2/users?per_page=100`
-      );
-      store.commit('setAuthors', authors.data);
+      )
+      store.commit('setAuthors', authors.data)
     }
   },
 
@@ -26,13 +26,13 @@ export default {
     return {
       title: `Authors | ${this.$store.state.meta.name}`,
       meta: [{ description: this.$store.state.meta.description }]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .page {
   background-color: #efefef;

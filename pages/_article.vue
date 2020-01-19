@@ -6,13 +6,16 @@
       :featured-image="featuredImage"
     />
     <transition name="slide-fade">
-      <div class="narrow" :class="{ expanded: expanded, 'no-featured-image': !featuredImage }">
+      <div
+        class="narrow"
+        :class="{ expanded: expanded, 'no-featured-image': !featuredImage }"
+      >
         <button
           class="expand-featured-image"
           title="Show full image"
           @click.prevent="expandFeaturedImage"
           :class="{ expanded: expanded }"
-          v-if="featuredImage.source_url"
+          v-if="featuredImage"
         >
           <svg
             fill="#000000"
@@ -35,8 +38,15 @@
             }}</nuxt-link>
           </div>
         </div>
-        <div class="content" id="article-content" v-html="article.content.rendered"></div>
-        <ArticleComments :article="article" v-if="$store.state.enableComments" />
+        <div
+          class="content"
+          id="article-content"
+          v-html="article.content.rendered"
+        ></div>
+        <ArticleComments
+          :article="article"
+          v-if="$store.state.enableComments"
+        />
       </div>
     </transition>
     <div v-if="colorAccentStyles" v-html="colorAccentStyles"></div>
@@ -44,34 +54,34 @@
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant';
-import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue';
-import ArticleComments from '~/components/ArticleComments';
+import * as Vibrant from 'node-vibrant'
+import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue'
+import ArticleComments from '~/components/ArticleComments'
 
 if (process.browser) {
-  require('lightgallery.js');
-  require('lg-zoom.js');
-  require('lg-thumbnail.js');
+  require('lightgallery.js')
+  require('lg-zoom.js')
+  require('lg-thumbnail.js')
 }
 
 export default {
   async asyncData({ app, store, params }) {
     let article = await app.$axios.get(
       `${process.env.WORDPRESS_API_URL}/wp/v2/posts?slug=${params.article}&_embed`
-    );
-    store.commit('setArticle', article.data[0]);
+    )
+    store.commit('setArticle', article.data[0])
   },
 
   beforeMount() {
-    if (this.featuredImage.source_url) {
-      let img = this.article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
-        .source_url;
+    if (this.featuredImage) {
+      let img = this.article._embedded['wp:featuredmedia'][0].media_details
+        .sizes.thumbnail.source_url
 
       Vibrant.from(img).getPalette((err, palette) => {
         if (!err) {
-          this.$store.commit('setFeaturedColor', palette);
+          this.$store.commit('setFeaturedColor', palette)
         }
-      });
+      })
     }
   },
 
@@ -86,22 +96,24 @@ export default {
 
   computed: {
     article() {
-      return this.$store.state.article;
+      return this.$store.state.article
     },
     author() {
-      return this.$store.state.article._embedded.author[0];
+      return this.$store.state.article._embedded.author[0]
     },
     featuredImage() {
-      let featuredImage = this.$store.state.article._embedded['wp:featuredmedia'];
+      let featuredImage = this.$store.state.article._embedded[
+        'wp:featuredmedia'
+      ]
 
       if (featuredImage) {
         return (
           featuredImage[0].media_details.sizes.large ||
           featuredImage[0].media_details.sizes.full ||
           false
-        );
+        )
       } else {
-        return { height: 0, width: 0 };
+        return null
       }
     }
   },
@@ -111,50 +123,50 @@ export default {
       disqusReady: false,
       expanded: false,
       colorAccentStyles: null
-    };
+    }
   },
 
   head() {
     return {
       title: `${this.article.title.rendered} | ${this.$store.state.meta.name}`,
       meta: [{ description: this.article.excerpt.rendered }]
-    };
+    }
   },
 
   methods: {
     expandFeaturedImage() {
       if (!this.expanded) {
-        this.$router.push({ query: { image: null } });
+        this.$router.push({ query: { image: null } })
       } else {
-        this.$router.push({ query: null });
+        this.$router.push({ query: null })
       }
-      this.expanded = !this.expanded;
+      this.expanded = !this.expanded
     },
     loadFeaturedImageExpanded() {
       if (this.$route.query.image === null) {
-        this.expanded = true;
+        this.expanded = true
       }
     },
     gallery() {
-      let galleries = document.querySelectorAll('.content > .gallery');
+      let galleries = document.querySelectorAll('.content > .gallery')
 
       for (let i = 0; i < galleries.length; i++) {
         lightGallery(galleries[i], {
           download: false,
           selector: 'a'
-        });
+        })
       }
     }
   },
 
   mounted() {
-    this.gallery();
-    this.loadFeaturedImageExpanded();
+    this.gallery()
+    this.loadFeaturedImageExpanded()
   },
 
   watch: {
     '$store.state.featuredColor'() {
-      const { DarkMuted } = this.$store.state.featuredColor;
+      const { DarkMuted } = this.$store.state.featuredColor
 
       if (DarkMuted) {
         this.colorAccentStyles = `
@@ -173,15 +185,15 @@ export default {
               background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
             }
           </style>
-        `;
+        `
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 article {
   background-color: #efefef;
@@ -191,7 +203,8 @@ article {
   height: 100%;
 
   &.page-enter-active .narrow {
-    transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99), opacity 0.75s ease-out;
+    transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99),
+      opacity 0.75s ease-out;
   }
 
   &.page-enter .narrow,
@@ -294,7 +307,7 @@ article {
 
 <style lang="scss">
 @import '../node_modules/lightgallery.js/dist/css/lightgallery.css';
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .lg-backdrop {
   background-color: #111;
@@ -336,7 +349,7 @@ article {
 </style>
 
 <style lang="scss">
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .single-article {
   .content {

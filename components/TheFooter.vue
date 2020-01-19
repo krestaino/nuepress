@@ -14,21 +14,21 @@
 export default {
   computed: {
     meta() {
-      return this.$store.state.meta;
+      return this.$store.state.meta
     },
     year() {
-      return new Date().getFullYear();
+      return new Date().getFullYear()
     }
   },
 
   mixins: {
     homeScrollTop: Function
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 footer {
   > div {

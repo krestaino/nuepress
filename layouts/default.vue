@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import TheHeader from '../components/TheHeader';
-import TheFooter from '../components/TheFooter';
-import Spinner1 from '~/components/Spinner1';
+import TheHeader from '../components/TheHeader'
+import TheFooter from '../components/TheFooter'
+import Spinner1 from '~/components/Spinner1'
 
 export default {
   components: {
@@ -22,11 +22,11 @@ export default {
     TheFooter,
     Spinner1
   }
-};
+}
 </script>
 
 <style lang="scss">
-@import '~assets/css/vars.scss';
+@import '~/assets/css/vars.scss';
 
 .blog * {
   -moz-osx-font-smoothing: grayscale;
