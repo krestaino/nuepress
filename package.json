@@ -1,7 +1,7 @@
 {
   "name": "NuePress",
   "version": "1.0.0",
-  "description": "Vue + WordPress",
+  "description": "Nuxt.js + WordPress REST API",
   "author": "Kevin Restaino",
   "private": true,
   "scripts": {
