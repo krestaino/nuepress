@@ -21,7 +21,6 @@ const store = () =>
       },
       featuredArticles: [],
       featuredColor: {},
-      featuredID: 194,
       meta: {
         description: '',
         name: ''
