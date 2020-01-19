@@ -1,10 +1,5 @@
 <template>
-  <section
-    id="search"
-    role="search"
-    ref="autoSuggest"
-    :class="{ 'search-open': searchOpen }"
-  >
+  <section id="search" role="search" ref="autoSuggest" :class="{ 'search-open': searchOpen }">
     <button class="toggle-search" title="Search" @click.prevent="toggleSearch">
       <svg
         fill="#000000"
@@ -20,10 +15,7 @@
         <path d="M0 0h24v24H0z" fill="none" />
       </svg>
     </button>
-    <div
-      class="inner-container"
-      :class="{ 'results-visible': resultsVisible && searchQuery }"
-    >
+    <div class="inner-container" :class="{ 'results-visible': resultsVisible && searchQuery }">
       <div class="input-container" ref="inputContainer">
         <input
           name="search"
@@ -42,11 +34,7 @@
           <transition name="fade">
             <Spinner2 class="spinner-2" v-if="spinnerVisible" />
           </transition>
-          <button
-            class="clear"
-            @click.prevent="clearSearchQuery"
-            v-if="searchQuery"
-          >
+          <button class="clear" @click.prevent="clearSearchQuery" v-if="searchQuery">
             <svg
               fill="#000000"
               height="24"
@@ -80,8 +68,8 @@
                 <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
                   <img
                     v-lazy="
-                      article._embedded['wp:featuredmedia'][0].media_details
-                        .sizes.thumbnail.source_url
+                      article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
+                        .source_url
                     "
                   />
                 </div>
@@ -102,8 +90,7 @@
               <div class="col copy">
                 <span class="title" v-html="article.title.rendered"></span>
                 <div class="meta">
-                  <span v-html="longTimestamp(article.date)"></span
-                  >&nbsp;–&nbsp;<span
+                  <span v-html="longTimestamp(article.date)"></span>&nbsp;–&nbsp;<span
                     class="topic"
                     v-for="topic in article._embedded['wp:term'][0]"
                     :key="topic.id"
@@ -114,10 +101,7 @@
               </div>
             </nuxt-link>
           </li>
-          <li
-            class="no-results"
-            v-if="searchQuery && articles.length === 0 && apiResponse"
-          >
+          <li class="no-results" v-if="searchQuery && articles.length === 0 && apiResponse">
             No results found
           </li>
         </ul>
@@ -132,9 +116,9 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
-import axios from 'axios'
-import Spinner2 from '~/components/Spinner2'
+import debounce from 'lodash/debounce';
+import axios from 'axios';
+import Spinner2 from '~/components/Spinner2';
 
 export default {
   mixins: {
@@ -154,83 +138,75 @@ export default {
       searchOpen: false,
       searchQuery: '',
       spinnerVisible: false
-    }
+    };
   },
 
   methods: {
     debounceSearch: debounce(function(event) {
-      if (
-        event.keyCode !== 13 &&
-        event.keyCode !== 38 &&
-        event.keyCode !== 40
-      ) {
-        this.search()
+      if (event.keyCode !== 13 && event.keyCode !== 38 && event.keyCode !== 40) {
+        this.search();
       }
     }, 200),
 
     down() {
-      this.current < this.articles.length - 1
-        ? this.current++
-        : (this.current = 0)
+      this.current < this.articles.length - 1 ? this.current++ : (this.current = 0);
     },
 
     enter() {
-      this.$refs.result[this.current].querySelector('a').click()
+      this.$refs.result[this.current].querySelector('a').click();
     },
 
     clearSearchQuery() {
-      this.searchQuery = ''
-      this.$refs.searchQuery.focus()
+      this.searchQuery = '';
+      this.$refs.searchQuery.focus();
     },
 
     search() {
-      this.spinnerVisible = true
+      this.spinnerVisible = true;
 
       axios
         .get(
           `${process.env.WORDPRESS_API_URL}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=8`
         )
         .then(response => {
-          this.apiResponse = true
-          this.spinnerVisible = false
-          this.articles = response.data
-          this.resultsVisible = true
-        })
+          this.apiResponse = true;
+          this.spinnerVisible = false;
+          this.articles = response.data;
+          this.resultsVisible = true;
+        });
     },
 
     searchBlur() {
       if (!this.searchQuery) {
-        this.searchOpen = false
+        this.searchOpen = false;
       }
     },
 
     selectedResult(index) {
-      return index === this.current
+      return index === this.current;
     },
 
     toggleSearch() {
-      this.$refs.searchQuery.focus()
-      this.resultsVisible = !this.resultsVisible
-      this.searchOpen = !this.searchOpen
+      this.$refs.searchQuery.focus();
+      this.resultsVisible = !this.resultsVisible;
+      this.searchOpen = !this.searchOpen;
     },
 
     up() {
-      this.current <= 0
-        ? (this.current = this.articles.length - 1)
-        : this.current--
+      this.current <= 0 ? (this.current = this.articles.length - 1) : this.current--;
     }
   },
 
   watch: {
     $route() {
-      this.apiResponse = false
-      this.current = -1
-      this.searchQuery = ''
-      this.searchOpen = false
-      this.resultsVisible = false
+      this.apiResponse = false;
+      this.current = -1;
+      this.searchQuery = '';
+      this.searchOpen = false;
+      this.resultsVisible = false;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

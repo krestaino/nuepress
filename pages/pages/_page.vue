@@ -6,10 +6,7 @@
       :featured-image="featuredImage"
     />
     <transition name="slide-fade">
-      <div
-        class="narrow"
-        :class="{ expanded: expanded, 'no-featured-image': !featuredImage }"
-      >
+      <div class="narrow" :class="{ expanded: expanded, 'no-featured-image': !featuredImage }">
         <button
           class="expand-featured-image"
           title="Show full image"
@@ -38,11 +35,7 @@
             }}</nuxt-link>
           </div>
         </div>
-        <div
-          class="content"
-          id="article-content"
-          v-html="page.content.rendered"
-        ></div>
+        <div class="content" id="article-content" v-html="page.content.rendered"></div>
       </div>
     </transition>
     <div v-if="colorAccentStyles" v-html="colorAccentStyles"></div>
@@ -50,33 +43,32 @@
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant'
-import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue'
+import * as Vibrant from 'node-vibrant';
+import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue';
 
 if (process.browser) {
-  require('lightgallery.js')
-  require('lg-zoom.js')
-  require('lg-thumbnail.js')
+  require('lightgallery.js');
+  require('lg-zoom.js');
+  require('lg-thumbnail.js');
 }
 
 export default {
   async asyncData({ app, store, params }) {
     let page = await app.$axios.get(
       `${process.env.WORDPRESS_API_URL}/wp/v2/pages?slug=${params.page}&_embed`
-    )
-    store.commit('setPage', page.data[0])
+    );
+    store.commit('setPage', page.data[0]);
   },
 
   beforeMount() {
     if (this.featuredImage) {
-      let img = this.page._embedded['wp:featuredmedia'][0].media_details.sizes
-        .thumbnail.source_url
+      let img = this.page._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
 
       Vibrant.from(img).getPalette((err, palette) => {
         if (!err) {
-          this.$store.commit('setFeaturedColor', palette)
+          this.$store.commit('setFeaturedColor', palette);
         }
-      })
+      });
     }
   },
 
@@ -90,22 +82,22 @@ export default {
 
   computed: {
     page() {
-      return this.$store.state.page
+      return this.$store.state.page;
     },
     author() {
-      return this.$store.state.page._embedded.author[0]
+      return this.$store.state.page._embedded.author[0];
     },
     featuredImage() {
-      let featuredImage = this.$store.state.page._embedded['wp:featuredmedia']
+      let featuredImage = this.$store.state.page._embedded['wp:featuredmedia'];
 
       if (featuredImage) {
         return (
           featuredImage[0].media_details.sizes.large ||
           featuredImage[0].media_details.sizes.full ||
           false
-        )
+        );
       } else {
-        return false
+        return false;
       }
     }
   },
@@ -114,50 +106,50 @@ export default {
     return {
       expanded: false,
       colorAccentStyles: null
-    }
+    };
   },
 
   head() {
     return {
       title: `${this.page.title.rendered} | ${this.$store.state.meta.name}`,
       meta: [{ description: this.page.excerpt.rendered }]
-    }
+    };
   },
 
   methods: {
     expandFeaturedImage() {
       if (!this.expanded) {
-        this.$router.push({ query: { image: null } })
+        this.$router.push({ query: { image: null } });
       } else {
-        this.$router.push({ query: null })
+        this.$router.push({ query: null });
       }
-      this.expanded = !this.expanded
+      this.expanded = !this.expanded;
     },
     loadFeaturedImageExpanded() {
       if (this.$route.query.image === null) {
-        this.expanded = true
+        this.expanded = true;
       }
     },
     gallery() {
-      let galleries = document.querySelectorAll('.content > .gallery')
+      let galleries = document.querySelectorAll('.content > .gallery');
 
       for (let i = 0; i < galleries.length; i++) {
         lightGallery(galleries[i], {
           download: false,
           selector: 'a'
-        })
+        });
       }
     }
   },
 
   mounted() {
-    this.gallery()
-    this.loadFeaturedImageExpanded()
+    this.gallery();
+    this.loadFeaturedImageExpanded();
   },
 
   watch: {
     '$store.state.featuredColor'() {
-      const { DarkMuted } = this.$store.state.featuredColor
+      const { DarkMuted } = this.$store.state.featuredColor;
 
       if (DarkMuted) {
         this.colorAccentStyles = `
@@ -176,11 +168,11 @@ export default {
               background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
             }
           </style>
-        `
+        `;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -194,8 +186,7 @@ article {
   height: 100%;
 
   &.page-enter-active .narrow {
-    transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99),
-      opacity 0.75s ease-out;
+    transition: transform 1s cubic-bezier(0.11, 0.89, 0.31, 0.99), opacity 0.75s ease-out;
   }
 
   &.page-enter .narrow,

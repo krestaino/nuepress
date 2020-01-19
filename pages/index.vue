@@ -28,27 +28,27 @@
 </template>
 
 <script>
-import ArticleList from '~/components/ArticleList'
-import TheHero from '~/components/TheHero'
-import TheSidebar from '~/components/TheSidebar'
-import InfiniteLoading from 'vue-infinite-loading'
-import Smile from '~/assets/svg/Smile.vue'
-import Spinner1 from '~/components/Spinner1.vue'
+import ArticleList from '~/components/ArticleList';
+import TheHero from '~/components/TheHero';
+import TheSidebar from '~/components/TheSidebar';
+import InfiniteLoading from 'vue-infinite-loading';
+import Smile from '~/assets/svg/Smile.vue';
+import Spinner1 from '~/components/Spinner1.vue';
 
 export default {
   async asyncData({ app, store, params }) {
     if (!store.state.articles.length) {
       let articles = await app.$axios.get(
         `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${process.env.FEATURED_ID}&_embed`
-      )
-      store.commit('setArticles', articles.data)
+      );
+      store.commit('setArticles', articles.data);
     }
 
     if (!store.state.featuredArticles.length) {
       let articles = await app.$axios.get(
         `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_ID}&_embed`
-      )
-      store.commit('setFeaturedArticles', articles.data)
+      );
+      store.commit('setFeaturedArticles', articles.data);
     }
   },
 
@@ -63,10 +63,10 @@ export default {
 
   computed: {
     heroArticle() {
-      return this.$store.state.articles[0]
+      return this.$store.state.articles[0];
     },
     indexInfiniteLoading() {
-      return this.$store.state.indexInfiniteLoading
+      return this.$store.state.indexInfiniteLoading;
     }
   },
 
@@ -74,27 +74,27 @@ export default {
     return {
       title: `Home | ${this.$store.state.meta.name}`,
       meta: [{ description: this.$store.state.meta.description }]
-    }
+    };
   },
 
   methods: {
     moreArticles($state) {
-      this.indexInfiniteLoading.page++
+      this.indexInfiniteLoading.page++;
 
       this.$axios
         .get(
           `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${process.env.FEATURED_ID}&page=${this.indexInfiniteLoading.page}&_embed`
         )
         .then(response => {
-          this.$store.commit('setArticles', response.data)
-          $state.loaded()
+          this.$store.commit('setArticles', response.data);
+          $state.loaded();
         })
         .catch(() => {
-          $state.complete()
-        })
+          $state.complete();
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

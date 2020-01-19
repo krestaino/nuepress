@@ -1,41 +1,26 @@
 <template>
   <div class="comments">
-    <div class="loading" v-if="!disqusReady">
-      <Spinner1 />
-      <span>Loading comments</span>
-    </div>
     <div class="disqus" :class="{ ready: disqusReady }">
-      <no-ssr>
-        <lazy-component>
-          <VueDisqus
-            shortname="nuepress-kmr-io"
-            :identifier="article.slug"
-            @ready="disqusReady = true"
-          />
+      <client-only>
+        <lazy-component @show="disqusReady = true">
+          <vue-disqus shortname="nuepress-kmr-io" :identifier="article.slug" />
         </lazy-component>
-      </no-ssr>
+      </client-only>
     </div>
   </div>
 </template>
 
 <script>
-import Spinner1 from '~/components/Spinner1'
-import VueDisqus from 'vue-disqus'
-
 export default {
   props: {
     article: Object
   },
-  components: {
-    Spinner1,
-    VueDisqus
-  },
   data() {
     return {
       disqusReady: false
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -43,19 +28,6 @@ export default {
   border-top: 1px dotted #65676a;
   padding-top: 32px;
   margin-top: 32px;
-
-  .loading {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-
-    .spinner {
-      margin-bottom: 16px;
-    }
-  }
 
   .disqus {
     min-height: 440px;

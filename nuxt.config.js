@@ -31,6 +31,7 @@ export default {
     { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/vue-scrollto', ssr: false },
     { src: '~/plugins/web-font-loader', ssr: false },
+    { src: '~/plugins/disqus' },
     { src: '~/plugins/mixins' }
   ],
   /*
@@ -63,4 +64,4 @@ export default {
      */
     extend(config, ctx) {}
   }
-}
+};

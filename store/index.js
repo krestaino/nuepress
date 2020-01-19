@@ -1,6 +1,6 @@
-import Vuex from 'vuex'
+import Vuex from 'vuex';
 
-export const strict = false
+export const strict = false;
 
 export const state = () => ({
   article: null,
@@ -8,7 +8,7 @@ export const state = () => ({
   page: null,
   authorArticles: [],
   authors: null,
-  enableComments: false,
+  enableComments: true,
   indexInfiniteLoading: {
     enabled: true,
     page: 1
@@ -21,47 +21,47 @@ export const state = () => ({
   },
   topicArticles: [],
   topics: null
-})
+});
 
 export const mutations = {
   setArticle(state, data) {
-    state.article = data
+    state.article = data;
   },
   setArticles(state, data) {
-    state.articles = state.articles.concat(data)
+    state.articles = state.articles.concat(data);
   },
   setPage(state, data) {
-    state.page = data
+    state.page = data;
   },
   setAuthorArticles(state, data) {
-    state.authorArticles.push(data)
+    state.authorArticles.push(data);
   },
   setAuthors(state, data) {
-    state.authors = data
+    state.authors = data;
   },
   setIndexInfiniteLoading(state, data) {
-    state.indexInfiniteLoading = data
+    state.indexInfiniteLoading = data;
   },
   setFeaturedColor(state, data) {
-    state.featuredColor = data
+    state.featuredColor = data;
   },
   setFeaturedArticles(state, data) {
-    state.featuredArticles = state.featuredArticles.concat(data)
+    state.featuredArticles = state.featuredArticles.concat(data);
   },
   setMeta(state, data) {
-    state.meta = data
+    state.meta = data;
   },
   setTopicArticles(state, data) {
-    state.topicArticles.push(data)
+    state.topicArticles.push(data);
   },
   setTopics(state, data) {
-    state.topics = data
+    state.topics = data;
   }
-}
+};
 
 export const actions = {
   async nuxtServerInit({ commit }) {
-    let meta = await this.$axios.get(process.env.WORDPRESS_API_URL)
-    commit('setMeta', meta.data)
+    let meta = await this.$axios.get(process.env.WORDPRESS_API_URL);
+    commit('setMeta', meta.data);
   }
-}
+};
