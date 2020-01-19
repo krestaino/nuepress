@@ -6,19 +6,21 @@
         <p v-if="author.description">{{ author.description }}</p>
       </div>
       <ArticleList :articles="authorArticles.articles" />
-      <InfiniteLoading v-if="isLoadingMore" ref="infiniteLoading" :on-infinite="moreArticles">
-        <span slot="spinner">
-          <Spinner1 />
-        </span>
-        <span slot="no-results">
-          <Smile />
-          <div>No more articles!</div>
-        </span>
-        <span slot="no-more">
-          <Smile />
-          <div>No more articles!</div>
-        </span>
-      </InfiniteLoading>
+      <client-only>
+        <InfiniteLoading v-if="isLoadingMore" ref="infiniteLoading" :on-infinite="moreArticles">
+          <span slot="spinner">
+            <Spinner1 />
+          </span>
+          <span slot="no-results">
+            <Smile />
+            <div>No more articles!</div>
+          </span>
+          <span slot="no-more">
+            <Smile />
+            <div>No more articles!</div>
+          </span>
+        </InfiniteLoading>
+      </client-only>
     </div>
     <TheSidebar :featured-articles="$store.state.featuredArticles" />
   </div>
