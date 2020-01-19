@@ -1,6 +1,14 @@
-# NuePress
+<p align="left">
+  <a href="https://travis-ci.org/krestaino/nuepress"><img src="https://travis-ci.org/krestaino/nuepress.svg?branch=master" alt="Build Status"></a>
+</p>
 
-> Vue + WordPress
+## NuePress
+
+[Nuxt.js](https://github.com/nuxt/nuxt.js) + [WordPress REST API](https://developer.wordpress.org/rest-api/)
+
+## Demo
+
+[https://nuepress.kmr.io](https://nuepress.kmr.io/)
 
 ## Build Setup
 
