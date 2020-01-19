@@ -1,11 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = {
-  // Build configuration
-  build: {
-    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
-    vendor: ['moment']
-  },
+  // Global CSS
   css: ['normalize.css/normalize.css'],
 
   // Headers of the page

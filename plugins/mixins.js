@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import moment from 'moment';
+import { differenceInDays, format, formatDistanceStrict } from 'date-fns';
 
 Vue.mixin({
   methods: {
@@ -11,13 +11,13 @@ Vue.mixin({
      * @return {String} formatted date
      */
     shortTimestamp(date) {
-      let article = moment(date);
-      let today = moment(new Date());
+      const articleDate = new Date(date);
+      const todayDate = new Date();
 
-      if (today.diff(article) > 518400000) {
-        return article.format('MMM D');
+      if (differenceInDays(todayDate, articleDate) > 6) {
+        return format(articleDate, 'MMM d');
       } else {
-        return article.fromNow();
+        return formatDistanceStrict(articleDate, todayDate, { addSuffix: true });
       }
     },
     /**
@@ -26,7 +26,7 @@ Vue.mixin({
      * @return {String} formatted date
      */
     longTimestamp(date) {
-      return moment(date).format('MMM D, YYYY');
+      return format(new Date(date), 'MMM d, yyyy');
     },
 
     homeScrollTop() {
