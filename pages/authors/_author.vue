@@ -43,7 +43,7 @@ export default {
 
     if (!store.state.authors) {
       let authors = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/users?per_page=100`
+        `${process.env.WORDPRESS_API_URL}/wp/v2/users?per_page=1000000`
       );
       store.commit('setAuthors', authors.data);
     }

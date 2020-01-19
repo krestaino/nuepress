@@ -20,7 +20,7 @@ export default {
   async asyncData({ app, store, params }) {
     if (!store.state.topics) {
       let topics = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/categories?per_page=100`
+        `${process.env.WORDPRESS_API_URL}/wp/v2/categories?per_page=1000000`
       );
       store.commit('setTopics', topics.data);
     }

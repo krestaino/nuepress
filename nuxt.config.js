@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   mode: 'universal',
   /*
@@ -63,5 +65,45 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+
+  generate: {
+    routes () {
+      let posts = axios.get('https://wp.kmr.io/wp-json/wp/v2/posts', { params: { orderby: "date", per_page: 1000000, _embed: null } }).then((res) => {
+        return res.data.map((post) => {
+          return {
+            route: '/' + post.slug,
+            payload: post
+          }
+        })
+      })
+      let pages = axios.get('https://wp.kmr.io/wp-json/wp/v2/pages', { params: { orderby: "date", per_page: 1000000, _embed: null } }).then((res) => {
+        return res.data.map((page) => {
+          return {
+            route: '/pages/' + page.slug,
+            payload: page
+          }
+        })
+      })
+      let topics = axios.get('https://wp.kmr.io/wp-json/wp/v2/categories', { params: { per_page: 1000000 } }).then((res) => {
+        return res.data.map((topic) => {
+          return {
+            route: '/topics/' + topic.slug,
+            payload: topic
+          }
+        })
+      })
+      let authors = axios.get('https://wp.kmr.io/wp-json/wp/v2/users', { params: { per_page: 1000000 } }).then((res) => {
+        return res.data.map((author) => {
+          return {
+            route: '/authors/' + author.slug,
+            payload: author
+          }
+        })
+      })
+      return Promise.all([posts, pages, topics, authors]).then(values => {
+        return [...values[0], ...values[1], ...values[2], ...values[3]]
+      })
+    }
   }
 };
