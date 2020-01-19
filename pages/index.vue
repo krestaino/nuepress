@@ -63,7 +63,7 @@ export default {
 
   computed: {
     articles() {
-      return [...this.$store.state.articles].slice(1)
+      return [...this.$store.state.articles].slice(1);
     },
     heroArticle() {
       return this.$store.state.articles[0];
