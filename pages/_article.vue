@@ -36,10 +36,10 @@
           </div>
         </div>
         <div class="content" id="article-content" v-html="article.content.rendered"></div>
-        <ArticleComments :article="article" />
+        <ArticleComments :article="article" v-if="$store.state.enableComments" />
       </div>
     </transition>
-    <div v-html="linkRGB"></div>
+    <div v-if="colorAccentStyles" v-html="colorAccentStyles"></div>
   </article>
 </template>
 
@@ -110,7 +110,7 @@ export default {
     return {
       disqusReady: false,
       expanded: false,
-      linkRGB: {}
+      colorAccentStyles: null
     };
   },
 
@@ -139,7 +139,6 @@ export default {
       let galleries = document.querySelectorAll('.content > .gallery');
 
       for (let i = 0; i < galleries.length; i++) {
-        // eslint-disable-next-line
         lightGallery(galleries[i], {
           download: false,
           selector: 'a'
@@ -155,18 +154,17 @@ export default {
 
   watch: {
     '$store.state.featuredColor'() {
-      let DarkMuted = this.$store.state.featuredColor.DarkMuted;
-      let DarkVibrant = this.$store.state.featuredColor.DarkVibrant;
+      const { DarkMuted } = this.$store.state.featuredColor;
 
-      if (DarkMuted !== null && DarkVibrant !== null) {
-        this.linkRGB = `
+      if (DarkMuted) {
+        this.colorAccentStyles = `
           <style>
             html,
             .featured-image .image-height {
               background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
             }
             main a {
-              color: rgb(${DarkVibrant._rgb[0]},${DarkVibrant._rgb[1]},${DarkVibrant._rgb[2]}) !important
+              color: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
             }
             main a:hover {
               color: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important

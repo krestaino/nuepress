@@ -117,7 +117,6 @@ export default {
       let galleries = document.querySelectorAll('.content > .gallery');
 
       for (let i = 0; i < galleries.length; i++) {
-        // eslint-disable-next-line
         lightGallery(galleries[i], {
           download: false,
           selector: 'a'

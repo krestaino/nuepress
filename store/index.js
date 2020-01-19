@@ -15,6 +15,7 @@ const store = () =>
       page: null,
       authorArticles: [],
       authors: null,
+      enableComments: true,
       indexInfiniteLoading: {
         enabled: true,
         page: 1
