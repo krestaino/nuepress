@@ -2,14 +2,13 @@
   "name": "NuePress",
   "version": "1.0.0",
   "description": "Nuxt.js + WordPress REST API",
-  "author": "Kevin Restaino",
-  "private": true,
+  "author": "Kevin Restaino",]
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "format": "prettier --write '**/*.{css,js,json,md,vue}'"
+    "format": "prettier --write '**/*.{css,js,json,md,vue,php}'"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -32,11 +31,12 @@
   "devDependencies": {
     "@babel/runtime-corejs2": "^7.8.3",
     "@nuxtjs/tailwindcss": "^1.0.0",
+    "@prettier/plugin-php": "^0.12.0",
     "core-js": "2",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
     "node-sass": "^4.13.1",
-    "prettier": "^1.16.4",
+    "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
     "webfontloader": "^1.6.28"
   }
