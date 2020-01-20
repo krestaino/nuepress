@@ -32,3 +32,18 @@ function remove_customize_theme_options($wp_customize)
   $wp_customize->remove_section('custom_css');
 }
 add_action('customize_register', 'remove_customize_theme_options', 50);
+
+// Remove comments from admin
+function my_remove_admin_menus()
+{
+  remove_menu_page('edit-comments.php');
+}
+add_action('admin_menu', 'my_remove_admin_menus');
+
+// Removes comment from admin bar
+function mytheme_admin_bar_render()
+{
+  global $wp_admin_bar;
+  $wp_admin_bar->remove_menu('comments');
+}
+add_action('wp_before_admin_bar_render', 'mytheme_admin_bar_render');
