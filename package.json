@@ -2,7 +2,7 @@
   "name": "NuePress",
   "version": "1.0.0",
   "description": "Nuxt.js + WordPress REST API",
-  "author": "Kevin Restaino",]
+  "author": "Kevin Restaino",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
