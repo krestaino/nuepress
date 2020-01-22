@@ -1,18 +1,21 @@
 <template>
   <article class="single-article">
     <ArticleFeaturedImage
-      v-if="featuredImage"
+      v-if="getFeaturedImage(article, 'large')"
       :expanded="expanded"
-      :featured-image="featuredImage"
+      :featured-image="getFeaturedImage(article, 'large')"
     />
     <transition name="slide-fade">
-      <div class="narrow" :class="{ expanded: expanded, 'no-featured-image': !featuredImage }">
+      <div
+        class="narrow"
+        :class="{ expanded: expanded, 'no-featured-image': !getFeaturedImage(article, 'large') }"
+      >
         <button
           class="expand-featured-image"
           title="Show full image"
-          @click.prevent="expandFeaturedImage"
+          @click.prevent="expanded = !expanded"
           :class="{ expanded: expanded }"
-          v-if="featuredImage"
+          v-if="getFeaturedImage(article, 'large')"
         >
           <svg
             fill="#000000"
@@ -30,8 +33,8 @@
           <div class="details">
             <span>{{ longTimestamp(article.date) }}</span>
             <span class="separator">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${author.slug}`">{{
-              author.name
+            <nuxt-link class="author fancy" :to="`/authors/${getAuthor(article).slug}`">{{
+              getAuthor(article).name
             }}</nuxt-link>
           </div>
         </div>
@@ -44,38 +47,24 @@
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant';
 import ArticleFeaturedImage from '~/components/ArticleFeaturedImage.vue';
 import ArticleComments from '~/components/ArticleComments';
 
-if (process.browser) {
-  require('lightgallery.js');
-  require('lg-zoom.js');
-  require('lg-thumbnail.js');
-}
-
 export default {
   async asyncData({ app, store, params }) {
-    let article = await app.$axios.get(
-      `${process.env.WORDPRESS_API_URL}/wp/v2/posts?slug=${params.article}&_embed`
-    );
-    store.commit('setArticle', article.data[0]);
-  },
-
-  beforeMount() {
-    if (this.featuredImage) {
-      let img = this.article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
-        .source_url;
-
-      Vibrant.from(img).getPalette((err, palette) => {
-        if (!err) {
-          this.$store.commit('setFeaturedColor', palette);
-        }
-      });
-    }
+    const { data } = await app.$axios.get(`${process.env.WORDPRESS_API_URL}/wp/v2/posts`, {
+      params: {
+        slug: params.article,
+        _embed: true
+      }
+    });
+    return { article: data[0] };
   },
 
   mixins: {
+    getAuthor: Function,
+    getColorAccentStyles: Function,
+    getFeaturedImage: Function,
     longTimestamp: Function
   },
 
@@ -84,98 +73,37 @@ export default {
     ArticleComments
   },
 
-  computed: {
-    article() {
-      return this.$store.state.article;
-    },
-    author() {
-      return this.$store.state.article._embedded.author[0];
-    },
-    featuredImage() {
-      let featuredImage = this.$store.state.article._embedded['wp:featuredmedia'];
-
-      if (featuredImage) {
-        return (
-          featuredImage[0].media_details.sizes.large ||
-          featuredImage[0].media_details.sizes.full ||
-          false
-        );
-      } else {
-        return null;
-      }
-    }
-  },
-
   data() {
     return {
-      disqusReady: false,
       expanded: false,
       colorAccentStyles: null
     };
   },
 
-  head() {
-    return {
-      title: `${this.article.title.rendered} | ${this.$store.state.meta.name}`,
-      meta: [{ description: this.article.excerpt.rendered }]
-    };
-  },
-
   methods: {
-    expandFeaturedImage() {
-      if (!this.expanded) {
-        this.$router.push({ query: { image: null } });
-      } else {
-        this.$router.push({ query: null });
-      }
-      this.expanded = !this.expanded;
-    },
-    loadFeaturedImageExpanded() {
-      if (this.$route.query.image === null) {
-        this.expanded = true;
-      }
-    },
-    gallery() {
+    initGallery() {
       let galleries = document.querySelectorAll('.content > .gallery');
 
-      for (let i = 0; i < galleries.length; i++) {
-        lightGallery(galleries[i], {
-          download: false,
-          selector: 'a'
-        });
+      if (galleries.length) {
+        if (process.browser) {
+          require('lightgallery.js');
+          require('lg-zoom.js');
+          require('lg-thumbnail.js');
+        }
+
+        for (let i = 0; i < galleries.length; i++) {
+          lightGallery(galleries[i], {
+            download: false,
+            selector: 'a'
+          });
+        }
       }
     }
   },
 
   mounted() {
-    this.gallery();
-    this.loadFeaturedImageExpanded();
-  },
-
-  watch: {
-    '$store.state.featuredColor'() {
-      const { DarkMuted } = this.$store.state.featuredColor;
-
-      if (DarkMuted) {
-        this.colorAccentStyles = `
-          <style>
-            html,
-            .featured-image .image-height {
-              background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
-            }
-            main a {
-              color: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
-            }
-            main a:hover {
-              color: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
-            }
-            main a::after {
-              background: rgb(${DarkMuted._rgb[0]},${DarkMuted._rgb[1]},${DarkMuted._rgb[2]}) !important
-            }
-          </style>
-        `;
-      }
-    }
+    this.initGallery();
+    this.getColorAccentStyles(this.article).then(styles => (this.colorAccentStyles = styles));
   }
 };
 </script>

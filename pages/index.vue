@@ -1,14 +1,10 @@
 <template>
   <div class="home">
     <div class="articles">
-      <TheHero v-if="heroArticle" :hero-article="heroArticle" />
-      <ArticleList :articles="articles" />
+      <TheHero :hero-article="articles[0]" />
+      <ArticleList :articles="[...articles].slice(1)" />
       <client-only>
-        <InfiniteLoading
-          v-if="indexInfiniteLoading.enabled"
-          ref="infiniteLoading"
-          @infinite="moreArticles"
-        >
+        <InfiniteLoading ref="infiniteLoading" @infinite="moreArticles">
           <span slot="spinner">
             <Spinner1 />
           </span>
@@ -23,7 +19,7 @@
         </InfiniteLoading>
       </client-only>
     </div>
-    <TheSidebar :featured-articles="$store.state.featuredArticles" />
+    <TheSidebar :featured-articles="featured" />
   </div>
 </template>
 
@@ -37,19 +33,8 @@ import Spinner1 from '~/components/Spinner1.vue';
 
 export default {
   async asyncData({ app, store, params }) {
-    if (!store.state.articles.length) {
-      let articles = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${process.env.FEATURED_ID}&_embed`
-      );
-      store.commit('setArticles', articles.data);
-    }
-
-    if (!store.state.featuredArticles.length) {
-      let articles = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_ID}&_embed`
-      );
-      store.commit('setFeaturedArticles', articles.data);
-    }
+    const { data } = await app.$axios.get(`${process.env.WORDPRESS_API_URL}/nuepress/v1/homepage`);
+    return { articles: data.posts, featured: data.featured };
   },
 
   components: {
@@ -61,16 +46,10 @@ export default {
     Spinner1
   },
 
-  computed: {
-    articles() {
-      return [...this.$store.state.articles].slice(1);
-    },
-    heroArticle() {
-      return this.$store.state.articles[0];
-    },
-    indexInfiniteLoading() {
-      return this.$store.state.indexInfiniteLoading;
-    }
+  data() {
+    return {
+      infiniteLoadingPage: 1
+    };
   },
 
   head() {
@@ -82,19 +61,22 @@ export default {
 
   methods: {
     moreArticles($state) {
-      this.indexInfiniteLoading.page++;
-
       this.$axios
-        .get(
-          `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories_exclude=${process.env.FEATURED_ID}&page=${this.indexInfiniteLoading.page}&_embed`
-        )
+        .get(`${process.env.WORDPRESS_API_URL}/wp/v2/posts`, {
+          params: {
+            orderby: 'date',
+            per_page: 10,
+            categories_exclude: process.env.FEATURED_ID,
+            page: this.infiniteLoadingPage + 1,
+            _embed: true
+          }
+        })
         .then(response => {
-          this.$store.commit('setArticles', response.data);
+          this.articles = [...this.articles, ...response.data];
+          this.infiniteLoadingPage++;
           $state.loaded();
         })
-        .catch(() => {
-          $state.complete();
-        });
+        .catch(() => $state.complete());
     }
   }
 };
