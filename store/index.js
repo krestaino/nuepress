@@ -27,9 +27,6 @@ export const mutations = {
   setArticle(state, data) {
     state.article = data;
   },
-  setArticles(state, data) {
-    state.articles = state.articles.concat(data);
-  },
   setPage(state, data) {
     state.page = data;
   },

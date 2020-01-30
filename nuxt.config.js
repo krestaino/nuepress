@@ -2,9 +2,7 @@ import axios from 'axios';
 
 export default {
   mode: 'universal',
-  /*
-   ** Headers of the page
-   */
+
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -16,55 +14,50 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    htmlAttrs: {
+      lang: 'en'
+    },
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto+Slab:400,500|Roboto:300,400&display=fallback'
+      }
+    ]
   },
-  /*
-   ** Customize the progress-bar color
-   */
+
   loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
+
   css: ['normalize.css/normalize.css'],
-  /*
-   ** Plugins to load before mounting the App
-   */
+
   plugins: [
     { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/vue-scrollto', ssr: false },
-    { src: '~/plugins/web-font-loader', ssr: false },
     { src: '~/plugins/disqus' },
     { src: '~/plugins/mixins' }
   ],
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    // '@nuxtjs/tailwindcss'
-  ],
-  /*
-   ** Nuxt.js modules
-   */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
-  ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
+
+  buildModules: [],
+
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
+
   axios: {},
-  /*
-   ** Build configuration
-   */
+
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+    babel: {
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            {
+              buildTarget: isServer ? 'server' : 'client',
+              corejs: { version: 3 }
+            }
+          ]
+        ];
+      }
+    }
   },
 
   generate: {

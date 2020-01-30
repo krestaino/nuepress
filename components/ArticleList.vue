@@ -5,19 +5,21 @@
         <span v-html="shortTimestamp(article.date)"></span>
         &nbsp;–&nbsp;
         <span class="topics">
-          <nuxt-link
-            class="topic fancy"
-            v-for="topic in article._embedded['wp:term'][0]"
-            :to="`/topics/${topic.slug}`"
-            :key="topic.id"
-            v-html="topic.name"
-          ></nuxt-link>
+          <span class="topic" v-for="topic in article._embedded['wp:term'][0]">
+            <nuxt-link
+              class="fancy"
+              :to="`/topics/${topic.slug}`"
+              :key="topic.id"
+              v-html="topic.name"
+            ></nuxt-link>
+          </span>
         </span>
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
         <div class="col no-flex-shrink">
           <div class="lazy thumbnail" v-if="article._embedded['wp:featuredmedia']">
             <img
+              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
               v-lazy="
                 article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
               "
@@ -26,6 +28,7 @@
           </div>
           <div class="lazy medium" v-if="article._embedded['wp:featuredmedia']">
             <img
+              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
               v-lazy="
                 article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
               "
@@ -102,16 +105,12 @@ export default {
     margin-bottom: 12px;
     text-transform: uppercase;
 
-    .topic {
-      & + .topic {
-        margin-left: 8px;
+    .topic:not(:last-child) {
+      margin-right: 4px;
 
-        &::before {
-          content: ', ';
-          color: $primary;
-          left: -7px;
-          position: absolute;
-        }
+      &::after {
+        content: ', ';
+        color: $primary;
       }
     }
 
@@ -193,16 +192,6 @@ export default {
 
   p {
     margin: 0;
-  }
-}
-</style>
-
-<style lang="scss">
-.article-list {
-  article {
-    .excerpt {
-      font-weight: 300;
-    }
   }
 }
 </style>

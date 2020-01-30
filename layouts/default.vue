@@ -1,6 +1,5 @@
 <template>
   <div class="blog" id="blog">
-    <Spinner1 />
     <div class="interface">
       <TheHeader />
       <main role="main">
@@ -14,13 +13,11 @@
 <script>
 import TheHeader from '../components/TheHeader';
 import TheFooter from '../components/TheFooter';
-import Spinner1 from '~/components/Spinner1';
 
 export default {
   components: {
     TheHeader,
-    TheFooter,
-    Spinner1
+    TheFooter
   }
 };
 </script>
@@ -62,7 +59,6 @@ html {
 
 body {
   font-size: 0.85rem;
-  font-weight: 300;
   line-height: 1.765em;
 }
 
@@ -70,21 +66,12 @@ body {
   > .interface {
     display: flex;
     flex-direction: column;
-    opacity: 0;
     overflow: hidden;
     padding-top: 80px;
 
     @media (max-width: 700px) {
       padding-top: 60px;
     }
-  }
-
-  > .spinner {
-    display: block;
-    left: calc(50% - 20px);
-    position: absolute;
-    top: calc(50vh - 20px - 64px);
-    z-index: 10;
   }
 }
 
@@ -127,10 +114,6 @@ main {
   margin-bottom: 32px;
 
   h1 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 3rem;
-    font-weight: 100;
-    line-height: 1;
     margin-bottom: 12px;
     margin-top: 0;
     padding-bottom: 0;
@@ -147,7 +130,7 @@ h3,
 h4,
 h5 {
   color: #333;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 a {
@@ -261,5 +244,11 @@ pre {
 .spinner {
   position: relative;
   margin: auto;
+}
+
+.hidden {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
 }
 </style>

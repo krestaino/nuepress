@@ -13,7 +13,7 @@
 ## Build Setup
 
 ```bash
-# install dependencies
+# install dependencies and create .env file
 $ yarn install
 
 # serve with hot reload at localhost:3000

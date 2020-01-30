@@ -6,7 +6,7 @@
       :class="{ expanded: expanded }"
     >
       <div class="image-height" :style="{ paddingTop: featuredImageAspectRatio }"></div>
-      <img v-lazy="featuredImage.source_url" />
+      <img :alt="featuredImage.alt_text" v-lazy="featuredImage.source_url" />
       <div class="featured-image-padding" :style="{ paddingTop: featuredImageAspectRatio }"></div>
     </div>
   </div>

@@ -67,10 +67,6 @@ export default {
       page-break-inside: avoid;
       break-inside: avoid;
 
-      a {
-        font-weight: 300;
-      }
-
       & + li {
         margin-top: 32px;
       }
