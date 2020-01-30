@@ -41,7 +41,7 @@ export default {
 
   buildModules: [],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/sitemap'],
 
   axios: {},
 
@@ -59,6 +59,61 @@ export default {
         ];
       }
     }
+  },
+
+  sitemap: {
+    hostname: 'https://nuepress.kmr.io',
+    path: '/sitemap.xml',
+    sitemaps: [
+      {
+        path: '/sitemap-articles.xml',
+        routes: async () => {
+          const { data } = await axios.get(process.env.WORDPRESS_API_URL + '/wp/v2/posts', {
+            params: { orderby: 'date', per_page: 1000000 }
+          });
+          return data.map(article => ({
+            url: `/${article.slug}`,
+            lastmod: article.modified
+          }));
+        }
+      },
+      {
+        path: '/sitemap-pages.xml',
+        routes: async () => {
+          const { data } = await axios.get(process.env.WORDPRESS_API_URL + '/wp/v2/pages', {
+            params: { orderby: 'date', per_page: 1000000 }
+          });
+          return data.map(page => ({
+            url: `/${page.slug}`,
+            lastmod: page.modified
+          }));
+        }
+      },
+      {
+        path: '/sitemap-topics.xml',
+        routes: async () => {
+          const { data } = await axios.get(process.env.WORDPRESS_API_URL + '/wp/v2/categories', {
+            params: { per_page: 1000000 }
+          });
+          return data.map(topic => ({
+            url: `/${topic.slug}`,
+            lastmod: topic.modified
+          }));
+        }
+      },
+      {
+        path: '/sitemap-users.xml',
+        routes: async () => {
+          const { data } = await axios.get(process.env.WORDPRESS_API_URL + '/wp/v2/users', {
+            params: { per_page: 1000000 }
+          });
+          return data.map(user => ({
+            url: `/${user.slug}`,
+            lastmod: user.modified
+          }));
+        }
+      }
+    ]
   },
 
   generate: {
