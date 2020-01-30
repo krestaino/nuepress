@@ -80,7 +80,7 @@ export default {
 
   methods: {
     notFeatured(id) {
-      return process.env.FEATURED_ID !== id.toString();
+      return process.env.FEATURED_CATEGORY_ID !== id.toString();
     }
   }
 };

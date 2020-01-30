@@ -51,7 +51,7 @@ export default {
   computed: {
     articlesList() {
       return [...this.articles].filter(
-        article => !article.categories.includes(parseInt(process.env.FEATURED_ID))
+        article => !article.categories.includes(parseInt(process.env.FEATURED_CATEGORY_ID))
       );
     }
   },
@@ -76,7 +76,7 @@ export default {
           params: {
             orderby: 'date',
             per_page: 10,
-            categories_exclude: process.env.FEATURED_ID,
+            categories_exclude: process.env.FEATURED_CATEGORY_ID,
             page: this.infiniteLoadingPage + 1,
             _embed: true
           }

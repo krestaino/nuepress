@@ -1,4 +1,5 @@
 import axios from 'axios';
+require('dotenv').config();
 
 export default {
   mode: 'universal',
@@ -63,7 +64,7 @@ export default {
   generate: {
     async routes() {
       let posts = await axios
-        .get('https://wp.kmr.io/wp-json/wp/v2/posts', {
+        .get(process.env.WORDPRESS_API_URL + '/wp/v2/posts', {
           params: { orderby: 'date', per_page: 1000000, _embed: null }
         })
         .then(res => {
@@ -75,7 +76,7 @@ export default {
           });
         });
       let pages = await axios
-        .get('https://wp.kmr.io/wp-json/wp/v2/pages', {
+        .get(process.env.WORDPRESS_API_URL + '/wp/v2/pages', {
           params: { orderby: 'date', per_page: 1000000, _embed: null }
         })
         .then(res => {
@@ -87,7 +88,7 @@ export default {
           });
         });
       let topics = await axios
-        .get('https://wp.kmr.io/wp-json/wp/v2/categories', { params: { per_page: 1000000 } })
+        .get(process.env.WORDPRESS_API_URL + '/wp/v2/categories', { params: { per_page: 1000000 } })
         .then(res => {
           return res.data.map(topic => {
             return {
@@ -97,7 +98,7 @@ export default {
           });
         });
       let authors = await axios
-        .get('https://wp.kmr.io/wp-json/wp/v2/users', { params: { per_page: 1000000 } })
+        .get(process.env.WORDPRESS_API_URL + '/wp/v2/users', { params: { per_page: 1000000 } })
         .then(res => {
           return res.data.map(author => {
             return {

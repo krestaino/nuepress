@@ -38,7 +38,7 @@ export default {
   async asyncData({ app, store, params }) {
     if (!store.state.featuredArticles.length) {
       let articles = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_ID}&_embed`
+        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_CATEGORY_ID}&_embed`
       );
       store.commit('setFeaturedArticles', articles.data);
     }
