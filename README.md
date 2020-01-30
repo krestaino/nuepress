@@ -6,7 +6,7 @@
 
 [Nuxt.js](https://github.com/nuxt/nuxt.js) + [WordPress REST API](https://developer.wordpress.org/rest-api/)
 
-![Screenshot](wordpress/wp-content/themes/nuepress/screenshot.png)
+![Screenshot](.github/screenshot.png)
 
 ## Demo
 
