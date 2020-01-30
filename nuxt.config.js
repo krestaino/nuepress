@@ -14,7 +14,10 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Slab:400,500|Roboto:300,400&display=fallback' }
+    ]
   },
 
   loading: { color: '#fff' },
@@ -24,7 +27,6 @@ export default {
   plugins: [
     { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/vue-scrollto', ssr: false },
-    { src: '~/plugins/web-font-loader', ssr: false },
     { src: '~/plugins/disqus' },
     { src: '~/plugins/mixins' }
   ],

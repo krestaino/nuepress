@@ -5,13 +5,14 @@
         <span v-html="shortTimestamp(article.date)"></span>
         &nbsp;–&nbsp;
         <span class="topics">
-          <nuxt-link
-            class="topic fancy"
-            v-for="topic in article._embedded['wp:term'][0]"
-            :to="`/topics/${topic.slug}`"
-            :key="topic.id"
-            v-html="topic.name"
-          ></nuxt-link>
+          <span class="topic" v-for="topic in article._embedded['wp:term'][0]">
+            <nuxt-link
+              class="fancy"
+              :to="`/topics/${topic.slug}`"
+              :key="topic.id"
+              v-html="topic.name"
+            ></nuxt-link>
+          </span>
         </span>
       </div>
       <nuxt-link :to="`/${article.slug}`" class="row">
@@ -102,16 +103,12 @@ export default {
     margin-bottom: 12px;
     text-transform: uppercase;
 
-    .topic {
-      & + .topic {
-        margin-left: 8px;
+    .topic:not(:last-child) {
+      margin-right: 4px;
 
-        &::before {
-          content: ', ';
-          color: $primary;
-          left: -7px;
-          position: absolute;
-        }
+      &::after {
+        content: ', ';
+        color: $primary;
       }
     }
 
@@ -193,16 +190,6 @@ export default {
 
   p {
     margin: 0;
-  }
-}
-</style>
-
-<style lang="scss">
-.article-list {
-  article {
-    .excerpt {
-      font-weight: 300;
-    }
   }
 }
 </style>

@@ -457,7 +457,7 @@ section {
       }
 
       .title {
-        font-weight: 700;
+        color: #000;
         line-height: 18px;
         max-height: 36px;
         -webkit-line-clamp: 2;

@@ -106,10 +106,6 @@ aside {
     }
 
     article {
-      div {
-        font-weight: 300;
-      }
-
       & + article {
         border-top: 1px dotted lighten($primary, 20%);
         margin-top: 32px;
