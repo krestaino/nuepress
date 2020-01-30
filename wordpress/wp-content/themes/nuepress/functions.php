@@ -1,9 +1,9 @@
 <?php
 
-// Remove 'Read More' from excerpts
+// Addded to end of the post excerpt if longer than 55 words
 function new_excerpt_more($more)
 {
-  return '';
+  return '…';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
