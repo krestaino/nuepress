@@ -1,9 +1,9 @@
 <template>
-  <Page :data="article" type="article" />
+  <Article :data="article" type="article" />
 </template>
 
 <script>
-import Page from '~/components/ArticleAndPage.vue';
+import Article from '~/components/ArticleAndPage.vue';
 
 export default {
   async asyncData({ app, store, params }) {
@@ -17,7 +17,7 @@ export default {
   },
 
   components: {
-    Page
+    Article
   }
 };
 </script>
