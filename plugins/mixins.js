@@ -44,7 +44,10 @@ Vue.mixin({
 
     getFeaturedImage(article, size) {
       const featuredImage = article._embedded['wp:featuredmedia'];
-      return featuredImage[0].media_details.sizes[size] || false;
+
+      if (featuredImage) {
+        return featuredImage[0].media_details.sizes[size];
+      }
     },
 
     getColorAccentStyles(article) {

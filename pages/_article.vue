@@ -103,7 +103,10 @@ export default {
 
   mounted() {
     this.initGallery();
-    this.getColorAccentStyles(this.article).then(styles => (this.colorAccentStyles = styles));
+
+    if (this.getFeaturedImage(this.article, 'thumbnail')) {
+      this.getColorAccentStyles(this.article).then(styles => (this.colorAccentStyles = styles));
+    }
   }
 };
 </script>
