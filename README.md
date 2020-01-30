@@ -6,11 +6,13 @@
 
 [Nuxt.js](https://github.com/nuxt/nuxt.js) + [WordPress REST API](https://developer.wordpress.org/rest-api/)
 
+![Screenshot](wordpress/wp-content/themes/nuepress/screenshot.png)
+
 ## Demo
 
 [https://nuepress.kmr.io](https://nuepress.kmr.io/)
 
-## Build Setup
+## Development
 
 ```bash
 # install dependencies and create .env file
@@ -23,8 +25,14 @@ $ yarn dev
 $ yarn build
 $ yarn start
 
-# generate static project
+# generate static project (not working right now)
 $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Wordpress Setup
+
+Install the [wordpress/wp-content/themes/nuepress](wordpress/wp-content/themes/nuepress) theme in WordPress.
+
+This theme is required to generate the sitemaps. It extends the `per_page_limit` REST API limitation. There are a few other non-critical changes included too. See the [functions.php](wordpress/wp-content/themes/nuepress/functions.php) for more.
