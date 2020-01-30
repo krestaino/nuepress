@@ -1,8 +1,9 @@
 {
   "name": "NuePress",
   "version": "1.0.0",
-  "description": "Nuxt.js + WordPress REST API",
+  "license": "MIT",
   "author": "Kevin Restaino",
+  "description": "Nuxt.js + WordPress REST API",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
