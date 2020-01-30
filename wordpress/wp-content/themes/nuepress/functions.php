@@ -47,3 +47,9 @@ function mytheme_admin_bar_render()
   $wp_admin_bar->remove_menu('comments');
 }
 add_action('wp_before_admin_bar_render', 'mytheme_admin_bar_render');
+
+// https://github.com/WordPress/gutenberg/issues/1761#issuecomment-412876340
+add_filter('rest_url', function ($url) {
+  $url = str_replace(home_url(), site_url(), $url);
+  return $url;
+});
