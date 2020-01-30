@@ -176,7 +176,7 @@ pre {
 }
 
 .lazy {
-  background-color: #cecece;
+  background-color: #555;
   position: relative;
 
   img {
