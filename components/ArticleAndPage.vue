@@ -33,9 +33,9 @@
           <div class="details">
             <span>{{ longTimestamp(data.date) }}</span>
             <span class="separator">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${getAuthor(data).slug}`">{{
-              getAuthor(data).name
-            }}</nuxt-link>
+            <nuxt-link class="author fancy" :to="`/authors/${data._embedded.author[0].slug}`">
+              <span>{{ data._embedded.author[0].name }}</span>
+            </nuxt-link>
           </div>
         </div>
         <div class="content" v-html="data.content.rendered"></div>
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import * as Vibrant from 'node-vibrant';
+
 import FeaturedImage from '~/components/FeaturedImage.vue';
 import Comments from '~/components/Comments';
 
@@ -57,8 +59,6 @@ export default {
   },
 
   mixins: {
-    getAuthor: Function,
-    getColorAccentStyles: Function,
     getFeaturedImage: Function,
     longTimestamp: Function
   },
@@ -93,6 +93,39 @@ export default {
           });
         }
       }
+    },
+
+    getColorAccentStyles(article) {
+      return new Promise(function(resolve, reject) {
+        const image =
+          article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
+
+        Vibrant.from(image).getPalette((err, palette) => {
+          if (!err && palette.DarkMuted) {
+            const { r, g, b } = palette.DarkMuted;
+
+            resolve(`
+              <style>
+                html,
+                .featured-image .image-height {
+                  background: rgb(${r},${g},${b}) !important
+                }
+                main a {
+                  color: rgb(${r},${g},${b}) !important
+                }
+                main a:hover {
+                  color: rgb(${r},${g},${b}) !important
+                }
+                main a::after {
+                  background: rgb(${r},${g},${b}) !important
+                }
+              </style>
+            `);
+          } else {
+            reject(err);
+          }
+        });
+      });
     }
   },
 
