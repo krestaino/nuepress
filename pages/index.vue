@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="articles">
-      <TheHero :hero-article="articles[0]" />
-      <ArticleList :articles="[...articles].slice(1)" />
+      <TheHero :hero-article="articlesList[0]" />
+      <ArticleList :articles="[...articlesList].slice(1)" />
       <client-only>
         <InfiniteLoading ref="infiniteLoading" @infinite="moreArticles">
           <span slot="spinner">
@@ -19,7 +19,7 @@
         </InfiniteLoading>
       </client-only>
     </div>
-    <TheSidebar :featured-articles="featured" />
+    <TheSidebar />
   </div>
 </template>
 
@@ -33,8 +33,10 @@ import Spinner1 from '~/components/Spinner1.vue';
 
 export default {
   async asyncData({ app, store, params }) {
-    const { data } = await app.$axios.get(`${process.env.WORDPRESS_API_URL}/nuepress/v1/homepage`);
-    return { articles: data.posts, featured: data.featured };
+    const { data } = await app.$axios.get(
+      `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&_embed`
+    );
+    return { articles: data };
   },
 
   components: {
@@ -44,6 +46,14 @@ export default {
     InfiniteLoading,
     Smile,
     Spinner1
+  },
+
+  computed: {
+    articlesList() {
+      return [...this.articles].filter(
+        article => !article.categories.includes(parseInt(process.env.FEATURED_ID))
+      );
+    }
   },
 
   data() {

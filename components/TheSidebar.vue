@@ -46,12 +46,24 @@
 import Spinner1 from '~/components/Spinner1';
 
 export default {
-  components: {
-    Spinner1
+  mounted() {
+    const fetchFeaturedArticles = async () => {
+      const { data } = await this.$axios.get(
+        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=194&_embed`
+      );
+      this.featuredArticles = data;
+    };
+    fetchFeaturedArticles();
   },
 
-  props: {
-    featuredArticles: Array
+  data() {
+    return {
+      featuredArticles: []
+    };
+  },
+
+  components: {
+    Spinner1
   },
 
   mixins: {

@@ -31,10 +31,7 @@ export default {
 
   buildModules: [],
 
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
 
   axios: {},
 
@@ -49,7 +46,7 @@ export default {
               corejs: { version: 3 }
             }
           ]
-        ]
+        ];
       }
     }
   },
