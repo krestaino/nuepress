@@ -17,7 +17,9 @@
     </button>
     <div class="inner-container" :class="{ 'results-visible': resultsVisible && searchQuery }">
       <div class="input-container" ref="inputContainer">
+        <label class="hidden" for="search">Search</label>
         <input
+          id="search"
           name="search"
           placeholder="Search articles"
           ref="searchQuery"
@@ -67,6 +69,7 @@
               <div class="col thumb">
                 <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
                   <img
+                    :alt="article._embedded['wp:featuredmedia'][0]"
                     v-lazy="
                       article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail
                         .source_url

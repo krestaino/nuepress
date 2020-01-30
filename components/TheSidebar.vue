@@ -5,18 +5,25 @@
       <article v-for="article in featuredArticles" :key="article.id">
         <nuxt-link
           :to="`/${article.slug}`"
-          v-if="article._embedded['wp:featuredmedia']"
+          v-if="getFeaturedImage(article, 'medium')"
           class="image"
         >
-          <div class="featured lazy" v-if="featuredImage(article)">
+          <span class="hidden" v-html="article.title.rendered"></span>
+          <div class="featured lazy">
             <div
               class="image-height"
               :style="{
                 paddingTop:
-                  (featuredImage(article).height / featuredImage(article).width) * 100 + '%'
+                  (getFeaturedImage(article, 'medium').height /
+                    getFeaturedImage(article, 'medium').width) *
+                    100 +
+                  '%'
               }"
             ></div>
-            <img v-lazy="featuredImage(article).source_url" />
+            <img
+              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
+              v-lazy="getFeaturedImage(article, 'medium').source_url"
+            />
             <Spinner1 />
           </div>
         </nuxt-link>
@@ -67,20 +74,13 @@ export default {
   },
 
   mixins: {
-    shortTimestamp: Function
+    shortTimestamp: Function,
+    getFeaturedImage: Function
   },
 
   methods: {
     notFeatured(id) {
       return process.env.FEATURED_ID !== id.toString();
-    },
-
-    featuredImage(article) {
-      let featuredImage = article._embedded['wp:featuredmedia'];
-
-      if (featuredImage) {
-        return featuredImage[0].media_details.sizes.medium || false;
-      }
     }
   }
 };

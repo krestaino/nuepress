@@ -88,7 +88,7 @@ header {
 
   a {
     border-color: lighten($primary, 40%);
-    color: #999;
+    color: #757575;
     font-size: 0.9rem;
     font-weight: 300;
     text-decoration: none;

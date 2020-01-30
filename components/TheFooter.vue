@@ -34,7 +34,7 @@ footer {
   > div {
     align-items: center;
     background-color: #fff;
-    color: #aaa;
+    color: #757575;
     display: flex;
     flex-direction: column;
     height: 200px;
@@ -47,7 +47,7 @@ footer {
   }
 
   .link {
-    color: #aaa;
+    color: #757575;
     font-weight: 400;
   }
 }

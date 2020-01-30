@@ -19,6 +19,7 @@
         <div class="col no-flex-shrink">
           <div class="lazy thumbnail" v-if="article._embedded['wp:featuredmedia']">
             <img
+              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
               v-lazy="
                 article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
               "
@@ -27,6 +28,7 @@
           </div>
           <div class="lazy medium" v-if="article._embedded['wp:featuredmedia']">
             <img
+              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
               v-lazy="
                 article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
               "

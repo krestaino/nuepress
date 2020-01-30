@@ -14,6 +14,9 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
+    htmlAttrs: {
+      lang: 'en'
+    },
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {

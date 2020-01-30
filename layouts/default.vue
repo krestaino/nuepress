@@ -245,4 +245,10 @@ pre {
   position: relative;
   margin: auto;
 }
+
+.hidden {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
 </style>
