@@ -20,7 +20,8 @@ export const state = () => ({
     name: ''
   },
   topicArticles: [],
-  topics: null
+  topics: null,
+  theme: 'mode-light'
 });
 
 export const mutations = {

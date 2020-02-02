@@ -7769,6 +7769,13 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+tailwindcss-dark-mode@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/tailwindcss-dark-mode/-/tailwindcss-dark-mode-1.1.2.tgz#8bf32139a776692a04d0638c4276c9ade3679d40"
+  integrity sha512-jj4T5XkFwLxiKP1JwRerv2L7ir7RPxJKwMz+dJisQdV+17kzy7573alb/yEMw12HchJS++EhiwcUdh5Ql9GsmA==
+  dependencies:
+    tailwindcss "^1.1.4"
+
 tailwindcss@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.1.4.tgz#786bd5faaf485c9eddcb821dd55666c56baa814e"

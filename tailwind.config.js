@@ -1,11 +1,32 @@
-/*
- ** TailwindCSS Configuration File
- **
- ** Docs: https://tailwindcss.com/docs/configuration
- ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
- */
 module.exports = {
-  theme: {},
-  variants: {},
-  plugins: []
+  theme: {
+    extend: {
+      backgroundColor: {
+        'white-translucent': 'rgba(255,255,255, 0.92)',
+        'dark-translucent': 'rgba(45,55,72, 0.92)'
+      },
+      height: {
+        '160': '48rem'
+      },
+      inset: {
+        '10': '5rem'
+      }
+    },
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'],
+      serif: ['Roboto Slab', 'serif']
+    }
+  },
+  variants: {
+    backgroundColor: ['dark', 'dark-hover', 'dark-group-hover'],
+    borderColor: ['dark', 'dark-focus', 'dark-focus-within'],
+    borderWidth: ['first'],
+    textColor: ['dark', 'dark-hover', 'dark-active', 'dark-group-hover', 'group-hover'],
+    bgBlur: ['dark'],
+    opacity: ['hover'],
+    margin: ['hover', 'responsive', 'first'],
+    padding: ['first']
+  },
+  whitelist: ['mode-dark'],
+  plugins: [require('tailwindcss-dark-mode')()]
 };

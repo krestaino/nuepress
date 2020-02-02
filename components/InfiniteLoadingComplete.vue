@@ -1,0 +1,22 @@
+<template>
+  <div>
+    <Smile />
+    <div>No more articles!</div>
+  </div>
+</template>
+
+<script>
+import Smile from '~/assets/svg/Smile.vue';
+
+export default {
+  components: {
+    Smile
+  }
+};
+</script>
+
+<style>
+.infinite-status-prompt svg {
+  @apply mx-auto mb-1;
+}
+</style>

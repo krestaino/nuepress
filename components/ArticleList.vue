@@ -1,44 +1,46 @@
 <template>
-  <div class="article-list">
-    <article v-for="article in articles" :key="article.id">
-      <div class="date">
+  <div class="border-l border-r border-gray-300 dark:border-gray-700 pt-8">
+    <article
+      class="mt-8 px-8 border-t border-gray-300 pt-4 first:border-t-0 first:mt-0 first:pt-0"
+      v-for="article in articles"
+      :key="article.id"
+    >
+      <span class="font-sans uppercase text-sm">
         <span v-html="shortTimestamp(article.date)"></span>
-        &nbsp;–&nbsp;
-        <span class="topics">
-          <span class="topic" v-for="topic in article._embedded['wp:term'][0]">
-            <nuxt-link
-              class="fancy"
-              :to="`/topics/${topic.slug}`"
-              :key="topic.id"
-              v-html="topic.name"
-            ></nuxt-link>
-          </span>
-        </span>
-      </div>
-      <nuxt-link :to="`/${article.slug}`" class="row">
-        <div class="col no-flex-shrink">
-          <div class="lazy thumbnail" v-if="article._embedded['wp:featuredmedia']">
+        <span> – </span>
+        <nuxt-link
+          v-for="(topic, index) in article._embedded['wp:term'][0]"
+          class="hover:underline mr-2"
+          :to="`/topics/${topic.slug}`"
+          :key="topic.id"
+          >{{
+            index !== article._embedded['wp:term'][0].length - 1 ? `${topic.name}, ` : topic.name
+          }}</nuxt-link
+        >
+      </span>
+      <nuxt-link
+        :to="`/${article.slug}`"
+        class="flex flex-col md:flex-row mt-4 transition-300ms hover:translateX-1"
+      >
+        <div class="md:w-2/12" v-if="featureImage(article)">
+          <div class="lazy thumbnail hidden md:block mr-4">
             <img
-              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
-              v-lazy="
-                article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url
-              "
+              :alt="featureImage(article).alt_text"
+              v-lazy="featureImage(article).media_details.sizes.thumbnail.source_url"
             />
             <Spinner1 class="spinner" />
           </div>
-          <div class="lazy medium" v-if="article._embedded['wp:featuredmedia']">
+          <div class="lazy md:hidden" v-if="featureImage(article)">
             <img
-              :alt="article._embedded['wp:featuredmedia'][0].alt_text"
-              v-lazy="
-                article._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url
-              "
+              :alt="featureImage(article).alt_text"
+              v-lazy="featureImage(article).media_details.sizes.medium.source_url"
             />
             <Spinner1 class="spinner" />
           </div>
         </div>
-        <div class="col">
-          <h2 v-html="article.title.rendered"></h2>
-          <div class="excerpt" v-html="article.excerpt.rendered"></div>
+        <div class="md:w-10/12 mt-4 md:mt-0">
+          <h2 class="font-medium text-2xl mb-2 -mt-1" v-html="article.title.rendered"></h2>
+          <div v-html="article.excerpt.rendered"></div>
         </div>
       </nuxt-link>
     </article>
@@ -52,6 +54,13 @@ export default {
   components: {
     Spinner1
   },
+  methods: {
+    featureImage(article) {
+      return article._embedded['wp:featuredmedia']
+        ? article._embedded['wp:featuredmedia'][0]
+        : false;
+    }
+  },
   props: {
     articles: Array
   },
@@ -60,138 +69,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~/assets/css/vars.scss';
-
-.article-list {
-  article + article {
-    border-top: 1px dotted lighten($primary, 20%);
-    margin-top: 32px;
-    padding-top: 32px;
-  }
-
-  .row {
-    display: flex;
-
-    @media (max-width: 700px) {
-      flex-direction: column;
-    }
-
-    & + .row {
-      margin-top: 16px;
-    }
-
-    .col {
-      display: flex;
-      flex-direction: column;
-
-      @media (max-width: 700px) {
-        & + .col {
-          margin-top: 16px;
-        }
-      }
-    }
-  }
-
-  .no-flex-shrink {
-    flex-shrink: 0;
-  }
-
-  .date {
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 400;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-
-    .topic:not(:last-child) {
-      margin-right: 4px;
-
-      &::after {
-        content: ', ';
-        color: $primary;
-      }
-    }
-
-    a:hover {
-      color: $accent;
-    }
-  }
-
-  h2 {
-    color: #111;
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-    margin-top: -6px;
-  }
-
-  .excerpt {
-    @media (max-width: 500px) {
-      // display: none;
-    }
-  }
-
-  .lazy {
-    margin: 0 22px 0 0;
-
-    &.thumbnail {
-      display: block;
-    }
-
-    &.medium {
-      display: none;
-    }
-
-    @media (max-width: 700px) {
-      margin: 0;
-
-      &.thumbnail {
-        display: none;
-      }
-
-      &.medium {
-        display: block;
-      }
-    }
-
-    img {
-      display: block;
-      height: 144px;
-      width: 144px;
-
-      @media (max-width: 1200px) {
-        height: 96px;
-        width: 96px;
-      }
-
-      @media (max-width: 700px) {
-        height: 200px;
-        object-fit: cover;
-        width: 100%;
-      }
-    }
-
-    .spinner {
-      @media (max-width: 500px) {
-        transform: scale(0.4);
-      }
-    }
-  }
-
-  a {
-    color: $primary;
-    transition: 0.2s;
-    text-decoration: none;
-
-    &:hover {
-      color: #000;
-      transform: translateX(4px);
-    }
-  }
-
-  p {
-    margin: 0;
-  }
-}
-</style>

@@ -29,8 +29,6 @@ export default {
 
   loading: { color: '#fff' },
 
-  css: ['normalize.css/normalize.css'],
-
   plugins: [
     { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/vue-scrollto', ssr: false },
@@ -38,7 +36,7 @@ export default {
     { src: '~/plugins/mixins' }
   ],
 
-  buildModules: [],
+  buildModules: ['@nuxtjs/tailwindcss'],
 
   modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
 

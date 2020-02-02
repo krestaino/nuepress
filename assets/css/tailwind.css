@@ -1,3 +1,86 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.bg-blur {
+  backdrop-filter: blur(0.5rem);
+}
+
+.bg-gradient {
+  @apply transition-300ms;
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.95), transparent 50%);
+}
+
+.bg-gradient:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.transition-300ms {
+  transition: 300ms;
+}
+
+@variants hover, group-hover {
+  .translateX-1 {
+    transform: translateX(0.25rem);
+  }
+
+  .translateX-2 {
+    transform: translateX(0.5rem);
+  }
+}
+
+.container {
+  @apply max-w-6xl;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply leading-tight;
+}
+
+.nuxt-link-active {
+  @apply border-b-2 border-gray-600;
+}
+
+.mode-dark .nuxt-link-active {
+  @apply border-gray-400;
+}
+
+.lazy {
+  @apply bg-gray-400 relative;
+}
+
+.mode-dark .lazy {
+  @apply bg-gray-700;
+}
+
+.lazy img {
+  backface-visibility: hidden;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s;
+  width: 100%;
+}
+
+.lazy [lazy='loading'] {
+  @apply opacity-0;
+}
+
+.lazy [lazy='loaded'] {
+  @apply opacity-100;
+}
+
+.lazy [lazy='loading'] + .spinner {
+  @apply opacity-100;
+}
+
+.lazy .spinner {
+  left: 50%;
+  margin: -20px;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+}

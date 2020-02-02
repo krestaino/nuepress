@@ -1,6 +1,8 @@
 <template>
   <aside>
-    <div class="inner-container">
+    <div
+      class="inner-container bg-white dark:bg-gray-800 border-r border-b border-gray-300 dark:border-gray-700"
+    >
       <h1>Top Articles</h1>
       <article v-for="article in featuredArticles" :key="article.id">
         <nuxt-link
@@ -98,7 +100,6 @@ aside {
   }
 
   .inner-container {
-    background-color: #fff;
     padding: 32px;
 
     h1 {
