@@ -1,28 +1,33 @@
 <template>
-  <div>
-    <div
-      v-if="featuredImage.source_url"
-      class="featured-image lazy"
-      :class="{ expanded: expanded }"
-    >
-      <div class="image-height" :style="{ paddingTop: featuredImageAspectRatio }"></div>
-      <img :alt="featuredImage.alt_text" v-lazy="featuredImage.source_url" />
-      <div class="featured-image-padding" :style="{ paddingTop: featuredImageAspectRatio }"></div>
-    </div>
+  <div
+    v-if="featuredImage.source_url"
+    class="lazy rounded-lg rounded-t-none overflow-hidden shadow-2xl"
+  >
+    <div :style="paddingAspectRatioHack(featuredImage)"></div>
+    <img
+      class="absolute top-0 left-0 "
+      :alt="featuredImage.alt_text"
+      v-lazy="featuredImage.source_url"
+    />
+    <Spinner1 />
   </div>
 </template>
 
 <script>
+import Spinner1 from '~/components/Spinner1';
+
 export default {
+  components: {
+    Spinner1
+  },
+
   props: {
     expanded: Boolean,
     featuredImage: Object
   },
 
-  computed: {
-    featuredImageAspectRatio() {
-      return (this.featuredImage.height / this.featuredImage.width) * 100 + '%';
-    }
+  mixins: {
+    paddingAspectRatioHack: Function
   }
 };
 </script>

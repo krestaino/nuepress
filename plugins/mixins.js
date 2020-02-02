@@ -50,6 +50,12 @@ Vue.mixin({
       }
     },
 
+    paddingAspectRatioHack(featuredImage) {
+      return {
+        paddingTop: (featuredImage.height / featuredImage.width) * 100 + '%'
+      };
+    },
+
     getColorAccentStyles(article) {
       return new Promise(function(resolve, reject) {
         const image =

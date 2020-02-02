@@ -3,7 +3,7 @@
     <article>
       <nuxt-link class="group block relative text-gray-100" :to="`/${this.heroArticle.slug}`">
         <div class="lazy" v-if="featuredImage">
-          <div class="h-half-screen md:h-auto" :style="paddingTop"></div>
+          <div class="h-half-screen md:h-auto" :style="paddingAspectRatioHack(featuredImage)"></div>
           <img class="absolute top-0 left-0" alt="" v-lazy="featuredImage.source_url" />
           <Spinner1 />
         </div>
@@ -34,21 +34,21 @@ export default {
   components: {
     Spinner1
   },
+
   props: {
     heroArticle: Object
   },
+
   mixins: {
+    paddingAspectRatioHack: Function,
     shortTimestamp: Function
   },
+
   computed: {
-    paddingTop() {
-      return {
-        paddingTop: (this.featuredImage.height / this.featuredImage.width) * 100 + '%'
-      };
-    },
     topics() {
       return this.heroArticle._embedded['wp:term'][0];
     },
+
     featuredImage() {
       let featuredImage = this.heroArticle._embedded['wp:featuredmedia'];
 

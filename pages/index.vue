@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex shadow-2xl border-l border-r border-gray-400 dark:border-gray-700">
     <div class="bg-white dark:bg-gray-800 overflow-x-hidden">
       <TheHero :hero-article="articles[0]" />
       <ArticleList :articles="[...articles].slice(1)" />

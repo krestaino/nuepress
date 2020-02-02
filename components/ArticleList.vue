@@ -26,7 +26,7 @@
         class="flex flex-col md:flex-row mt-4 transition-300ms hover:translateX-1"
       >
         <div class="md:w-2/12" v-if="featureImage(article)">
-          <div class="lazy thumbnail hidden md:block mr-4">
+          <div class="lazy thumbnail hidden md:block mr-4 rounded overflow-hidden">
             <img
               :alt="featureImage(article).alt_text"
               v-lazy="featureImage(article).media_details.sizes.thumbnail.source_url"
