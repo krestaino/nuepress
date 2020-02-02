@@ -1,7 +1,7 @@
 <template>
   <header class="fixed top-0 left-0 w-full h-20 z-10 font-sans">
     <div
-      class="container mx-auto flex items-center h-full px-8 border border-t-0 border-gray-300 dark:border-gray-700 bg-blur bg-white-translucent dark:bg-dark-translucent"
+      class="container mx-auto flex items-center h-full px-5 md:px-8 border border-t-0 border-gray-300 dark:border-gray-700 bg-blur bg-white-translucent dark:bg-dark-translucent"
     >
       <h1 class="text-2xl cursor-pointer" v-html="meta.name" @click.prevent="homeScrollTop"></h1>
       <nav class="text-lg ml-8 font-light">

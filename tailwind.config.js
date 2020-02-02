@@ -25,7 +25,7 @@ module.exports = {
     bgBlur: ['dark'],
     opacity: ['hover'],
     margin: ['hover', 'responsive', 'first'],
-    padding: ['first']
+    padding: ['first', 'responsive']
   },
   whitelist: ['mode-dark'],
   plugins: [require('tailwindcss-dark-mode')()]

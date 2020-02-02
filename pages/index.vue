@@ -27,10 +27,10 @@ export default {
     InfiniteLoading
   },
 
-  head() {
+  head({ $store }) {
     return {
-      title: `Home | ${this.$store.state.meta.name}`,
-      meta: [{ description: this.$store.state.meta.description }]
+      title: `Home | ${$store.state.meta.name}`,
+      meta: [{ description: $store.state.meta.description }]
     };
   }
 };

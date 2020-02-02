@@ -1,22 +1,25 @@
 <template>
   <div class="border-l border-r border-gray-300 dark:border-gray-700 pt-8">
     <article
-      class="mt-8 px-8 border-t border-gray-300 pt-4 first:border-t-0 first:mt-0 first:pt-0"
+      class="mt-5 px-5 md:mt-8 md:px-8 border-t border-gray-300 pt-4 first:border-t-0 first:mt-0 first:pt-0"
       v-for="article in articles"
       :key="article.id"
     >
       <span class="font-sans uppercase text-sm">
         <span v-html="shortTimestamp(article.date)"></span>
         <span> – </span>
-        <nuxt-link
+        <span
           v-for="(topic, index) in article._embedded['wp:term'][0]"
-          class="hover:underline mr-2"
-          :to="`/topics/${topic.slug}`"
           :key="topic.id"
-          >{{
-            index !== article._embedded['wp:term'][0].length - 1 ? `${topic.name}, ` : topic.name
-          }}</nuxt-link
+          class="mr-1 inline-flex"
         >
+          <nuxt-link
+            class="hover:underline"
+            :to="`/topics/${topic.slug}`"
+            v-text="topic.name"
+          ></nuxt-link>
+          <span>{{ index !== article._embedded['wp:term'][0].length - 1 ? ', ' : '' }}</span>
+        </span>
       </span>
       <nuxt-link
         :to="`/${article.slug}`"

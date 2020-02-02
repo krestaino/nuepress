@@ -9,13 +9,15 @@
 
       <div class="absolute top-0 left-0 h-full w-full opacity-75 bg-gradient"></div>
 
-      <div class="absolute p-8 top-0 left-0">
+      <div class="absolute p-5 md:p-8 top-0 left-0 pointer-events-none">
         <span v-html="shortTimestamp(heroArticle.date)"></span>
         <span> – </span>
         <span v-for="topic in topics" :key="topic.id" v-html="topic.name"></span>
       </div>
 
-      <div class="absolute p-8 bottom-0 left-0 transition-300ms group-hover:translateX-1">
+      <div
+        class="absolute p-5 md:p-8 bottom-0 left-0 transition-300ms group-hover:translateX-1 pointer-events-none"
+      >
         <h2 class="text-4xl mb-4" v-html="this.heroArticle.title.rendered"></h2>
         <div v-html="this.heroArticle.excerpt.rendered"></div>
       </div>
