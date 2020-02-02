@@ -32,8 +32,12 @@
       </transition>
     </div>
     <transition name="fade">
-      <ul class="results" v-if="searchQuery && resultsVisible && apiResponse">
+      <ul
+        class="flex flex-col md:flex-row md:flex-wrap"
+        v-if="searchQuery && resultsVisible && apiResponse"
+      >
         <li
+          class="md:w-1/2"
           ref="result"
           v-for="(article, index) in articles"
           :key="article.id"
@@ -41,7 +45,7 @@
         >
           <nuxt-link
             :to="`/${article.slug}`"
-            class="flex mt-3"
+            class="flex flex-1 mt-3"
             :class="{ active: selectedResult(index) }"
             @mouseover.native="current = index"
           >
@@ -137,7 +141,7 @@ export default {
 
       axios
         .get(
-          `${process.env.WORDPRESS_API_URL}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=8`
+          `${process.env.WORDPRESS_API_URL}/wp/v2/posts?search=${this.searchQuery}&_embed&per_page=16`
         )
         .then(response => {
           this.apiResponse = true;
