@@ -1,7 +1,7 @@
 <template>
   <aside>
     <div
-      class="inner-container bg-white dark:bg-gray-800 border-r border-b border-gray-300 dark:border-gray-700"
+      class="inner-container bg-white dark:bg-gray-800 border-r border-b border-gray-400 dark:border-gray-700"
     >
       <h1>Top Articles</h1>
       <article v-for="article in featuredArticles" :key="article.id">

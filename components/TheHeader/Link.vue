@@ -1,6 +1,6 @@
 <template>
   <nuxt-link class="py-2 my-2 flex md:ml-4" :to="to" @click.native="handleMenuClick(to)">
-    <ArrowIcon class="md:hidden" v-if="$route.fullPath === to" />{{ name }}
+    <ArrowIcon class="md:hidden -ml-2" v-if="$route.fullPath === to" />{{ name }}
   </nuxt-link>
 </template>
 

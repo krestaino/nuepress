@@ -14,7 +14,7 @@
     <div class="flex relative w-full" ref="inputContainer">
       <label class="hidden" for="search">Search</label>
       <input
-        class="rounded bg-white text-gray-900 w-full px-3 py-2 border border-gray-400 dark:border-gray-600 mt-4"
+        class="rounded bg-white text-gray-900 w-full px-3 py-2 border border-gray-400 dark:border-gray-700 mt-4"
         id="search"
         name="search"
         placeholder="Search articles"
