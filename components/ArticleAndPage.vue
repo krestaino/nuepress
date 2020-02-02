@@ -10,7 +10,7 @@
           'md:-mt-20 rounded-lg rounded-b-none': getFeaturedImage(data, 'large'),
           'border-t-0': !getFeaturedImage(data, 'large')
         }"
-        class="relative bg-white dark:bg-gray-800 max-w-4xl mx-auto p-5 md:p-20 shadow-2xl border border-b-0 border-gray-400 dark:border-gray-700 flex flex-col flex-grow w-full"
+        class="relative bg-white dark:bg-gray-800 max-w-4xl mx-auto p-5 md:p-20 shadow-2xl border border-gray-400 dark:border-gray-700 rounded-b-lg overflow-hidden flex flex-col flex-grow w-full"
       >
         <div class="border-b border-gray-400 dark:border-gray-700 mb-8 pb-8">
           <h1 class="text-4xl" v-html="data.title.rendered"></h1>

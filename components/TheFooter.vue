@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="container mx-auto bg-white dark:bg-gray-800 relative shadow-2xl border border-b-0 border-gray-400 dark:border-gray-700 flex flex-col items-center px-5 md:px-8 py-16 text-sm font-sans text-gray-700 dark:text-gray-500"
+    class="container mx-auto relative flex flex-col items-center px-5 md:px-8 py-16 text-sm font-sans text-gray-700 dark:text-gray-500"
   >
     <span class="blue-link" to="/" @click.prevent="homeScrollTop">
       <span v-html="meta.name"></span>
