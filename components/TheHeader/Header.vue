@@ -2,12 +2,7 @@
   <header class="fixed top-0 left-0 w-full h-12 md:h-20 z-10 font-sans">
     <div
       class="container dark:border-gray-700 bg-blur bg-white-translucent dark:bg-dark-translucent h-full overflow-hidden"
-      :class="{
-        'md:flex-col': fullScreenHeader,
-        'h-screen': fullScreenHeader,
-        'items-start': fullScreenHeader,
-        'overflow-visible': fullScreenHeader
-      }"
+      :class="{ 'md:flex-col h-screen items-start overflow-visible': fullScreenHeader }"
     >
       <slot></slot>
     </div>

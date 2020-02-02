@@ -54,7 +54,7 @@ export default {
       this.$store.commit('setHeader', payload);
     },
     closeHeader() {
-      this.setHeader({
+      this.setHeaderState({
         menuOpen: false,
         searchOpen: false
       });

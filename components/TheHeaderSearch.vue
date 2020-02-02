@@ -3,7 +3,7 @@
     role="search"
     ref="autoSuggest"
     :key="$store.state.searchOpen"
-    class="absolute left-0 w-full h-full top-12 font-sans flex flex-col"
+    class="absolute left-0 w-full h-full top-12 font-sans flex flex-col px-5 border-t md:border-t-0 border-gray-400 dark:border-gray-600"
     :class="{
       animate: true,
       'animate-none': !$store.state.header.searchOpen
@@ -13,7 +13,7 @@
     <div class="flex relative" ref="inputContainer">
       <label class="hidden" for="search">Search</label>
       <input
-        class="rounded bg-white text-gray-900 w-full px-3 py-2 border border-gray-400 dark:border-gray-600"
+        class="rounded bg-white text-gray-900 w-full px-3 py-2 border border-gray-400 dark:border-gray-600 mt-4"
         id="search"
         name="search"
         placeholder="Search articles"
