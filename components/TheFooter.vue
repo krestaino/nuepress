@@ -7,7 +7,7 @@
         <span v-html="meta.name"></span>
       </span>
       <span v-if="meta.description" v-html="meta.description"></span>
-      <span>© {{ year }}</span>
+      <span>© {{ new Date().getFullYear() }}</span>
     </div>
   </footer>
 </template>
@@ -17,9 +17,6 @@ export default {
   computed: {
     meta() {
       return this.$store.state.meta;
-    },
-    year() {
-      return new Date().getFullYear();
     }
   },
 
