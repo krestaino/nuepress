@@ -25,7 +25,7 @@ export const state = () => ({
   },
   topicArticles: [],
   topics: null,
-  theme: 'mode-light'
+  theme: 'mode-dark'
 });
 
 export const mutations = {

@@ -1,7 +1,7 @@
 <template>
   <div class="border-l border-r border-gray-300 dark:border-gray-700 pt-5 md:pt-8">
     <article
-      class="mt-5 px-5 md:mt-8 md:px-8 border-t border-gray-300 pt-4 first:border-t-0 first:mt-0 first:pt-0"
+      class="mt-5 px-5 md:mt-8 md:px-8 border-t border-gray-300 dark:border-gray-700 pt-4 first:border-t-0 first:mt-0 first:pt-0"
       v-for="article in articles"
       :key="article.id"
     >
