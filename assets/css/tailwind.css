@@ -33,6 +33,31 @@
   @apply max-w-6xl;
 }
 
+.blue-link,
+.nav-link.nuxt-link-exact-active {
+  @apply border-b-2 border-transparent text-blue-500 no-underline cursor-pointer;
+}
+
+.blue-link:hover {
+  @apply border-b-2 border-blue-400 text-blue-400;
+}
+
+.plain-link {
+  @apply border-b-2 border-transparent no-underline cursor-pointer;
+}
+
+.plain-link:hover {
+  @apply border-b-2 border-blue-500 text-blue-500;
+}
+
+.nav-link {
+  @apply border-b-2 border-transparent;
+}
+
+.nav-link.nuxt-link-exact-active {
+  @apply border-blue-500;
+}
+
 h1,
 h2,
 h3,
@@ -40,7 +65,7 @@ h4 {
   @apply leading-tight;
 }
 
-.nuxt-link-exact-active {
+/* .nuxt-link-exact-active {
   @apply border-b-0 border-gray-600;
 }
 
@@ -52,7 +77,7 @@ h4 {
   .nuxt-link-exact-active {
     @apply border-b-2;
   }
-}
+} */
 
 .icon {
   @apply w-8 h-8 -mt-1;

@@ -2,7 +2,6 @@
   <article class="flex flex-col flex-grow">
     <FeaturedImage
       v-if="getFeaturedImage(data, 'large')"
-      :expanded="expanded"
       :featured-image="getFeaturedImage(data, 'large')"
     />
     <transition name="slide-fade">
@@ -11,14 +10,14 @@
           'md:-mt-20 rounded-lg rounded-b-none': getFeaturedImage(data, 'large'),
           'border-t-0': !getFeaturedImage(data, 'large')
         }"
-        class="relative bg-gray-800 max-w-4xl mx-auto p-5 md:p-20 shadow-2xl border border-b-0 border-gray-400 dark:border-gray-700 flex flex-col flex-grow"
+        class="relative bg-white dark:bg-gray-800 max-w-4xl mx-auto p-5 md:p-20 shadow-2xl border border-b-0 border-gray-400 dark:border-gray-700 flex flex-col flex-grow w-full"
       >
         <div class="border-b border-gray-400 dark:border-gray-700 mb-8 pb-8">
           <h1 class="text-4xl" v-html="data.title.rendered"></h1>
           <div class="flex mt-2">
             <span>{{ longTimestamp(data.date) }}</span>
             <span class="mx-2">|</span>
-            <nuxt-link class="author fancy" :to="`/authors/${getAuthor(data).slug}`">{{
+            <nuxt-link class="blue-link" :to="`/authors/${getAuthor(data).slug}`">{{
               getAuthor(data).name
             }}</nuxt-link>
           </div>
@@ -179,34 +178,11 @@ export default {
   }
 
   a {
-    color: $accent;
-    position: relative;
+    @apply border-b-2 border-transparent text-blue-500 no-underline cursor-pointer;
+  }
 
-    &:hover {
-      color: $accent;
-    }
-
-    &::after {
-      background: rgba($accent, 0.5);
-      content: '';
-      height: 1px;
-      left: 0;
-      opacity: 0;
-      position: absolute;
-      top: 100%;
-      transform: translateY(-4px);
-      transition: height 0.1s, opacity 0.1s, transform 0.1s;
-      width: 100%;
-    }
-
-    &:hover,
-    &:focus {
-      &::after {
-        height: 4px;
-        opacity: 1;
-        transform: translateY(0px);
-      }
-    }
+  a:hover {
+    @apply border-b-2 border-blue-400 text-blue-400;
   }
 
   img {

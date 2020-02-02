@@ -1,6 +1,6 @@
 <template>
   <h1
-    class="text-xl md:text-2xl cursor-pointer flex"
+    class="text-xl md:text-2xl cursor-pointer flex md:-mt-1"
     @click="$emit('click')"
     v-html="meta.name"
   ></h1>

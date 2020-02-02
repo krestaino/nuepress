@@ -22,7 +22,7 @@ module.exports = {
   },
   variants: {
     backgroundColor: ['dark', 'dark-hover', 'dark-group-hover'],
-    borderColor: ['dark', 'dark-focus', 'dark-focus-within'],
+    borderColor: ['dark', 'dark-focus', 'dark-focus-within', 'focus'],
     borderWidth: ['first', 'responsive'],
     flex: ['responsive', 'hover', 'focus'],
     textColor: ['dark', 'dark-hover', 'dark-active', 'dark-group-hover', 'group-hover'],

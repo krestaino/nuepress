@@ -14,7 +14,7 @@
           class="mr-1 inline-flex"
         >
           <nuxt-link
-            class="hover:underline"
+            class="plain-link"
             :to="`/topics/${topic.slug}`"
             v-text="topic.name"
           ></nuxt-link>
