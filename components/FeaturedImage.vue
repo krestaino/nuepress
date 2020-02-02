@@ -6,7 +6,10 @@
       :class="{ expanded: expanded }"
     >
       <div class="image-height" :style="{ paddingTop: featuredImageAspectRatio }"></div>
-      <img :alt="featuredImage.alt_text" v-lazy="featuredImage.source_url" />
+      <img
+        :alt="article._embedded['wp:featuredmedia'][0].alt_text"
+        v-lazy="featuredImage.source_url"
+      />
       <div class="featured-image-padding" :style="{ paddingTop: featuredImageAspectRatio }"></div>
     </div>
   </div>
@@ -15,6 +18,7 @@
 <script>
 export default {
   props: {
+    article: Object,
     expanded: Boolean,
     featuredImage: Object
   },

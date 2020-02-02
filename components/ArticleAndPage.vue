@@ -3,6 +3,7 @@
     <FeaturedImage
       v-if="getFeaturedImage(data, 'large')"
       :expanded="expanded"
+      :article="data"
       :featured-image="getFeaturedImage(data, 'large')"
     />
     <transition name="slide-fade">

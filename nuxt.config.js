@@ -41,7 +41,7 @@ export default {
 
   buildModules: [],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/pwa', '@nuxtjs/sitemap'],
 
   axios: {},
 
