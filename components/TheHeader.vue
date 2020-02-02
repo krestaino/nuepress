@@ -1,196 +1,76 @@
 <template>
-  <header class="fixed top-0 left-0 w-full h-12 md:h-20 z-10 font-sans">
-    <section
-      class="container dark:border-gray-700 bg-blur bg-white-translucent dark:bg-dark-translucent h-full overflow-hidden"
-      :class="{
-        'md:flex-col': expandHeader,
-        'h-screen': expandHeader,
-        'items-start': expandHeader,
-        'overflow-visible': expandHeader
-      }"
-    >
-      <h1
-        class="text-xl md:text-2xl cursor-pointer"
-        v-html="meta.name"
-        @click.prevent="homeScrollTop"
-      ></h1>
+  <Header>
+    <Logo @click="() => homeScrollTop()" />
 
-      <div
-        :class="{
-          hidden: $store.state.header.searchOpen
-        }"
-      >
-        <div class="border-t md:border-t-0 border-gray-400 dark:border-gray-600">
-          <nav
-            :key="$store.state.header.menuOpen"
-            :class="{
-              animate: true,
-              'animate-none': !$store.state.header.menuOpen
-            }"
-          >
-            <span
-              v-for="link in links"
-              :class="link.class"
-              :to="link.to"
-              @click.prevent="handleMenuClick(link)"
-              ><ArrowRightIcon class="md:hidden" v-if="$route.fullPath === link.to" />{{
-                link.name
-              }}</span
-            >
-          </nav>
-        </div>
-      </div>
+    <Menu>
+      <Link to="/" name="Latest Articles" />
+      <Link to="/topics" name="Topics" />
+      <Link to="/authors" name="Authors" />
+      <Link to="/pages/about" name="About" />
+    </Menu>
 
-      <div class="ml-auto">
-        <button
-          @click="
-            $store.commit('setHeader', {
-              menuOpen: false,
-              searchOpen: !$store.state.header.searchOpen
-            })
-          "
-        >
-          <SearchIcon v-if="!$store.state.header.searchOpen" class="icon" />
-          <CloseIcon v-else class="icon" />
-        </button>
-        <button
-          @click="
-            $store.commit('setHeader', {
-              menuOpen: !$store.state.header.menuOpen,
-              searchOpen: false
-            })
-          "
-          class="md:hidden ml-2"
-        >
-          <MenuIcon v-if="!$store.state.header.menuOpen" class="icon" />
-          <CloseIcon v-else class="icon" />
-        </button>
-      </div>
-      <TheHeaderSearch
-        :class="{
-          animate: true,
-          'animate-none': !$store.state.header.searchOpen
-        }"
-        v-if="$store.state.header.searchOpen"
-      />
-    </section>
-  </header>
+    <Controls>
+      <SearchButton @click="() => setHeaderState({ menuOpen: false, searchOpen: !searchOpen })" />
+      <MenuButton @click="() => setHeaderState({ menuOpen: !menuOpen, searchOpen: false })" />
+    </Controls>
+
+    <TheHeaderSearch />
+  </Header>
 </template>
 
 <script>
-import TheHeaderSearch from '~/components/TheHeaderSearch';
-import MenuIcon from '~/assets/svg/Menu.vue';
-import CloseIcon from '~/assets/svg/Clear.vue';
-import SearchIcon from '~/assets/svg/Search.vue';
-import ArrowRightIcon from '~/assets/svg/ArrowRight.vue';
+import Header from '~/components/TheHeader/Header.vue';
+import Menu from '~/components/TheHeader/Menu.vue';
+import Link from '~/components/TheHeader/Link.vue';
+import Logo from '~/components/TheHeader/Logo.vue';
+import Controls from '~/components/TheHeader/Controls.vue';
+import MenuButton from '~/components/TheHeader/MenuButton.vue';
+import SearchButton from '~/components/TheHeader/SearchButton.vue';
+import TheHeaderSearch from '~/components/TheHeaderSearch.vue';
 
 export default {
   components: {
-    MenuIcon,
-    CloseIcon,
-    SearchIcon,
-    ArrowRightIcon,
-    TheHeaderSearch
-  },
-
-  data() {
-    return {
-      links: [
-        { to: '/', name: 'Latest Articles', class: 'mx-5 md:my-2 py-2 pt-4 md:pt-2 flex' },
-        { to: '/topics', name: 'Topics', class: 'mx-5 my-2 py-2 flex' },
-        { to: '/authors', name: 'Authors', class: 'mx-5 my-2 py-2 flex' },
-        { to: '/pages/about', name: 'About', class: 'mx-5 my-2 py-2 flex' }
-      ]
-    };
+    Logo,
+    Controls,
+    MenuButton,
+    SearchButton,
+    Header,
+    TheHeaderSearch,
+    Menu,
+    Link
   },
 
   computed: {
-    expandHeader() {
-      return this.$store.state.header.menuOpen || this.$store.state.header.searchOpen;
+    menuOpen() {
+      return this.$store.state.header.menuOpen;
     },
-    meta() {
-      return this.$store.state.meta;
+    searchOpen() {
+      return this.$store.state.header.searchOpen;
     }
   },
 
   methods: {
+    setHeaderState(payload) {
+      this.$store.commit('setHeader', payload);
+    },
     closeHeader() {
-      this.$store.commit('setHeader', {
+      this.setHeader({
         menuOpen: false,
         searchOpen: false
       });
-    },
-    handleMenuClick(link) {
-      if (this.$route.fullPath === link.to) {
-        this.closeHeader();
-      } else {
-        this.$router.push({
-          path: link.to
-        });
-      }
-    }
-  },
-
-  watch: {
-    $route() {
-      if (this.$store.state.header.menuOpen || this.$store.state.header.searchOpen) {
-        this.closeHeader();
-      }
     }
   },
 
   mixins: {
     homeScrollTop: Function
+  },
+
+  watch: {
+    $route() {
+      if (this.menuOpen || this.searchOpen) {
+        this.closeHeader();
+      }
+    }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-section {
-  @apply mx-auto flex px-5 border-t-0 border-gray-300 pt-3;
-}
-
-@screen md {
-  section {
-    @apply px-8 border-b items-center pt-0;
-  }
-}
-
-nav {
-  @apply flex flex-col text-lg font-light fixed top-12 left-0 w-full z-10 h-screen border-t border-gray-400;
-}
-
-.mode-dark nav {
-  @apply border-gray-600;
-}
-
-@screen md {
-  nav {
-    @apply flex-row ml-8 static bg-transparent text-left h-auto border-t-0;
-  }
-}
-
-.icon {
-  @apply w-8 h-8 -mt-1;
-}
-
-.animate {
-  animation: slide-down 300ms;
-  animation-fill-mode: forwards;
-}
-
-.animate-none {
-  animation-duration: 0s;
-}
-
-@keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>

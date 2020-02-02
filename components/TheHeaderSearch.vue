@@ -3,7 +3,12 @@
     role="search"
     ref="autoSuggest"
     :key="$store.state.searchOpen"
-    class="absolute left-0 w-full h-full top-12 font-sans flex flex-col -mt-2"
+    class="absolute left-0 w-full h-full top-12 font-sans flex flex-col"
+    :class="{
+      animate: true,
+      'animate-none': !$store.state.header.searchOpen
+    }"
+    v-if="$store.state.header.searchOpen"
   >
     <div class="flex relative" ref="inputContainer">
       <label class="hidden" for="search">Search</label>

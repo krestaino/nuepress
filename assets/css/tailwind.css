@@ -54,6 +54,10 @@ h4 {
   }
 }
 
+.icon {
+  @apply w-8 h-8 -mt-1;
+}
+
 .lazy {
   @apply bg-gray-400 relative;
 }
@@ -89,4 +93,24 @@ h4 {
   opacity: 0;
   position: absolute;
   top: 50%;
+}
+
+.animate {
+  animation: slide-down 300ms;
+  animation-fill-mode: forwards;
+}
+
+.animate-none {
+  animation-duration: 0s;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
