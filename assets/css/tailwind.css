@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 .bg-blur {
-  backdrop-filter: blur(1rem);
+  backdrop-filter: blur(0.75rem);
 }
 
 .bg-gradient {

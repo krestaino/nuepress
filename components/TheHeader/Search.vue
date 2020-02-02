@@ -3,14 +3,15 @@
     role="search"
     ref="autoSuggest"
     :key="$store.state.searchOpen"
-    class="absolute left-0 w-full h-full top-12 font-sans flex flex-col px-5 border-t md:border-t-0 border-gray-400 dark:border-gray-600"
+    class="flex flex-col top-12 font-sans w-full"
     :class="{
       animate: true,
+      'md:items-center': !$store.state.header.searchOpen,
       'animate-none': !$store.state.header.searchOpen
     }"
     v-if="$store.state.header.searchOpen"
   >
-    <div class="flex relative" ref="inputContainer">
+    <div class="flex relative w-full" ref="inputContainer">
       <label class="hidden" for="search">Search</label>
       <input
         class="rounded bg-white text-gray-900 w-full px-3 py-2 border border-gray-400 dark:border-gray-600 mt-4"
@@ -27,7 +28,7 @@
         @blur="searchBlur"
       />
       <transition name="fade">
-        <Spinner2 class="spinner-2 absolute right-0 top-0 p-4" v-if="spinnerVisible" />
+        <Spinner2 class="spinner-2 absolute right-0 -mr-4 top-0 p-8" v-if="spinnerVisible" />
       </transition>
     </div>
     <transition name="fade">
