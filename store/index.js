@@ -15,6 +15,10 @@ export const state = () => ({
   },
   featuredArticles: [],
   featuredColor: {},
+  header: {
+    menuOpen: false,
+    searchOpen: false
+  },
   meta: {
     description: '',
     name: ''
@@ -54,6 +58,12 @@ export const mutations = {
   },
   setTopics(state, data) {
     state.topics = data;
+  },
+  setHeader(state, data) {
+    state.header = {
+      menuOpen: data.menuOpen,
+      searchOpen: data.searchOpen
+    };
   }
 };
 

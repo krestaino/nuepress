@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-gray-600 dark:text-gray-500">
     <Smile />
     <div>No more articles!</div>
   </div>

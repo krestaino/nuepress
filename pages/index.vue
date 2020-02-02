@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div class="bg-white dark:bg-gray-800">
+    <div class="bg-white dark:bg-gray-800 overflow-x-hidden">
       <TheHero :hero-article="articles[0]" />
       <ArticleList :articles="[...articles].slice(1)" />
       <InfiniteLoading @done="newArticles => (articles = [...articles, ...newArticles])" />

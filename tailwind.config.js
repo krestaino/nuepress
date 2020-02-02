@@ -6,10 +6,12 @@ module.exports = {
         'dark-translucent': 'rgba(45,55,72, 0.92)'
       },
       height: {
+        'half-screen': '50vh',
         '160': '48rem'
       },
       inset: {
-        '10': '5rem'
+        '12': '3rem',
+        '20': '5rem'
       }
     },
     fontFamily: {
@@ -25,7 +27,8 @@ module.exports = {
     bgBlur: ['dark'],
     opacity: ['hover'],
     margin: ['hover', 'responsive', 'first'],
-    padding: ['first', 'responsive']
+    padding: ['first', 'responsive'],
+    spacing: ['responsive']
   },
   whitelist: ['mode-dark'],
   plugins: [require('tailwindcss-dark-mode')()]

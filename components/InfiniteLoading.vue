@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <InfiniteLoading
-      class="border-l border-r border-gray-300 dark:border-gray-700 pt-12"
+      class="border-l border-r border-gray-300 dark:border-gray-700 pt-12 w-full overflow-hidden"
       @infinite="moreArticles"
     >
       <span slot="spinner">
