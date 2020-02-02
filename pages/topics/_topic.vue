@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import find from 'lodash/find';
 import ArticleList from '~/components/ArticleList';
 import TheSidebar from '~/components/TheSidebar';
 import InfiniteLoading from 'vue-infinite-loading';

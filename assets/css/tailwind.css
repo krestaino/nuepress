@@ -44,7 +44,7 @@ h4 {
   @apply border-b-0 border-gray-600;
 }
 
-.mode-dark .nuxt-link-exact-active {
+.dark .nuxt-link-exact-active {
   @apply border-gray-400;
 }
 
@@ -62,7 +62,7 @@ h4 {
   @apply bg-gray-400 relative;
 }
 
-.mode-dark .lazy {
+.dark .lazy {
   @apply bg-gray-700;
 }
 

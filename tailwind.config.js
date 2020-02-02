@@ -1,5 +1,6 @@
 module.exports = {
   theme: {
+    darkSelector: '.dark',
     extend: {
       backgroundColor: {
         'white-translucent': 'rgba(255,255,255, 0.9)',
@@ -27,10 +28,11 @@ module.exports = {
     textColor: ['dark', 'dark-hover', 'dark-active', 'dark-group-hover', 'group-hover'],
     bgBlur: ['dark'],
     opacity: ['hover'],
+    overflow: ['responsive', 'hover', 'focus'],
     margin: ['hover', 'responsive', 'first'],
     padding: ['first', 'responsive'],
     spacing: ['responsive']
   },
-  whitelist: ['mode-dark'],
+  whitelist: ['dark'],
   plugins: [require('tailwindcss-dark-mode')()]
 };

@@ -35,7 +35,7 @@ import Logo from '~/components/TheHeader/Logo.vue';
 import DesktopMenu from '~/components/TheHeader/DesktopMenu.vue';
 import MobileMenu from '~/components/TheHeader/MobileMenu.vue';
 import Link from '~/components/TheHeader/Link.vue';
-import Search from '~/components/TheHeader/Search.vue';
+import Search from '~/components/TheSearch.vue';
 import Controls from '~/components/TheHeader/Controls.vue';
 import MenuButton from '~/components/TheHeader/MenuButton.vue';
 import SearchButton from '~/components/TheHeader/SearchButton.vue';
