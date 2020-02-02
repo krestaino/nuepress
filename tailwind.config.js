@@ -2,8 +2,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
-        'white-translucent': 'rgba(255,255,255, 0.92)',
-        'dark-translucent': 'rgba(45,55,72, 0.92)'
+        'white-translucent': 'rgba(255,255,255, 0.9)',
+        'dark-translucent': 'rgba(45,55,72, 0.9)'
       },
       height: {
         'half-screen': '50vh',
@@ -22,7 +22,7 @@ module.exports = {
   variants: {
     backgroundColor: ['dark', 'dark-hover', 'dark-group-hover'],
     borderColor: ['dark', 'dark-focus', 'dark-focus-within'],
-    borderWidth: ['first'],
+    borderWidth: ['first', 'responsive'],
     textColor: ['dark', 'dark-hover', 'dark-active', 'dark-group-hover', 'group-hover'],
     bgBlur: ['dark'],
     opacity: ['hover'],

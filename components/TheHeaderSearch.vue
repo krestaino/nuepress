@@ -3,12 +3,12 @@
     role="search"
     ref="autoSuggest"
     :key="$store.state.searchOpen"
-    class="absolute top-0 left-0 w-full h-full top-12 font-sans flex flex-col"
+    class="absolute left-0 w-full h-full top-12 font-sans flex flex-col -mt-2"
   >
     <div class="flex relative" ref="inputContainer">
       <label class="hidden" for="search">Search</label>
       <input
-        class="rounded bg-white w-full px-3 py-2 border-l border-r border-gray-400 dark:border-gray-600"
+        class="rounded bg-white text-gray-900 w-full px-3 py-2 border border-gray-400 dark:border-gray-600"
         id="search"
         name="search"
         placeholder="Search articles"

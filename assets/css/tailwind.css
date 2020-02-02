@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 .bg-blur {
-  backdrop-filter: blur(0.5rem);
+  backdrop-filter: blur(1rem);
 }
 
 .bg-gradient {
@@ -40,12 +40,18 @@ h4 {
   @apply leading-tight;
 }
 
-.nuxt-link-active {
-  @apply border-b-2 border-gray-600;
+.nuxt-link-exact-active {
+  @apply border-b-0 border-gray-600;
 }
 
-.mode-dark .nuxt-link-active {
+.mode-dark .nuxt-link-exact-active {
   @apply border-gray-400;
+}
+
+@screen md {
+  .nuxt-link-exact-active {
+    @apply border-b-2;
+  }
 }
 
 .lazy {
