@@ -1,13 +1,13 @@
 <template>
   <client-only>
-    <InfiniteLoading class="pt-12 w-full overflow-hidden" @infinite="moreArticles">
+    <InfiniteLoading class="pt-12 w-full overflow-hidden relative" @infinite="moreArticles">
       <span slot="spinner">
         <Spinner1 />
       </span>
-      <span slot="no-results" class="flex flex-col w-full">
+      <span slot="no-results" class="flex flex-col w-full bg-green-600">
         <InfiniteLoadingComplete />
       </span>
-      <span slot="no-more" class="flex flex-col w-full">
+      <span slot="no-more" class="flex flex-col w-full bg-green-600">
         <InfiniteLoadingComplete />
       </span>
     </InfiniteLoading>
@@ -69,15 +69,11 @@ export default {
 }
 
 .infinite-status-prompt {
-  @apply relative;
+  @apply relative flex-1 text-white mt-auto;
 }
 
 .infinite-status-prompt span {
-  @apply block;
-}
-
-.infinite-status-prompt svg {
-  @apply mx-auto mb-1;
+  @apply block p-5;
 }
 
 .infinite-status-prompt div {
