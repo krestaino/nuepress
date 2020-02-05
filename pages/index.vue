@@ -4,7 +4,6 @@
       <TheHero :hero-article="articles[0]" />
       <ArticleList :articles="[...articles].slice(1)" />
       <InfiniteLoading
-        v-if="ready"
         @done="newArticles => (articles = [...articles, ...newArticles])"
         :articles="articles"
       />
@@ -23,16 +22,6 @@ export default {
       `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&_embed`
     );
     return { articles: data };
-  },
-
-  data() {
-     return {
-       ready: false
-     }
-  },
-
-  mounted() {
-    window.setTimeout(() => this.ready = true, 5000)
   },
 
   components: {
