@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <article>
-      <nuxt-link class="group block relative text-gray-100" :to="`/${this.heroArticle.slug}`">
+      <nuxt-link class="group block relative text-gray-100 max-h-1/2-screen overflow-hidden" :to="`/${this.heroArticle.slug}`">
         <div class="lazy" v-if="featuredImage">
           <div class="h-half-screen md:h-auto" :style="paddingAspectRatioHack(featuredImage)"></div>
           <img class="absolute top-0 left-0" alt="" v-lazy="featuredImage.source_url" />

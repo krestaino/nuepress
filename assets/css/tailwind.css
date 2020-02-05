@@ -58,26 +58,20 @@
   @apply border-blue-500;
 }
 
+.page-container {
+  @apply bg-white flex-1 flex shadow-2xl border border-t-0 border-gray-400 rounded-lg rounded-b-lg rounded-t-none overflow-hidden w-full relative z-10 mb-48;
+}
+
+.dark .page-container {
+  @apply bg-gray-800 border-gray-700;
+}
+
 h1,
 h2,
 h3,
 h4 {
   @apply leading-tight;
 }
-
-/* .nuxt-link-exact-active {
-  @apply border-b-0 border-gray-600;
-}
-
-.dark .nuxt-link-exact-active {
-  @apply border-gray-400;
-}
-
-@screen md {
-  .nuxt-link-exact-active {
-    @apply border-b-2;
-  }
-} */
 
 .icon {
   @apply w-8 h-8 -mt-1;

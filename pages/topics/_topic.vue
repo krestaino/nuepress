@@ -22,26 +22,18 @@
         </InfiniteLoading>
       </client-only>
     </div>
-    <TheSidebar :featuredArticles="$store.state.featuredArticles" />
   </div>
 </template>
 
 <script>
+import find from 'lodash/find';
 import ArticleList from '~/components/ArticleList';
-import TheSidebar from '~/components/TheSidebar';
 import InfiniteLoading from 'vue-infinite-loading';
 import Smile from '~/assets/svg/Smile.vue';
 import Spinner1 from '~/components/Spinner1.vue';
 
 export default {
   async asyncData({ app, store, params }) {
-    if (!store.state.featuredArticles.length) {
-      let articles = await app.$axios.get(
-        `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&categories=${process.env.FEATURED_ID}&_embed`
-      );
-      store.commit('setFeaturedArticles', articles.data);
-    }
-
     if (!store.state.topics) {
       let topics = await app.$axios.get(
         `${process.env.WORDPRESS_API_URL}/wp/v2/categories?per_page=1000000`
@@ -65,7 +57,6 @@ export default {
 
   components: {
     ArticleList,
-    TheSidebar,
     InfiniteLoading,
     Smile,
     Spinner1

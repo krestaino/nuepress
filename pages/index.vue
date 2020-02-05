@@ -1,11 +1,13 @@
 <template>
-  <div
-    class="flex shadow-2xl border border-t-0 border-gray-400 dark:border-gray-700 rounded-lg rounded-b-lg rounded-t-none overflow-hidden"
-  >
-    <div class="bg-white dark:bg-gray-800 overflow-x-hidden">
+  <div class="page-container">
+    <div class="bg-white dark:bg-gray-800 overflow-x-hidden pb-0">
       <TheHero :hero-article="articles[0]" />
       <ArticleList :articles="[...articles].slice(1)" />
-      <InfiniteLoading @done="newArticles => (articles = [...articles, ...newArticles])" />
+      <InfiniteLoading
+        v-if="ready"
+        @done="newArticles => (articles = [...articles, ...newArticles])"
+        :articles="articles"
+      />
     </div>
   </div>
 </template>
@@ -21,6 +23,16 @@ export default {
       `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&_embed`
     );
     return { articles: data };
+  },
+
+  data() {
+     return {
+       ready: false
+     }
+  },
+
+  mounted() {
+    window.setTimeout(() => this.ready = true, 5000)
   },
 
   components: {

@@ -13,6 +13,9 @@ module.exports = {
       inset: {
         '12': '3rem',
         '20': '5rem'
+      },
+      maxHeight: {
+        '1/2-screen': '50vh'
       }
     },
     fontFamily: {

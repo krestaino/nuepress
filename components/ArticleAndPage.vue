@@ -1,5 +1,5 @@
 <template>
-  <article class="flex flex-col flex-grow">
+  <article class="flex flex-col flex-grow relative z-10 mb-48">
     <FeaturedImage
       v-if="getFeaturedImage(data, 'large')"
       :featured-image="getFeaturedImage(data, 'large')"
