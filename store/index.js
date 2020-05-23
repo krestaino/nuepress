@@ -1,7 +1,3 @@
-import Vuex from 'vuex';
-
-export const strict = false;
-
 export const state = () => ({
   article: null,
   articles: [],
@@ -19,13 +15,20 @@ export const state = () => ({
     menuOpen: false,
     searchOpen: false
   },
+  hideFooter: false,
+  hideHeader: false,
   meta: {
     description: '',
     name: ''
   },
+  params: {
+    orderby: 'date',
+    per_page: 10,
+    _embed: true
+  },
   topicArticles: [],
   topics: null,
-  theme: 'dark'
+  theme: 'light'
 });
 
 export const mutations = {
@@ -64,6 +67,12 @@ export const mutations = {
       menuOpen: data.menuOpen,
       searchOpen: data.searchOpen
     };
+  },
+  toggleHideFooter(state) {
+    state.hideFooter = !state.hideFooter;
+  },
+  toggleHideHeader(state) {
+    state.hideHeader = !state.hideHeader;
   }
 };
 

@@ -12,9 +12,9 @@
         }"
         class="relative bg-white dark:bg-gray-800 max-w-4xl mx-auto p-5 md:p-20 shadow-2xl border border-gray-400 dark:border-gray-700 rounded-b-lg overflow-hidden flex flex-col flex-grow w-full"
       >
-        <div class="border-b border-gray-400 dark:border-gray-700 mb-8 pb-8">
+        <div class="border-b border-gray-400 dark:border-gray-700 mb-8 pb-8" v-if="!hideMeta">
           <h1 class="text-4xl" v-html="data.title.rendered"></h1>
-          <div class="flex mt-2">
+          <div class="flex mt-2" v-if="type === 'article'">
             <span>{{ longTimestamp(data.date) }}</span>
             <span class="mx-2">|</span>
             <nuxt-link class="blue-link" :to="`/authors/${getAuthor(data).slug}`">{{
@@ -23,6 +23,7 @@
           </div>
         </div>
         <div id="content" v-html="data.content.rendered"></div>
+        <slot></slot>
         <Comments :article="data" v-if="$store.state.enableComments && type === 'article'" />
       </div>
     </transition>
@@ -36,6 +37,7 @@ import Comments from '~/components/Comments';
 export default {
   props: {
     data: Object,
+    hideMeta: Boolean,
     type: String
   },
 

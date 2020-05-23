@@ -1,4 +1,5 @@
 module.exports = {
+  purge: ['./**/*.html', './**/*.vue'],
   theme: {
     darkSelector: '.dark',
     extend: {

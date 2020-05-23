@@ -35,7 +35,7 @@
 
 .blue-link,
 .nav-link.nuxt-link-exact-active {
-  @apply border-b-2 border-transparent text-blue-500 no-underline cursor-pointer;
+  @apply border-b-2 border-transparent text-blue-700 no-underline cursor-pointer;
 }
 
 .blue-link:hover {

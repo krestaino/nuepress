@@ -11,7 +11,7 @@
     <Results
       :apiResponse="apiResponse"
       :articles="articles"
-      :currentSelectedIndex="currentSelectedIndex"
+      :initialSelectedIndex="selectedIndex"
       :searchQuery="searchQuery"
     />
   </Wrapper>
@@ -34,7 +34,7 @@ export default {
     return {
       apiResponse: false,
       articles: [],
-      currentSelectedIndex: -1,
+      selectedIndex: -1,
       searchQuery: '',
       loading: false
     };
@@ -42,19 +42,19 @@ export default {
 
   methods: {
     up() {
-      this.currentSelectedIndex <= 0
-        ? (this.currentSelectedIndex = this.articles.length - 1)
-        : this.currentSelectedIndex--;
+      this.selectedIndex <= 0
+        ? (this.selectedIndex = this.articles.length - 1)
+        : this.selectedIndex--;
     },
 
     down() {
-      this.currentSelectedIndex < this.articles.length - 1
-        ? this.currentSelectedIndex++
-        : (this.currentSelectedIndex = 0);
+      this.selectedIndex < this.articles.length - 1
+        ? this.selectedIndex++
+        : (this.selectedIndex = 0);
     },
 
     enter() {
-      const selectedArticle = this.articles[this.currentSelectedIndex];
+      const selectedArticle = this.articles[this.selectedIndex];
 
       if (selectedArticle) {
         this.$router.push(selectedArticle.slug);
@@ -82,7 +82,7 @@ export default {
     },
     $route() {
       this.apiResponse = false;
-      this.currentSelectedIndex = -1;
+      this.selectedIndex = -1;
       this.searchQuery = '';
     }
   }

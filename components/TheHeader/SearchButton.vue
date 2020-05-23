@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('click')">
+  <button aria-label="Search" @click="$emit('click')">
     <SearchIcon v-if="!$store.state.header.searchOpen" class="icon" />
     <CloseIcon v-else class="icon" />
   </button>

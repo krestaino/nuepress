@@ -1,11 +1,12 @@
 <template>
-  <div class="page-container">
-    <div class="bg-white dark:bg-gray-800 overflow-x-hidden pb-0">
+  <div class="container mx-auto page-container">
+    <div class="bg-white dark:bg-gray-800 pb-0">
       <TheHero :hero-article="articles[0]" />
       <ArticleList :articles="[...articles].slice(1)" />
       <InfiniteLoading
         @done="newArticles => (articles = [...articles, ...newArticles])"
         :articles="articles"
+        v-if="articles.length"
       />
     </div>
   </div>
@@ -17,11 +18,11 @@ import TheHero from '~/components/TheHero';
 import InfiniteLoading from '~/components/InfiniteLoading';
 
 export default {
-  async asyncData({ app, store, params }) {
-    const { data } = await app.$axios.get(
-      `${process.env.WORDPRESS_API_URL}/wp/v2/posts?orderby=date&per_page=10&_embed`
-    );
-    return { articles: data };
+  async asyncData({ $axios, store }) {
+    const articles = await $axios.$get(`${process.env.WORDPRESS_API_URL}/wp/v2/posts`, {
+      params: store.state.params
+    });
+    return { articles };
   },
 
   components: {

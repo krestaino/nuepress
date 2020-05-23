@@ -8,6 +8,7 @@
         <Link to="/topics" name="Topics" />
         <Link to="/authors" name="Authors" />
         <Link to="/pages/about" name="About" />
+        <Link to="/pages/acf-fields" name="ACF Fields" />
       </DesktopMenu>
 
       <Controls>

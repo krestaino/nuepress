@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link class="nav-link flex md:ml-4" :to="to" @click.native="handleMenuClick(to)">
+  <nuxt-link class="nav-link flex md:ml-4" :to="to">
     <ArrowIcon class="md:hidden -ml-2" v-if="$route.fullPath === to" />{{ name }}
   </nuxt-link>
 </template>
@@ -15,16 +15,6 @@ export default {
   props: {
     name: String,
     to: String
-  },
-
-  methods: {
-    handleMenuClick(to) {
-      if (this.$route.fullPath === to) {
-        this.$store.commit('setHeader', { menuOpen: false, searchOpen: false });
-      } else {
-        this.$router.push({ path: to });
-      }
-    }
   }
 };
 </script>

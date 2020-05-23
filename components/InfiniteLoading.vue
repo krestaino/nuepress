@@ -33,6 +33,10 @@ export default {
     };
   },
 
+  props: {
+    params: Object
+  },
+
   methods: {
     moreArticles($state) {
       const nextPage = this.infiniteLoadingPage + 1;
@@ -43,13 +47,7 @@ export default {
 
       this.$axios
         .get(`${process.env.WORDPRESS_API_URL}/wp/v2/posts`, {
-          params: {
-            orderby: 'date',
-            per_page: 10,
-            categories_exclude: process.env.FEATURED_ID,
-            page: nextPage,
-            _embed: true
-          }
+          params: { ...this.$store.state.params, ...this.params, page: nextPage }
         })
         .then(response => {
           this.$emit('done', response.data);
@@ -65,7 +63,7 @@ export default {
 
 <style>
 .infinite-loading-container {
-  @apply flex items-center justify-center h-40 font-sans text-sm;
+  @apply flex items-center justify-center font-sans text-sm;
 }
 
 .infinite-status-prompt {
@@ -77,6 +75,6 @@ export default {
 }
 
 .infinite-status-prompt div {
-  @apply w-full;
+  @apply w-full relative mx-auto;
 }
 </style>

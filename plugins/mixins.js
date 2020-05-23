@@ -54,39 +54,6 @@ Vue.mixin({
       return {
         paddingTop: (featuredImage.height / featuredImage.width) * 100 + '%'
       };
-    },
-
-    getColorAccentStyles(article) {
-      return new Promise(function(resolve, reject) {
-        const image =
-          article._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url;
-
-        Vibrant.from(image).getPalette((err, palette) => {
-          if (!err && palette.DarkMuted) {
-            const { r, g, b } = palette.DarkMuted;
-
-            resolve(`
-              <style>
-                html,
-                .featured-image .image-height {
-                  background: rgb(${r},${g},${b}) !important
-                }
-                main a {
-                  color: rgb(${r},${g},${b}) !important
-                }
-                main a:hover {
-                  color: rgb(${r},${g},${b}) !important
-                }
-                main a::after {
-                  background: rgb(${r},${g},${b}) !important
-                }
-              </style>
-            `);
-          } else {
-            reject(err);
-          }
-        });
-      });
     }
   }
 });

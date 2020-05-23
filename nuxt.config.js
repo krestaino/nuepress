@@ -17,14 +17,7 @@ export default {
     htmlAttrs: {
       lang: 'en'
     },
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto+Slab:400,500|Roboto:300,400&display=fallback'
-      }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   loading: { color: '#fff' },
@@ -32,15 +25,34 @@ export default {
   plugins: [
     { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/vue-scrollto', ssr: false },
-    { src: '~/plugins/disqus' },
+    { src: '~/plugins/vue-youtube', ssr: false },
+    { src: '~/plugins/disqus', ssr: false },
     { src: '~/plugins/mixins' }
   ],
 
-  buildModules: ['@nuxtjs/tailwindcss'],
+  buildModules: ['@nuxtjs/pwa', '@nuxtjs/tailwindcss'],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', 'nuxt-webfontloader'],
 
   axios: {},
+
+  pwa: {
+    workbox: {
+      offlineStrategy: 'StaleWhileRevalidate'
+    }
+  },
+
+  webfontloader: {
+    custom: {
+      families: ['Roboto:n3,n4', 'Roboto Slab:n4,n5'],
+      urls: [
+        // for each Google Fonts add url + options you want
+        // here add font-display option
+        'https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap',
+        'https://fonts.googleapis.com/css?family=Roboto+Slab:400,500&display=swap'
+      ]
+    }
+  },
 
   build: {
     babel: {
@@ -59,6 +71,7 @@ export default {
   },
 
   generate: {
+    concurrency: 10,
     async routes() {
       let posts = await axios
         .get('https://wp.kmr.io/wp-json/wp/v2/posts', {

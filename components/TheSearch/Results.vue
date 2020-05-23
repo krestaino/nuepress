@@ -3,17 +3,13 @@
     class="flex flex-col md:flex-row md:flex-wrap overflow-y-scroll md:overflow-y-hidden mb-32"
     v-if="searchQuery && apiResponse"
   >
-    <li
-      class="md:w-1/2"
-      v-for="(article, index) in articles"
-      :key="article.id"
-      v-if="$route.params.article != article.slug"
-    >
+    <li class="md:w-1/2" v-for="(article, index) in articles" :key="article.id">
       <nuxt-link
         :to="`/${article.slug}`"
         class="result-link flex flex-1 mt-3 p-2 rounded border border-transparent"
-        :class="{ active: selectedResult(index) }"
-        @mouseover.native="currentSelectedIndex = index"
+        :class="{ active: index === selectedIndex }"
+        @mouseover.native="selectedIndex = index"
+        @click.native="handleMenuClick(`/${article.slug}`)"
       >
         <div class="w-2/12 flex-shrink-0">
           <div class="lazy" v-if="article._embedded['wp:featuredmedia']">
@@ -58,16 +54,26 @@ export default {
     PhotoIcon
   },
 
+  data() {
+    return {
+      selectedIndex: this.initialSelectedIndex
+    };
+  },
+
   props: {
-    currentSelectedIndex: Number,
+    initialSelectedIndex: Number,
     apiResponse: Boolean,
     articles: Array,
     searchQuery: String
   },
 
   methods: {
-    selectedResult(index) {
-      return index === this.currentSelectedIndex;
+    handleMenuClick(to) {
+      if (this.$route.fullPath === to) {
+        this.$store.commit('setHeader', { menuOpen: false, searchOpen: false });
+      } else {
+        this.$router.push({ path: to });
+      }
     }
   },
 
@@ -83,5 +89,8 @@ export default {
 }
 .dark .result-link.active {
   @apply bg-gray-700 border-gray-600;
+}
+.lazy {
+  @apply bg-transparent;
 }
 </style>

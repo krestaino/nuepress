@@ -1,11 +1,11 @@
 <template>
   <div
     v-if="featuredImage.source_url"
-    class="lazy rounded-lg rounded-t-none overflow-hidden shadow-2xl"
+    class="border border-solid border-transparent lazy rounded-lg rounded-t-none overflow-hidden"
   >
     <div :style="paddingAspectRatioHack(featuredImage)"></div>
     <img
-      class="absolute top-0 left-0 "
+      class="absolute top-0 left-0"
       :alt="featuredImage.alt_text"
       v-lazy="featuredImage.source_url"
     />
